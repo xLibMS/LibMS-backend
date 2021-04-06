@@ -22,7 +22,8 @@
     "migration:generate": "npm run typeorm -- migration:generate --config src/infrastructure/configs/database.config",
     "migration:run": "npm run typeorm -- migration:run  --config src/infrastructure/configs/database.config",
     "migration:revert": "npm run typeorm -- migration:revert  --config src/infrastructure/configs/database.config",
-    "commit": "commit"
+    "cm": "cz",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -46,9 +47,6 @@
     "validator": "^13.1.17"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.0.1",
-    "@commitlint/config-conventional": "^12.0.1",
-    "@commitlint/prompt-cli": "^12.0.1",
     "@nestjs/cli": "^7.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
@@ -67,8 +65,9 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "faker": "^5.3.1",
-    "jest": "26.4.2",
     "husky": "^6.0.0",
+    "jest": "26.4.2",
+    "lint-staged": "^10.5.4",
     "prettier": "^1.19.1",
     "supertest": "^4.0.2",
     "ts-jest": "26.2.0",
@@ -77,14 +76,13 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run test:all && npm run lint && npm run format"
-    }
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.ts": "prettier --write"
   }
 }
