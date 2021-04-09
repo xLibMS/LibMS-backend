@@ -1,4 +1,10 @@
-import { ObjectIdColumn, CreateDateColumn, Column, UpdateDateColumn, ObjectID, PrimaryColumn } from 'typeorm';
+import {
+  ObjectIdColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ObjectID,
+  PrimaryColumn,
+} from 'typeorm';
 
 export abstract class TypeormEntityBase {
   constructor(props?: unknown) {

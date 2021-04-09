@@ -12,7 +12,12 @@ export class CreateUserService {
 
   async createUser(command: CreateUserCommand): Promise<ID> {
     // user uniqueness guard
-    if (await this.userRepo.exists(command.email.value)) {
+    if (
+      await this.userRepo.exists(
+        command.email.value,
+        command.universityID.value,
+      )
+    ) {
       throw new ConflictException('User already exists');
     }
 

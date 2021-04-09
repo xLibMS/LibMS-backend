@@ -50,8 +50,20 @@ export class UserRepository
     return this.mapper.toDomainEntity(user);
   }
 
-  async exists(email: string): Promise<boolean> {
-    const found = await this.findOneByEmail(email);
+  private async findOneByUniversityID(
+    universityID: string,
+  ): Promise<UserOrmEntity | undefined> {
+    const user = await this.userRepository.findOne({
+      where: { universityID },
+    });
+
+    return user;
+  }
+
+  async exists(email: string, universityID: string): Promise<boolean> {
+    const found =
+      (await this.findOneByEmail(email)) ||
+      (await this.findOneByUniversityID(universityID));
     if (found) {
       return true;
     }

@@ -1,6 +1,7 @@
 export interface CreateUser {
   email: string;
-  /*firstname: string;
-  lastname: string;
-  universityID: string;*/
+  universityID: string;
+  firstName: string;
+  lastName: string;
+  password: string;
 }

@@ -10,12 +10,15 @@ export class UserOrmEntity extends TypeormEntityBase {
   @Column({ unique: true })
   email!: string;
 
- /* @Column()
-  country!: string;
+  @Column({ unique: true })
+  universityID!: string;
 
   @Column()
-  postalCode!: string;
+  firstName!: string;
 
   @Column()
-  street!: string;*/
+  lastName!: string;
+
+  @Column()
+  password!: string;
 }

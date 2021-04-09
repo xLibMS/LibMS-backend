@@ -3,8 +3,10 @@ import {
   OrmMapper,
 } from 'src/infrastructure/database/base-classes/orm-mapper.base';
 import { UserEntity, UserProps } from '../domain/entities/user.entity';
-import { Address } from '../domain/value-objects/address.value-object';
 import { Email } from '../domain/value-objects/email.value-object';
+import { FullName } from '../domain/value-objects/full-name.value-object';
+import { Password } from '../domain/value-objects/password.value-object';
+import { UniversityID } from '../domain/value-objects/university-id.value-object';
 import { UserOrmEntity } from './user.orm-entity';
 
 export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
@@ -13,9 +15,10 @@ export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
 
     const ormProps: OrmEntityProps<UserOrmEntity> = {
       email: props.email.value,
-      /*country: props.address.country,
-      postalCode: props.address.postalCode,
-      street: props.address.street,*/
+      universityID: props.universityID.value,
+      firstName: props.fullName.firstName,
+      lastName: props.fullName.lastName,
+      password: props.password.value,
     };
     return ormProps;
   }
@@ -23,11 +26,12 @@ export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
   protected toDomainProps(ormEntity: UserOrmEntity): UserProps {
     const props: UserProps = {
       email: new Email(ormEntity.email),
-      /*address: new Address({
-        street: ormEntity.street,
-        postalCode: ormEntity.postalCode,
-        country: ormEntity.country,
-      }),*/
+      universityID: new UniversityID(ormEntity.universityID),
+      fullName: new FullName({
+        firstName: ormEntity.firstName,
+        lastName: ormEntity.lastName,
+      }),
+      password: new Password(ormEntity.password),
     };
     return props;
   }

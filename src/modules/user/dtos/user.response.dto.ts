@@ -7,9 +7,9 @@ export class UserResponse extends ResponseBase implements User {
   constructor(user: UserEntity) {
     super(user);
     this.email = user.email.value;
-   /* this.country = user.address.country;
-    this.postalCode = user.address.postalCode;
-    this.street = user.address.street;*/
+    this.universityID = user.universityID.value;
+    this.firstName = user.fullName.firstName;
+    this.lastName = user.fullName.lastName;
   }
 
   @ApiProperty({
@@ -18,21 +18,21 @@ export class UserResponse extends ResponseBase implements User {
   })
   email: string;
 
-  /*@ApiProperty({
-    example: 'France',
-    description: "User's country of residence",
+  @ApiProperty({
+    example: '2012481',
+    description: "User's university ID",
   })
-  country: string;
+  universityID: string;
 
   @ApiProperty({
-    example: '123456',
-    description: 'Postal code',
+    example: 'John',
+    description: "User's first name",
   })
-  postalCode: string;
+  firstName: string;
 
   @ApiProperty({
-    example: 'Park Avenue',
-    description: 'Street where the user is registered',
+    example: 'Doe',
+    description: "User's last name",
   })
-  street: string;*/
+  lastName: string;
 }
