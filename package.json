@@ -26,10 +26,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@nestjs/common": "^7.0.0",
-    "@nestjs/core": "^7.0.0",
-    "@nestjs/microservices": "^7.6.12",
-    "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/common": "^7.6.15",
+    "@nestjs/core": "^7.6.15",
+    "@nestjs/microservices": "^7.6.15",
+    "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.8.0",
     "@nestjs/typeorm": "^7.1.5",
     "class-transformer": "^0.3.1",
