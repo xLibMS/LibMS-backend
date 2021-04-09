@@ -13,9 +13,9 @@ export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
 
     const ormProps: OrmEntityProps<UserOrmEntity> = {
       email: props.email.value,
-      country: props.address.country,
+      /*country: props.address.country,
       postalCode: props.address.postalCode,
-      street: props.address.street,
+      street: props.address.street,*/
     };
     return ormProps;
   }
@@ -23,11 +23,11 @@ export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
   protected toDomainProps(ormEntity: UserOrmEntity): UserProps {
     const props: UserProps = {
       email: new Email(ormEntity.email),
-      address: new Address({
+      /*address: new Address({
         street: ormEntity.street,
         postalCode: ormEntity.postalCode,
         country: ormEntity.country,
-      }),
+      }),*/
     };
     return props;
   }

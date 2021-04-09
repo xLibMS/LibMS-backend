@@ -7,16 +7,16 @@ export const userSeeds: NonFunctionProperties<UserOrmEntity>[] = [
     ...createdAtUpdatedAtMock,
     id: '675b5c6f-52de-474f-aba6-f7717844a5e8',
     email: 'john-doe@gmail.com',
-    country: 'London',
+    /*country: 'London',
     postalCode: '23321',
-    street: 'Abbey Road',
+    street: 'Abbey Road',*/
   },
   {
     ...createdAtUpdatedAtMock,
     id: 'a877f456-3284-42d1-b426-4c5f44eca561',
     email: 'jane-doe@gmail.com',
-    country: 'Spain',
+    /*country: 'Spain',
     postalCode: '28034',
-    street: 'Plaza Mayor',
+    street: 'Plaza Mayor',*/
   },
 ];

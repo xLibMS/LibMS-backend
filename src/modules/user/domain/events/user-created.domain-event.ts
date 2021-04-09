@@ -7,7 +7,7 @@ export class UserCreatedDomainEvent extends DomainEvent {
   constructor(
     public readonly aggregateId: ID,
     public readonly email: Email,
-    public readonly address: Address,
+    //public readonly address: Address,
   ) {
     super();
   }

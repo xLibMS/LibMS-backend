@@ -1,6 +1,6 @@
 export interface CreateUser {
   email: string;
-  country: string;
-  postalCode: string;
-  street: string;
+  /*firstname: string;
+  lastname: string;
+  universityID: string;*/
 }

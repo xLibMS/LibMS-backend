@@ -30,11 +30,11 @@ export class CreateUserHttpController {
   async create(@Body() body: CreateUserRequest): Promise<IdResponse> {
     const command = new CreateUserCommand({
       email: body.email,
-      address: {
+      /*address: {
         country: body.country,
         postalCode: body.postalCode,
         street: body.street,
-      },
+      },*/
     });
 
     const id = await this.createUser.createUser(command);

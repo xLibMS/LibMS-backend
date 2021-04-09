@@ -16,11 +16,11 @@ export class CreateUserEventController {
   async create(payload: CreateUserRequest): Promise<IdResponse> {
     const command = new CreateUserCommand({
       email: payload.email,
-      address: {
+      /*address: {
         country: payload.country,
         postalCode: payload.postalCode,
         street: payload.street,
-      },
+      },*/
     });
 
     const id = await this.createUser.createUser(command);

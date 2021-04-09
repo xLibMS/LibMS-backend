@@ -17,18 +17,19 @@ export class CreateUserRequest implements CreateUser {
   @IsEmail()
   email!: string;
 
-  @ApiProperty({ example: 'France', description: 'Country of residence' })
+  /*@ApiProperty({ example: 'France', description: 'Country of residence' })
   @MaxLength(50)
   @IsString()
   @IsAlpha()
-  country!: string;
+  firstname!: string;
 
   @ApiProperty({ example: '28566', description: 'Postal code' })
   @MaxLength(10)
-  @IsAlphanumeric()
-  postalCode!: string;
+  @IsString()
+  lastname!: string;
 
   @ApiProperty({ example: 'Grande Rue', description: 'Street' })
   @MaxLength(50)
-  street!: string;
+  @IsString()
+  universityID!: string;*/
 }
