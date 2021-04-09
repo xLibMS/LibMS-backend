@@ -39,8 +39,14 @@ export class Email extends ValueObject<string> {
     if (!value.includes('@')) {
       throw new ArgumentInvalidException('Email has incorrect format');
     }
-    if (!value.includes('medtech')&& !value.includes('msb') && !value.includes('smu') && !value.includes('lci')) {
-      throw new DomainException('Email domain is incorrect');
+    // Temporary solution for email TLD validation
+    if (
+      !value.includes('@medtech.tn') &&
+      !value.includes('@msb.tn') &&
+      !value.includes('@smu.tn') &&
+      !value.includes('@lci.tn')
+    ) {
+      throw new DomainException('Email TLD is unauthorized');
     }
   }
 

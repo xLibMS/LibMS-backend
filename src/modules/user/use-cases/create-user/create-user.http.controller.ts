@@ -26,7 +26,7 @@ export class CreateUserHttpController {
   })
   @ApiResponse({
     status: HttpStatus.FORBIDDEN,
-    description: 'Email domain is incorrect',
+    description: 'Email TLD is unauthorized',
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
