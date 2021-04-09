@@ -5,6 +5,7 @@ import {
 import {
   ArgumentInvalidException,
   ArgumentOutOfRangeException,
+  DomainException,
 } from '@exceptions';
 import { Guard } from 'src/core/guard';
 
@@ -37,6 +38,9 @@ export class Email extends ValueObject<string> {
     }
     if (!value.includes('@')) {
       throw new ArgumentInvalidException('Email has incorrect format');
+    }
+    if (!value.includes('medtech')&& !value.includes('msb') && !value.includes('smu') && !value.includes('lci')) {
+      throw new DomainException('Email domain is incorrect');
     }
   }
 
