@@ -25,6 +25,10 @@ export class CreateUserHttpController {
     description: 'User already exists',
   })
   @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: 'Email domain is incorrect',
+  })
+  @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
   async create(@Body() body: CreateUserRequest): Promise<IdResponse> {
