@@ -2,6 +2,7 @@ import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { UserCreatedDomainEvent } from '../events/user-created.domain-event';
 import { Email } from '../value-objects/email.value-object';
 import { FullName } from '../value-objects/full-name.value-object';
+import { HashedPassword } from '../value-objects/hashed-password.value-object';
 import { Password } from '../value-objects/password.value-object';
 import { UniversityID } from '../value-objects/university-id.value-object';
 
@@ -40,6 +41,10 @@ export class UserEntity extends AggregateRoot<UserProps> {
 
   someBusinessLogic(): void {
     // TODO: add example business logic
+  }
+
+  hashPassword(hashedPassword: HashedPassword): void {
+    this.props.password = new Password(hashedPassword.value);
   }
 
   static validate(props: UserProps): void {

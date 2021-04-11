@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BcryptHashingService } from 'src/infrastructure/services/bcrypt-hashing.service';
 import { UserOrmEntity } from './database/user.orm-entity';
 import { UserRepository } from './database/user.repository';
 import { JwtStrategy } from './use-cases/authenticate-user/jwt.strategy';
@@ -33,6 +34,7 @@ import { createUserProvider, removeUserProvider } from './user.providers';
     UserRepository,
     createUserProvider,
     removeUserProvider,
+    BcryptHashingService,
   ],
   exports: [AuthService, JwtModule],
 })

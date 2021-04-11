@@ -1,4 +1,5 @@
 import { Provider } from '@nestjs/common';
+import { BcryptHashingService } from 'src/infrastructure/services/bcrypt-hashing.service';
 import { UserRepository } from './database/user.repository';
 import { CreateUserService } from './use-cases/create-user/create-user.service';
 import { DeleteUserService } from './use-cases/remove-user/delete-user.service';
@@ -10,10 +11,13 @@ export const createUserSymbol = Symbol('createUser');
 
 export const createUserProvider: Provider = {
   provide: createUserSymbol,
-  useFactory: (userRepo: UserRepository): CreateUserService => {
-    return new CreateUserService(userRepo);
+  useFactory: (
+    userRepo: UserRepository,
+    hashService: BcryptHashingService,
+  ): CreateUserService => {
+    return new CreateUserService(userRepo, hashService);
   },
-  inject: [UserRepository],
+  inject: [UserRepository, BcryptHashingService],
 };
 
 export const removeUserSymbol = Symbol('removeUser');
