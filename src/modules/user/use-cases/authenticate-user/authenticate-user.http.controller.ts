@@ -12,7 +12,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { AuthenticateUserRequest } from './authenticate-user-request.interface';
+import { AuthenticateUserRequest } from 'src/interface-adapters/interfaces/user/authenticate-user.request.interface';
 import { AuthService } from './authenticate-user.service';
 
 @Controller()
@@ -38,7 +38,7 @@ export class AuthenticateUserHttpController {
     return new TokenResponse(token.accessToken);
   }
 
-  // Should be moved in approriate use-case, this is left here for testing purposes
+  // Should be moved to approriate use-case, this is left here for testing purposes
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req: AuthenticateUserRequest): UserEntity {
