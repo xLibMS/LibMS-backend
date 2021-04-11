@@ -1,13 +1,19 @@
-/* eslint-disable max-classes-per-file */
+import * as csurf from 'csurf';
+import * as helmet from 'helmet';
 import { initDomainEventHandlers } from '@modules/domain-event-handlers';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
 import { ExceptionInterceptor } from './infrastructure/interceptors/exception.interceptor';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
+
+  app.use(helmet());
+
+  app.use(csurf());
 
   initDomainEventHandlers();
 
