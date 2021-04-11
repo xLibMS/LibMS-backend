@@ -34,6 +34,10 @@ export class UserEntity extends AggregateRoot<UserProps> {
     return this.props.fullName;
   }
 
+  get password(): Password {
+    return this.props.password;
+  }
+
   someBusinessLogic(): void {
     // TODO: add example business logic
   }
