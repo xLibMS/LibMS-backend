@@ -65,7 +65,7 @@
     "@nestjs/testing": "^7.6.15",
     "@types/bcrypt": "^3.0.1",
     "@types/csurf": "^1.11.1",
-    "@types/faker": "^5.1.6",
+    "@types/faker": "^5.5.1",
     "@types/jest": "26.0.22",
     "@types/joi": "^14.3.4",
     "@types/node": "^14.14.37",
