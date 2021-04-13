@@ -22,7 +22,7 @@ export class ExceptionInterceptor implements NestInterceptor {
     next: CallHandler,
   ): Observable<ExceptionBase> {
     return next.handle().pipe(
-      catchError(err => {
+      catchError((err) => {
         if (err instanceof DomainException) {
           throw new NestForbiddenException(err.message);
         }

@@ -48,17 +48,19 @@ export abstract class TypeormRepositoryBase<
   }
 
   async saveMultiple(entities: Entity[]): Promise<Entity[]> {
-    const ormEntities = entities.map(entity => this.mapper.toOrmEntity(entity));
+    const ormEntities = entities.map((entity) =>
+      this.mapper.toOrmEntity(entity),
+    );
     const result = await this.repository.save(ormEntities);
     this.logger.debug(
       `[Multiple entities persisted]: ${entities.length} ${this.tableName}`,
     );
     await Promise.all(
-      entities.map(entity =>
+      entities.map((entity) =>
         DomainEvents.publishEvents(entity.id, this.logger),
       ),
     );
-    return result.map(entity => this.mapper.toDomainEntity(entity));
+    return result.map((entity) => this.mapper.toDomainEntity(entity));
   }
 
   async findOne(
@@ -96,7 +98,7 @@ export abstract class TypeormRepositoryBase<
       relations: this.relations,
     });
 
-    return result.map(item => this.mapper.toDomainEntity(item));
+    return result.map((item) => this.mapper.toDomainEntity(item));
   }
 
   async findManyPaginated({
@@ -115,7 +117,7 @@ export abstract class TypeormRepositoryBase<
     });
 
     const result: DataWithPaginationMeta<Entity[]> = {
-      data: data.map(item => this.mapper.toDomainEntity(item)),
+      data: data.map((item) => this.mapper.toDomainEntity(item)),
       count,
       limit: pagination?.limit,
       page: pagination?.page,

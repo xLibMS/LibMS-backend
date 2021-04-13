@@ -19,7 +19,7 @@ export class Guard {
       if (value.length === 0) {
         return true;
       }
-      if (value.every(item => Guard.isEmpty(item))) {
+      if (value.every((item) => Guard.isEmpty(item))) {
         return true;
       }
     }

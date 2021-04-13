@@ -36,7 +36,7 @@ export function convertPropsToObject(props: any): any {
   // eslint-disable-next-line guard-for-in
   for (const prop in propsCopy) {
     if (Array.isArray(propsCopy[prop])) {
-      propsCopy[prop] = (propsCopy[prop] as Array<unknown>).map(item =>
+      propsCopy[prop] = (propsCopy[prop] as Array<unknown>).map((item) =>
         convertToRaw(item),
       );
     }

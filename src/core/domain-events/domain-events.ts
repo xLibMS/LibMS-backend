@@ -66,7 +66,7 @@ export class DomainEvents {
   private static removeAggregateFromPublishList(
     aggregate: AggregateRoot<unknown>,
   ): void {
-    const index = this.aggregates.findIndex(a => a.equals(aggregate));
+    const index = this.aggregates.findIndex((a) => a.equals(aggregate));
     this.aggregates.splice(index, 1);
   }
 
@@ -75,7 +75,7 @@ export class DomainEvents {
 
     if (this.subscribers.has(eventName)) {
       const callbacks: EventCallback[] = this.subscribers.get(eventName) || [];
-      await Promise.all(callbacks.map(callback => callback(event)));
+      await Promise.all(callbacks.map((callback) => callback(event)));
     }
   }
 }
