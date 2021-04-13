@@ -13,6 +13,6 @@ export class HashedPassword extends ValueObject<string> {
     return this.props.value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected validate(props: DomainPrimitive<string>): void {}
 }

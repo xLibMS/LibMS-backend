@@ -1,6 +1,8 @@
 import { Provider } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { BcryptHashingService } from 'src/infrastructure/services/bcrypt-hashing.service';
 import { UserRepository } from './database/user.repository';
+import { AuthService } from './use-cases/authenticate-user/authenticate-user.service';
 import { CreateUserService } from './use-cases/create-user/create-user.service';
 import { DeleteUserService } from './use-cases/remove-user/delete-user.service';
 
@@ -14,18 +16,27 @@ export const createUserProvider: Provider = {
   useFactory: (
     userRepo: UserRepository,
     hashService: BcryptHashingService,
-  ): CreateUserService => {
-    return new CreateUserService(userRepo, hashService);
-  },
+  ): CreateUserService => new CreateUserService(userRepo, hashService),
   inject: [UserRepository, BcryptHashingService],
+};
+
+export const authUserSymbol = Symbol('authUser');
+
+export const authUserPorivder: Provider = {
+  provide: authUserSymbol,
+  useFactory: (
+    userRepo: UserRepository,
+    jwtService: JwtService,
+    hashService: BcryptHashingService,
+  ): AuthService => new AuthService(userRepo, jwtService, hashService),
+  inject: [UserRepository, JwtService, BcryptHashingService],
 };
 
 export const removeUserSymbol = Symbol('removeUser');
 
 export const removeUserProvider: Provider = {
   provide: removeUserSymbol,
-  useFactory: (userRepo: UserRepository): DeleteUserService => {
-    return new DeleteUserService(userRepo);
-  },
+  useFactory: (userRepo: UserRepository): DeleteUserService =>
+    new DeleteUserService(userRepo),
   inject: [UserRepository],
 };

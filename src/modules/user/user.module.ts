@@ -13,7 +13,11 @@ import { AuthenticateUserHttpController } from './use-cases/authenticate-user/au
 import { CreateUserHttpController } from './use-cases/create-user/create-user.http.controller';
 import { FindUserByEmailHttpController } from './use-cases/find-user-by-email/find-user-by-email.http.controller';
 import { DeleteUserHttpController } from './use-cases/remove-user/delete-user.controller';
-import { createUserProvider, removeUserProvider } from './user.providers';
+import {
+  authUserPorivder,
+  createUserProvider,
+  removeUserProvider,
+} from './user.providers';
 
 @Module({
   imports: [
@@ -35,6 +39,7 @@ import { createUserProvider, removeUserProvider } from './user.providers';
     createUserProvider,
     removeUserProvider,
     BcryptHashingService,
+    authUserPorivder,
   ],
   exports: [AuthService, JwtModule],
 })

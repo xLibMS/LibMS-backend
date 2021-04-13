@@ -10,14 +10,18 @@ import {
   UseGuards,
   Get,
   HttpStatus,
+  Inject,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthenticateUserRequest } from 'src/interface-adapters/interfaces/user/authenticate-user.request.interface';
+import { authUserSymbol } from '@modules/user/user.providers';
 import { AuthService } from './authenticate-user.service';
 
 @Controller()
 export class AuthenticateUserHttpController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    @Inject(authUserSymbol) private readonly authService: AuthService,
+  ) {}
 
   @UseGuards(LocalAuthGuard)
   @Post(routes.user.auth)
