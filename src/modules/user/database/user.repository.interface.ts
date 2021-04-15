@@ -7,5 +7,6 @@ import { UserEntity, UserProps } from '../domain/entities/user.entity';
 export interface UserRepositoryPort
   extends RepositoryPort<UserEntity, UserProps> {
   findOneByEmailOrThrow(email: string): Promise<UserEntity>;
-  exists(email: string, universityID: string): Promise<boolean>;
+  existsByEmail(email: string): Promise<boolean>;
+  existsByUniID(universityID: string): Promise<boolean>;
 }

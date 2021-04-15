@@ -1,16 +1,27 @@
-import { JwtModuleOptions } from '@nestjs/jwt';
+import { JwtSignOptions } from '@nestjs/jwt';
 import { config } from 'dotenv';
 import { ExtractJwt, StrategyOptions } from 'passport-jwt';
 
 config();
 
-export const jwtConfig: JwtModuleOptions = {
+export const jwtAccessTokenConfig: JwtSignOptions = {
   secret: process.env.APP_SECRET,
-  signOptions: { expiresIn: '24h' },
+  expiresIn: '1h',
 };
 
-export const jwtStrategyConfig: StrategyOptions = {
+export const jwtRefreshTokenConfig: JwtSignOptions = {
+  secret: process.env.REFRESH_TOKEN_SECRET,
+  expiresIn: '24h',
+};
+
+export const jwtAccessStrategyConfig: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   ignoreExpiration: false,
   secretOrKey: process.env.APP_SECRET,
+};
+
+export const jwtRefreshStrategyConfig: StrategyOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  ignoreExpiration: false,
+  secretOrKey: process.env.REFRESH_TOKEN_SECRET,
 };

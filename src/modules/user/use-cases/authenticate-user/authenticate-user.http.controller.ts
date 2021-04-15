@@ -38,8 +38,10 @@ export class AuthenticateUserHttpController {
     status: HttpStatus.BAD_REQUEST,
   })
   async login(@Request() req: AuthenticateUserRequest): Promise<TokenResponse> {
-    const token = await this.authService.login(req.user);
-    return new TokenResponse(token.accessToken);
+    const { accessToken, refreshToken } = await this.authService.login(
+      req.user,
+    );
+    return new TokenResponse(accessToken, refreshToken);
   }
 
   // Should be moved to approriate use-case, this is left here for testing purposes

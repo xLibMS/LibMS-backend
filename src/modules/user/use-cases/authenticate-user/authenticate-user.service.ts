@@ -1,3 +1,7 @@
+import {
+  jwtAccessTokenConfig,
+  jwtRefreshTokenConfig,
+} from '@config/jwt.config';
 import { UserRepositoryPort } from '@modules/user/database/user.repository.interface';
 import { HashingService } from '@modules/user/domain-services/hashing.service';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
@@ -23,7 +27,10 @@ export class AuthService {
 
   async login(user: UserEntity): Promise<Token> {
     const payload = { sub: user.id.value, email: user.email.value };
-    const token: Token = { accessToken: this.jwtService.sign(payload) };
+    const token: Token = {
+      accessToken: this.jwtService.sign(payload, jwtAccessTokenConfig),
+      refreshToken: this.jwtService.sign(payload, jwtRefreshTokenConfig),
+    };
     return token;
   }
 }

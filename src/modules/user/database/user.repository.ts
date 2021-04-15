@@ -60,10 +60,16 @@ export class UserRepository
     return user;
   }
 
-  async exists(email: string, universityID: string): Promise<boolean> {
-    const found =
-      (await this.findOneByEmail(email)) ||
-      (await this.findOneByUniversityID(universityID));
+  async existsByEmail(email: string): Promise<boolean> {
+    const found = await this.findOneByEmail(email);
+    if (found) {
+      return true;
+    }
+    return false;
+  }
+
+  async existsByUniID(universityID: string): Promise<boolean> {
+    const found = await this.findOneByUniversityID(universityID);
     if (found) {
       return true;
     }

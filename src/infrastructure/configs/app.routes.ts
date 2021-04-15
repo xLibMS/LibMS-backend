@@ -6,5 +6,6 @@ export const routes = {
     root: usersRoot,
     delete: `${usersRoot}/:id`,
     auth: `${usersRoot}/auth`,
+    refresh: `${usersRoot}/refresh`,
   },
 };
