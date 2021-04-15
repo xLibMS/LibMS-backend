@@ -1,26 +1,26 @@
 import { ArgumentOutOfRangeException } from '@exceptions';
-import {
-  DomainPrimitive,
-  ValueObject,
-} from 'src/core/base-classes/value-object.base';
+import { ValueObject } from 'src/core/base-classes/value-object.base';
 import { Guard } from 'src/core/guard';
 
-export class Isbn extends ValueObject<string> {
-  constructor(value: string) {
-    super({ value });
-    this.props.value = value;
+export interface ISBNProps {
+  isbn10: string;
+  isbn13: string;
+}
+export class ISBN extends ValueObject<ISBNProps> {
+  get isbn10(): string {
+    return this.props.isbn10;
   }
 
-  get value(): string {
-    return this.props.value;
+  get isbn13(): string {
+    return this.props.isbn13;
   }
 
-  protected validate({ value }: DomainPrimitive<string>): void {
+  protected validate(props: ISBNProps): void {
     if (
-      !Guard.lengthIsBetween(value, 10, 10) ||
-      !Guard.lengthIsBetween(value, 13, 13)
+      !Guard.lengthIsBetween(props.isbn10, 10, 10) ||
+      !Guard.lengthIsBetween(props.isbn13, 13, 13)
     ) {
-      throw new ArgumentOutOfRangeException('Isbn');
+      throw new ArgumentOutOfRangeException('ISBN is out range');
     }
   }
 }

@@ -1,12 +1,13 @@
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { Author } from '../value-objects/author.value-object';
-import { Isbn } from '../value-objects/isbn.value-object';
+import { ISBN } from '../value-objects/isbn.value-object';
 
 export interface BookProps {
-  isbn: Isbn;
+  isbn: ISBN;
   title: string;
   subtitle: string;
   originTitle?: string;
+  // Should become an array of authors
   author: Author;
   publisher: string;
   publishedDate: Date;
