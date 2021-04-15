@@ -26,7 +26,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@nestjs-modules/mailer": "^1.5.1",
+    "@nestjs-modules/mailer": "^1.6.0",
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
     "@nestjs/jwt": "^7.2.0",
@@ -66,6 +66,7 @@
     "@types/bcrypt": "^3.0.1",
     "@types/csurf": "^1.11.1",
     "@types/faker": "^5.5.1",
+    "@types/inline-css": "^0.0.33",
     "@types/jest": "26.0.22",
     "@types/joi": "^17.2.3",
     "@types/node": "^14.14.39",
