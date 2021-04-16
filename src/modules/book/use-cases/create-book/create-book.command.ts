@@ -17,7 +17,7 @@ export interface CreateBookProps {
   publishedDate: Date;
   image: string;
   pageCount: number;
-  summary: string;
+  overview?: string;
 }
 
 export class CreateBookCommand {
@@ -31,7 +31,7 @@ export class CreateBookCommand {
     this.publishedDate = props.publishedDate;
     this.image = props.image;
     this.pageCount = props.pageCount;
-    this.summary = props.summary;
+    this.overview = props.overview;
   }
 
   readonly isbn: ISBN;
@@ -52,5 +52,5 @@ export class CreateBookCommand {
 
   readonly pageCount: number;
 
-  readonly summary: string;
+  readonly overview?: string;
 }

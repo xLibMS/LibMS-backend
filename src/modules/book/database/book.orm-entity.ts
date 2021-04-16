@@ -23,7 +23,6 @@ export class BookOrmEntity extends TypeormEntityBase {
   @Column()
   originalTitle?: string;
 
-  // Should become an array of authors
   @Column(() => Author)
   authors!: Author[];
 
@@ -40,5 +39,5 @@ export class BookOrmEntity extends TypeormEntityBase {
   pageCount!: number;
 
   @Column()
-  summary!: string;
+  overview?: string;
 }

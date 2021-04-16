@@ -12,7 +12,7 @@ export interface BookProps {
   publishedDate: Date;
   image: string;
   pageCount: number;
-  summary: string;
+  overview?: string;
 }
 
 export class BookEntity extends AggregateRoot<BookProps> {

@@ -22,7 +22,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       publishedDate: props.publishedDate,
       image: props.image,
       pageCount: props.pageCount,
-      summary: props.summary,
+      overview: props.overview,
     };
     return ormProps;
   }
@@ -38,7 +38,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       publishedDate: ormEntity.publishedDate,
       image: ormEntity.image,
       pageCount: ormEntity.pageCount,
-      summary: ormEntity.summary,
+      overview: ormEntity.overview,
     };
 
     return props;
