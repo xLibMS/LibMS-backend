@@ -9,7 +9,7 @@ export class BookOrmEntity extends TypeormEntityBase {
   }
 
   @Column({ unique: true })
-  isbn10!: string;
+  isbn10?: string;
 
   @Column({ unique: true })
   isbn13!: string;
@@ -25,7 +25,7 @@ export class BookOrmEntity extends TypeormEntityBase {
 
   // Should become an array of authors
   @Column(() => Author)
-  author!: Author;
+  authors!: Author[];
 
   @Column()
   image!: string;

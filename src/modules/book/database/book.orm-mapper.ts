@@ -16,12 +16,12 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       isbn13: props.isbn.isbn13,
       title: props.title,
       subtitle: props.subtitle,
-      originalTitle: props.originTitle,
-      author: props.author,
+      originalTitle: props.originalTitle,
+      authors: props.authors,
       publisher: props.publisher,
       publishedDate: props.publishedDate,
       image: props.image,
-      pageCount: props.pages,
+      pageCount: props.pageCount,
       summary: props.summary,
     };
     return ormProps;
@@ -32,15 +32,12 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       isbn: new ISBN({ isbn10: ormEntity.isbn10, isbn13: ormEntity.isbn13 }),
       title: ormEntity.title,
       subtitle: ormEntity.subtitle,
-      originTitle: ormEntity.originalTitle,
-      author: new Author({
-        firstName: ormEntity.author.firstName,
-        lastName: ormEntity.author.lastName,
-      }),
+      originalTitle: ormEntity.originalTitle,
+      authors: ormEntity.authors.map((author) => new Author(author)),
       publisher: ormEntity.publisher,
       publishedDate: ormEntity.publishedDate,
       image: ormEntity.image,
-      pages: ormEntity.pageCount,
+      pageCount: ormEntity.pageCount,
       summary: ormEntity.summary,
     };
 

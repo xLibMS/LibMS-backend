@@ -11,12 +11,12 @@ export interface CreateBookProps {
   isbn: ISBNProps;
   title: string;
   subtitle: string;
-  originTitle?: string;
-  author: AuthorProps;
+  originalTitle?: string;
+  authors: AuthorProps[];
   publisher: string;
   publishedDate: Date;
   image: string;
-  pages: number;
+  pageCount: number;
   summary: string;
 }
 
@@ -25,12 +25,12 @@ export class CreateBookCommand {
     this.isbn = new ISBN(props.isbn);
     this.title = props.title;
     this.subtitle = props.subtitle;
-    this.originTitle = props.originTitle;
-    this.author = new Author(props.author);
+    this.originalTitle = props.originalTitle;
+    this.authors = props.authors.map((author) => new Author(author));
     this.publisher = props.publisher;
     this.publishedDate = props.publishedDate;
     this.image = props.image;
-    this.pages = props.pages;
+    this.pageCount = props.pageCount;
     this.summary = props.summary;
   }
 
@@ -40,9 +40,9 @@ export class CreateBookCommand {
 
   readonly subtitle: string;
 
-  readonly originTitle?: string;
+  readonly originalTitle?: string;
 
-  readonly author: Author;
+  readonly authors: Author[];
 
   readonly publisher: string;
 
@@ -50,7 +50,7 @@ export class CreateBookCommand {
 
   readonly image: string;
 
-  readonly pages: number;
+  readonly pageCount: number;
 
   readonly summary: string;
 }

@@ -6,13 +6,12 @@ export interface BookProps {
   isbn: ISBN;
   title: string;
   subtitle: string;
-  originTitle?: string;
-  // Should become an array of authors
-  author: Author;
+  originalTitle?: string;
+  authors: Author[];
   publisher: string;
   publishedDate: Date;
   image: string;
-  pages: number;
+  pageCount: number;
   summary: string;
 }
 

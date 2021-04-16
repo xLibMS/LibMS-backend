@@ -7,9 +7,13 @@ export class CreateBookService {
   constructor(private readonly bookRepo: BookRepositoryPort) {}
 
   async createBook(command: CreateBookCommand): Promise<BookEntity> {
-    // existsByISBN should have two parameters: isbn10 and isbn13
-    if (await this.bookRepo.existsByISBN(command.isbn.isbn10)) {
+    if (await this.bookRepo.existsByISBN(command.isbn.isbn13)) {
       throw new ConflictException('Book already exists');
+    }
+    if (command.isbn.isbn10) {
+      if (await this.bookRepo.existsByISBN(command.isbn.isbn10)) {
+        throw new ConflictException('Book already exists');
+      }
     }
     const book = new BookEntity(command);
 

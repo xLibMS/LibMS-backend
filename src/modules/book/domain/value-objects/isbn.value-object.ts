@@ -3,11 +3,11 @@ import { ValueObject } from 'src/core/base-classes/value-object.base';
 import { Guard } from 'src/core/guard';
 
 export interface ISBNProps {
-  isbn10: string;
+  isbn10?: string;
   isbn13: string;
 }
 export class ISBN extends ValueObject<ISBNProps> {
-  get isbn10(): string {
+  get isbn10(): string | undefined {
     return this.props.isbn10;
   }
 
@@ -16,11 +16,13 @@ export class ISBN extends ValueObject<ISBNProps> {
   }
 
   protected validate(props: ISBNProps): void {
-    if (
-      !Guard.lengthIsBetween(props.isbn10, 10, 10) ||
-      !Guard.lengthIsBetween(props.isbn13, 13, 13)
-    ) {
+    if (!Guard.lengthIsBetween(props.isbn13, 13, 13)) {
       throw new ArgumentOutOfRangeException('ISBN is out range');
+    }
+    if (props.isbn10) {
+      if (!Guard.lengthIsBetween(props.isbn10, 10, 10)) {
+        throw new ArgumentOutOfRangeException('ISBN is out range');
+      }
     }
   }
 }
