@@ -33,7 +33,16 @@ export class BookRepository
     isbn: string,
   ): Promise<BookOrmEntity | undefined> {
     const book = await this.bookRepository.findOne({
-      where: [{ isbn10: isbn, isbn13: isbn }],
+      where: {
+        $or: [
+          {
+            isbn10: isbn,
+          },
+          {
+            isbn13: isbn,
+          },
+        ],
+      },
     });
 
     return book;
