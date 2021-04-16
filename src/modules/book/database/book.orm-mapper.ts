@@ -10,14 +10,16 @@ import { BookOrmEntity } from './book.orm-entity';
 export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
   protected toOrmProps(entity: BookEntity): OrmEntityProps<BookOrmEntity> {
     const props = entity.getPropsCopy();
-
     const ormProps: OrmEntityProps<BookOrmEntity> = {
       isbn10: props.isbn.isbn10,
       isbn13: props.isbn.isbn13,
       title: props.title,
       subtitle: props.subtitle,
       originalTitle: props.originalTitle,
-      authors: props.authors,
+      authors: props.authors.map((author) => ({
+        firstName: author.firstName,
+        lastName: author.lastName,
+      })),
       publisher: props.publisher,
       publishedDate: props.publishedDate,
       image: props.image,
@@ -33,7 +35,13 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       title: ormEntity.title,
       subtitle: ormEntity.subtitle,
       originalTitle: ormEntity.originalTitle,
-      authors: ormEntity.authors.map((author) => new Author(author)),
+      authors: ormEntity.authors.map(
+        (author) =>
+          new Author({
+            firstName: author.firstName,
+            lastName: author.lastName,
+          }),
+      ),
       publisher: ormEntity.publisher,
       publishedDate: ormEntity.publishedDate,
       image: ormEntity.image,

@@ -5,7 +5,6 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
-  IsDate,
   IsDateString,
   IsNumber,
   IsOptional,

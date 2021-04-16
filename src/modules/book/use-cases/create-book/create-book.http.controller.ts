@@ -54,6 +54,6 @@ export class CreateBookHttpController {
     });
 
     const id = await this.createBookService.createBook(command);
-    return new IdResponse(id.id.value);
+    return new IdResponse(id.value);
   }
 }
