@@ -8,6 +8,8 @@ import {
   DomainException,
 } from '@exceptions';
 import { Guard } from 'src/core/guard';
+import * as tldts from 'tldts';
+import { emailDomainsWhitelist } from '@config/mailer.config';
 
 export class Email extends ValueObject<string> {
   constructor(value: string) {
@@ -33,20 +35,16 @@ export class Email extends ValueObject<string> {
    * real world projects will have stricter rules
    */
   protected validate({ value }: DomainPrimitive<string>): void {
+    const emailDomain = tldts.getDomain(value);
+
     if (!Guard.lengthIsBetween(value, 5, 320)) {
       throw new ArgumentOutOfRangeException('Email');
     }
-    if (!value.includes('@')) {
+    if (!value.includes('@') || !emailDomain) {
       throw new ArgumentInvalidException('Email has incorrect format');
     }
-    // Temporary solution for email TLD validation
-    if (
-      !value.includes('@medtech.tn') &&
-      !value.includes('@msb.tn') &&
-      !value.includes('@smu.tn') &&
-      !value.includes('@lci.tn')
-    ) {
-      throw new DomainException('Email TLD is unauthorized');
+    if (!emailDomainsWhitelist.includes(emailDomain)) {
+      throw new DomainException('Email domain is unauthorized');
     }
   }
 

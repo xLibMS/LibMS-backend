@@ -4,6 +4,12 @@ import { config } from 'dotenv';
 
 config();
 
+export const emailDomainsWhitelist: Array<string> = [
+  'medtech.tn',
+  'msb.tn',
+  'smu.tn',
+];
+
 export const mailerConfig: MailerOptions = {
   transport: {
     host: process.env.SMTP_HOST,
