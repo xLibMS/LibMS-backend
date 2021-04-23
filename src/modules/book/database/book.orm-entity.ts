@@ -1,6 +1,7 @@
 import { TypeormEntityBase } from 'src/infrastructure/database/base-classes/typeorm.entity.base';
 import { Column, Entity } from 'typeorm';
 import { Author } from './author.orm-subdoc';
+import { BookImage } from './image.orm-subdoc';
 
 @Entity('book')
 export class BookOrmEntity extends TypeormEntityBase {
@@ -26,8 +27,8 @@ export class BookOrmEntity extends TypeormEntityBase {
   @Column(() => Author)
   authors!: Author[];
 
-  @Column()
-  image!: string;
+  @Column(() => BookImage)
+  image!: BookImage;
 
   @Column()
   publisher!: string;

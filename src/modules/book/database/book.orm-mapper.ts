@@ -5,6 +5,7 @@ import {
 import { BookEntity, BookProps } from '../domain/entities/book.entity';
 import { Author } from '../domain/value-objects/author.value-object';
 import { ISBN } from '../domain/value-objects/isbn.value-object';
+import { BookImage } from '../domain/value-objects/image.value-object';
 import { BookOrmEntity } from './book.orm-entity';
 
 export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
@@ -22,7 +23,11 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       })),
       publisher: props.publisher,
       publishedDate: props.publishedDate,
-      image: props.image,
+      image: {
+        imageName: props.image.imageName,
+        imageSize: props.image.imageSize,
+        imageType: props.image.imageType,
+      },
       pageCount: props.pageCount,
       overview: props.overview,
     };
@@ -44,7 +49,11 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       ),
       publisher: ormEntity.publisher,
       publishedDate: ormEntity.publishedDate,
-      image: ormEntity.image,
+      image: new BookImage({
+        imageName: ormEntity.image.imageName,
+        imageSize: ormEntity.image.imageSize,
+        imageType: ormEntity.image.imageType,
+      }),
       pageCount: ormEntity.pageCount,
       overview: ormEntity.overview,
     };
