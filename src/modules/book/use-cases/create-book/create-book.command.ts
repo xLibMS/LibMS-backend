@@ -2,6 +2,7 @@ import {
   Author,
   AuthorProps,
 } from '@modules/book/domain/value-objects/author.value-object';
+import { BookImage } from '@modules/book/domain/value-objects/image.value-object';
 import {
   ISBN,
   ISBNProps,
@@ -15,7 +16,8 @@ export interface CreateBookProps {
   authors: AuthorProps[];
   publisher: string;
   publishedDate: Date;
-  image: string;
+  image: BookImage;
+  storedImage: Buffer;
   pageCount: number;
   overview?: string;
 }
@@ -30,6 +32,7 @@ export class CreateBookCommand {
     this.publisher = props.publisher;
     this.publishedDate = props.publishedDate;
     this.image = props.image;
+    this.storedImage = props.storedImage;
     this.pageCount = props.pageCount;
     this.overview = props.overview;
   }
@@ -48,9 +51,11 @@ export class CreateBookCommand {
 
   readonly publishedDate: Date;
 
-  readonly image: string;
+  readonly image: BookImage;
 
   readonly pageCount: number;
 
   readonly overview?: string;
+
+  readonly storedImage: Buffer;
 }
