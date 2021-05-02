@@ -44,7 +44,7 @@
     "csurf": "^1.11.0",
     "dotenv": "^8.2.0",
     "handlebars": "^4.7.7",
-    "helmet": "^4.5.0",
+    "helmet": "^4.6.0",
     "mongodb": "^3.6.6",
     "nodemailer": "^6.6.0",
     "passport": "^0.4.1",
