@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: tldts
+    versions:
+    - 5.7.29
+    - 5.7.31
+  - dependency-name: "@types/node"
+    versions:
+    - 15.0.0
