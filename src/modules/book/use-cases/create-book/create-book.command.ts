@@ -3,15 +3,12 @@ import {
   AuthorProps,
 } from '@modules/book/domain/value-objects/author.value-object';
 import { BookImage } from '@modules/book/domain/value-objects/image.value-object';
-import {
-  ISBN,
-  ISBNProps,
-} from '@modules/book/domain/value-objects/isbn.value-object';
+import { ISBN } from '@modules/book/domain/value-objects/isbn.value-object';
 
 export interface CreateBookProps {
-  isbn: ISBNProps;
+  isbn: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   originalTitle?: string;
   authors: AuthorProps[];
   publisher: string;
@@ -41,7 +38,7 @@ export class CreateBookCommand {
 
   readonly title: string;
 
-  readonly subtitle: string;
+  readonly subtitle?: string;
 
   readonly originalTitle?: string;
 

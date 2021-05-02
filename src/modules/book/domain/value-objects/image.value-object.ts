@@ -20,7 +20,7 @@ export class BookImage extends ValueObject<ImageProps> {
     return this.props.imageSize;
   }
 
-  protected validExtension(props: ImageProps): boolean {
+  private validExtension(props: ImageProps): boolean {
     const mimeType: string[] = ['image/jpeg', 'image/png'];
 
     return mimeType.includes(props.imageType);

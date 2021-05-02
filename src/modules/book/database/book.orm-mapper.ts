@@ -12,8 +12,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
   protected toOrmProps(entity: BookEntity): OrmEntityProps<BookOrmEntity> {
     const props = entity.getPropsCopy();
     const ormProps: OrmEntityProps<BookOrmEntity> = {
-      isbn10: props.isbn.isbn10,
-      isbn13: props.isbn.isbn13,
+      isbn: props.isbn.value,
       title: props.title,
       subtitle: props.subtitle,
       originalTitle: props.originalTitle,
@@ -36,7 +35,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
 
   protected toDomainProps(ormEntity: BookOrmEntity): BookProps {
     const props: BookProps = {
-      isbn: new ISBN({ isbn10: ormEntity.isbn10, isbn13: ormEntity.isbn13 }),
+      isbn: new ISBN(ormEntity.isbn),
       title: ormEntity.title,
       subtitle: ormEntity.subtitle,
       originalTitle: ormEntity.originalTitle,

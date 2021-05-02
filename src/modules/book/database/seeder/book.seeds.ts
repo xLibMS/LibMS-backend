@@ -6,8 +6,7 @@ export const bookSeeds: NonFunctionProperties<BookOrmEntity>[] = [
   {
     ...createdAtUpdatedAtMock,
     id: 'a877f456-3284-42d1-b426-4c5f44eca561',
-    isbn10: '9780321815736',
-    isbn13: '9780321815736',
+    isbn: '0321815734',
     title: 'Software Architecture in Practice',
     subtitle: '(SEI Series in Software Engineering), 3rd Edition',
     authors: [
@@ -34,7 +33,7 @@ export const bookSeeds: NonFunctionProperties<BookOrmEntity>[] = [
   {
     ...createdAtUpdatedAtMock,
     id: '675b5c6f-52de-474f-aba6-f7717844a5e8',
-    isbn13: '9780132145213',
+    isbn: '9780321815736',
     title: 'Engineering Ethics',
     subtitle: '4th Edition',
     originalTitle: 'string',

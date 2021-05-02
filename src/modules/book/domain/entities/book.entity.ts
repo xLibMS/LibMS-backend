@@ -6,7 +6,7 @@ import { ISBN } from '../value-objects/isbn.value-object';
 export interface BookProps {
   isbn: ISBN;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   originalTitle?: string;
   authors: Author[];
   publisher: string;
@@ -29,7 +29,7 @@ export class BookEntity extends AggregateRoot<BookProps> {
     return this.props.title;
   }
 
-  get subtitle(): string {
+  get subtitle(): string | undefined {
     return this.props.subtitle;
   }
 

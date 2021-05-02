@@ -3,12 +3,10 @@ export interface Author {
   lastName: string;
   middleName?: string;
 }
-
 export interface CreateBook {
-  isbn10: string;
-  isbn13: string;
+  isbn: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   originalTitle?: string;
   authors: Author[];
   publisher: string;

@@ -12,14 +12,10 @@ export class CreateBookService {
   ) {}
 
   async createBook(command: CreateBookCommand): Promise<ID> {
-    if (await this.bookRepo.existsByISBN(command.isbn.isbn13)) {
+    if (await this.bookRepo.existsByISBN(command.isbn.value)) {
       throw new ConflictException('Book already exists');
     }
-    if (command.isbn.isbn10) {
-      if (await this.bookRepo.existsByISBN(command.isbn.isbn10)) {
-        throw new ConflictException('Book already exists');
-      }
-    }
+
     const book = new BookEntity(command);
 
     this.imageService.upload(command.storedImage, command.image);

@@ -6,6 +6,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsDateString,
+  IsISBN,
   IsNumber,
   IsOptional,
   IsString,
@@ -18,19 +19,10 @@ import { Type } from 'class-transformer';
 export class CreateBookRequest implements CreateBook {
   @ApiProperty({
     example: '0521880688',
-    description: 'The 10-digit ISBN of the book',
+    description: 'The ISBN of the book (10 or 13 digits)',
   })
-  @Length(10, 10)
-  @IsString()
-  isbn10!: string;
-
-  @ApiProperty({
-    example: '9780521880688',
-    description: 'The 13-digit ISBN of the book',
-  })
-  @Length(13, 13)
-  @IsString()
-  isbn13!: string;
+  @IsISBN()
+  isbn!: string;
 
   @ApiProperty({
     example: 'Numerical Recipes',
@@ -46,7 +38,8 @@ export class CreateBookRequest implements CreateBook {
   })
   @Length(2, 250)
   @IsString()
-  subtitle!: string;
+  @IsOptional()
+  subtitle?: string;
 
   @ApiProperty({
     example: '',
@@ -55,7 +48,7 @@ export class CreateBookRequest implements CreateBook {
   @Length(2, 250)
   @IsString()
   @IsOptional()
-  originalTitle?: string | undefined;
+  originalTitle?: string;
 
   @IsArray()
   authors!: Author[];
@@ -72,7 +65,8 @@ export class CreateBookRequest implements CreateBook {
   pageCount!: number;
 
   @IsString()
-  overview?: string | undefined;
+  @IsOptional()
+  overview?: string;
 
   @IsString()
   publisher!: string;

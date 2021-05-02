@@ -46,10 +46,7 @@ export class CreateBookHttpController {
     @UploadedFile() file: Express.Multer.File,
   ): Promise<IdResponse> {
     const command = new CreateBookCommand({
-      isbn: {
-        isbn13: body.isbn13,
-        isbn10: body.isbn10,
-      },
+      isbn: body.isbn,
       title: body.title,
       subtitle: body.subtitle,
       originalTitle: body.originalTitle,

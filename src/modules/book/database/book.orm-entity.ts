@@ -10,16 +10,13 @@ export class BookOrmEntity extends TypeormEntityBase {
   }
 
   @Column({ unique: true })
-  isbn10?: string;
-
-  @Column({ unique: true })
-  isbn13!: string;
+  isbn!: string;
 
   @Column()
   title!: string;
 
   @Column()
-  subtitle!: string;
+  subtitle?: string;
 
   @Column()
   originalTitle?: string;
