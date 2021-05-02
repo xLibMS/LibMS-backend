@@ -13,6 +13,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateBookRequest implements CreateBook {
   @ApiProperty({
@@ -62,12 +63,12 @@ export class CreateBookRequest implements CreateBook {
   @IsDateString()
   publishedDate!: string;
 
-  @IsString()
   image!: string;
 
+  @Type(() => Number)
   @IsNumber()
   @Min(2)
-  @Max(7300)
+  @Max(7160)
   pageCount!: number;
 
   @IsString()

@@ -4,13 +4,17 @@ import {
   HttpStatus,
   Inject,
   Post,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { routes } from '@config/app.routes';
 import { createBookSymbol } from '@modules/book/book.provider';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { IdResponse } from 'src/interface-adapters/dtos/id.response.dto';
 import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { BookImage } from '@modules/book/domain/value-objects/image.value-object';
 import { CreateBookService } from './create-book.service';
 import { CreateBookRequest } from './create-book.request.dto';
 import { CreateBookCommand } from './create-book.command';
@@ -24,7 +28,8 @@ export class CreateBookHttpController {
 
   @UseGuards(JwtAuthGuard)
   @Post(routes.book.root)
-  @ApiOperation({ summary: 'Create a user' })
+  @UseInterceptors(FileInterceptor('image'))
+  @ApiOperation({ summary: 'Create a book' })
   @ApiResponse({
     status: HttpStatus.OK,
     type: IdResponse,
@@ -36,7 +41,10 @@ export class CreateBookHttpController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
-  async create(@Body() body: CreateBookRequest): Promise<IdResponse> {
+  async create(
+    @Body() body: CreateBookRequest,
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<IdResponse> {
     const command = new CreateBookCommand({
       isbn: {
         isbn13: body.isbn13,
@@ -48,9 +56,14 @@ export class CreateBookHttpController {
       authors: body.authors,
       publisher: body.publisher,
       publishedDate: new Date(body.publishedDate),
-      image: body.image,
+      image: new BookImage({
+        imageName: file.originalname,
+        imageSize: file.size,
+        imageType: file.mimetype,
+      }),
       pageCount: body.pageCount,
       overview: body.overview,
+      storedImage: file.buffer,
     });
 
     const id = await this.createBookService.createBook(command);
