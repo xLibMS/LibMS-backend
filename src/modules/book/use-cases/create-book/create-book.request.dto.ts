@@ -11,7 +11,6 @@ import {
   IsOptional,
   IsString,
   Length,
-  Max,
   Min,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -60,8 +59,7 @@ export class CreateBookRequest implements CreateBook {
 
   @Type(() => Number)
   @IsNumber()
-  @Min(2)
-  @Max(7160)
+  @Min(1)
   pageCount!: number;
 
   @IsString()

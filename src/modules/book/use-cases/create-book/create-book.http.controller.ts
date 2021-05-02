@@ -26,7 +26,6 @@ export class CreateBookHttpController {
     private readonly createBookService: CreateBookService,
   ) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post(routes.book.root)
   @UseInterceptors(FileInterceptor('image'))
   @ApiOperation({ summary: 'Create a book' })
@@ -41,6 +40,7 @@ export class CreateBookHttpController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
+  @UseGuards(JwtAuthGuard)
   async create(
     @Body() body: CreateBookRequest,
     @UploadedFile() file: Express.Multer.File,
