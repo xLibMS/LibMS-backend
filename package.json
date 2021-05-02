@@ -68,7 +68,7 @@
     "@types/csurf": "^1.11.1",
     "@types/faker": "^5.5.3",
     "@types/inline-css": "^0.0.33",
-    "@types/jest": "26.0.22",
+    "@types/jest": "26.0.23",
     "@types/joi": "^17.2.3",
     "@types/multer": "^1.4.5",
     "@types/node": "^15.0.1",
