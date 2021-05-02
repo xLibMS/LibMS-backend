@@ -27,8 +27,8 @@ export class BookImage extends ValueObject<ImageProps> {
   }
 
   protected validate(props: ImageProps): void {
-    // check of size (650kb)
-    if (props.imageSize / 1024 > 650) {
+    // check of size (1Mb)
+    if (props.imageSize / 1024 > 1024) {
       throw new DomainException('max file size exceeded');
     }
     // check file extension
