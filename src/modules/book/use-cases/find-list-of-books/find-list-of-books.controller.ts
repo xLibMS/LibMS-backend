@@ -10,8 +10,8 @@ export class FindListOfBooksHttpController {
 
   @UseGuards(JwtAuthGuard)
   @Get(routes.book.list)
-  async findByEmail(): Promise<ListOfBooksResponse> {
-    const user = await this.bookRepo.findAllBooks();
-    return new ListOfBooksResponse(user);
+  async findListOfBooks(): Promise<ListOfBooksResponse> {
+    const books = await this.bookRepo.findAllBooks();
+    return new ListOfBooksResponse(books);
   }
 }
