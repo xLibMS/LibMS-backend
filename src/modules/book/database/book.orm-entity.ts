@@ -15,10 +15,10 @@ export class BookOrmEntity extends TypeormEntityBase {
   @Column()
   title!: string;
 
-  @Column()
+  @Column({ nullable: true })
   subtitle?: string;
 
-  @Column()
+  @Column({ nullable: true })
   originalTitle?: string;
 
   @Column(() => Author)
@@ -36,6 +36,6 @@ export class BookOrmEntity extends TypeormEntityBase {
   @Column()
   pageCount!: number;
 
-  @Column()
+  @Column({ nullable: true })
   overview?: string;
 }
