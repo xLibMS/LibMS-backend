@@ -2,14 +2,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsArray } from 'class-validator';
 import { BookEntity } from '../domain/entities/book.entity';
 
-export class ListOfBooksResponse {
-  constructor(listOfBooks: BookEntity[]) {
-    this.listOfBooks = listOfBooks;
+export class BooksResponse {
+  constructor(books: BookEntity[]) {
+    this.books = books;
   }
 
   @ApiProperty({
     example: [],
   })
   @IsArray()
-  listOfBooks: BookEntity[];
+  books: BookEntity[];
 }

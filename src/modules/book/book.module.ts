@@ -9,7 +9,7 @@ import { createBookProvider } from './book.provider';
 import { BookOrmEntity } from './database/book.orm-entity';
 import { BookRepository } from './database/book.repository';
 import { CreateBookHttpController } from './use-cases/create-book/create-book.http.controller';
-import { FindListOfBooksHttpController } from './use-cases/find-list-of-books/find-list-of-books.controller';
+import { FindBooksHttpController } from './use-cases/find-list-of-books/find-books.controller';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { FindListOfBooksHttpController } from './use-cases/find-list-of-books/fi
     PassportModule,
     AuthService,
   ],
-  controllers: [FindListOfBooksHttpController, CreateBookHttpController],
+  controllers: [FindBooksHttpController, CreateBookHttpController],
   providers: [BookRepository, createBookProvider, ImageUploadService],
   exports: [],
 })
