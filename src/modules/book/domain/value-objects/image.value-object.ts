@@ -32,8 +32,8 @@ export class BookImage extends ValueObject<ImageProps> {
       throw new DomainException('max file size exceeded');
     }
     // check file extension
-    if (!this.validExtension(props)) {
+    /* if (!this.validExtension(props)) {
       throw new DomainException('invalid file extension');
-    }
+    } */
   }
 }
