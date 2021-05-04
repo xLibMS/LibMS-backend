@@ -18,5 +18,6 @@ export const typeormConfig: TypeOrmModuleOptions = {
   },
   entities: [],
   autoLoadEntities: true,
+  synchronize: true,
   logging: ['error', 'migration', 'schema'],
 };
