@@ -39,6 +39,11 @@ export class BookRepository
     return book;
   }
 
+  async findAllBooks(): Promise<BookEntity[]> {
+    const books = await this.findMany();
+    return books;
+  }
+
   async findOneByISBNOrThrow(isbn: string): Promise<BookEntity> {
     const book = await this.findOneByISBN(isbn);
     if (!book) {
