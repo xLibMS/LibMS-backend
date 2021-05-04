@@ -3,22 +3,19 @@ import { config } from 'dotenv';
 
 config(); // Initializing dotenv
 
-function getDBConnectionURL() {
-  const prefix = process.env.DB_PREFIX;
-  const host = process.env.DB_HOST;
-  const username = process.env.DB_USERNAME;
-  const password = process.env.DB_PASSWORD;
-  const dbName = process.env.DB_NAME;
-  return `${prefix}://${username}:${password}@${host}/${dbName}?retryWrites=true&w=majority`;
-}
-
 export const typeormConfig: TypeOrmModuleOptions = {
-  type: 'mongodb',
-  url: getDBConnectionURL(),
+  type: 'postgres',
+  host: process.env.DB_HOST,
   port: Number.parseInt(process.env.DB_PORT as string, 10),
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false, // Allow self-signed certificates
+    },
+  },
   entities: [],
   autoLoadEntities: true,
   logging: ['error', 'migration', 'schema'],

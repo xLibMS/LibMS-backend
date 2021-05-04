@@ -1,10 +1,4 @@
-import {
-  ObjectIdColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  ObjectID,
-  PrimaryColumn,
-} from 'typeorm';
+import { CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm';
 
 export abstract class TypeormEntityBase {
   constructor(props?: unknown) {
@@ -12,9 +6,6 @@ export abstract class TypeormEntityBase {
       Object.assign(this, props);
     }
   }
-
-  @ObjectIdColumn()
-  private _id!: ObjectID;
 
   @PrimaryColumn({ update: false })
   id!: string;
