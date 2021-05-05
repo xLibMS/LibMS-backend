@@ -3,6 +3,8 @@ import { config } from 'dotenv';
 
 config(); // Initializing dotenv
 
+const ssl = process.env.DB_SSL === 'true';
+
 export const typeormConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -10,12 +12,8 @@ export const typeormConfig: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  ssl: true,
-  extra: {
-    ssl: {
-      rejectUnauthorized: false, // Allow self-signed certificates
-    },
-  },
+  ssl,
+  extra: ssl ? { ssl: { rejectUnauthorized: false } } : {},
   entities: [],
   autoLoadEntities: true,
   synchronize: true,
