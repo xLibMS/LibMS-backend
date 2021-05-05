@@ -8,7 +8,7 @@ import { mailerConfig } from '@config/mailer.config';
 import { BookModule } from '@modules/book/book.module';
 import { BookRepository } from '@modules/book/database/book.repository';
 import { BookOrmEntity } from '@modules/book/database/book.orm-entity';
-import { typeormConfig } from './infrastructure/configs/ormconfig';
+import * as typeormConfig from './infrastructure/configs/ormconfig';
 
 @Module({
   imports: [

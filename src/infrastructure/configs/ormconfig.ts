@@ -5,7 +5,7 @@ config(); // Initializing dotenv
 
 const ssl = process.env.DB_SSL === 'true';
 
-const typeormConfig: TypeOrmModuleOptions = {
+const TypeormConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host: process.env.DB_HOST,
   port: Number.parseInt(process.env.DB_PORT as string, 10),
@@ -19,4 +19,4 @@ const typeormConfig: TypeOrmModuleOptions = {
   synchronize: true,
   logging: ['error', 'migration', 'schema'],
 };
-module.exports = typeormConfig;
+module.exports = TypeormConfig;
