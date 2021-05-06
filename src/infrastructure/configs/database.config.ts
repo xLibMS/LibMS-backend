@@ -5,8 +5,8 @@ const database = {
   entities: ['src/**/*.orm-entity.ts'],
   migrationsTableName: 'migrations',
   migrations: ['src/**/migrations/*.ts'],
-  seeds: ['src/**/seeders/**/*.seeder.ts'],
-  factories: ['src/**/factories/**/*.ts'],
+  seeds: ['src/modules/**/seeding/**/user.seeder.ts'],
+  factories: ['src/modules/**/seeding/**/user.factory.ts'],
   cli: {
     migrationsDir: `src/infrastructure/database/migrations`,
   },
