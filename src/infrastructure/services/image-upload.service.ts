@@ -7,7 +7,7 @@ import { ConflictException } from '@exceptions';
 export class ImageUploadService implements FileUplaodService {
   upload(file: Buffer, image: BookImage): void {
     // check if file exists
-    const filePath = `${__dirname}/../../upload/image/${image.imageName}`;
+    const filePath = `${imageStorageConfig.dist}/${image.imageName}`;
     const exists = fs.existsSync(filePath);
     if (exists) {
       throw new ConflictException('File already exists');

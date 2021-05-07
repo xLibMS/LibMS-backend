@@ -1,3 +1,3 @@
 export const imageStorageConfig = {
-  dist: './src/upload/images',
+  dist: `${__dirname}/../../upload/image`,
 };
