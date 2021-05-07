@@ -70,7 +70,7 @@
     "@nestjs/testing": "^7.6.15",
     "@types/bcrypt": "^3.0.1",
     "@types/csurf": "^1.11.1",
-    "@types/faker": "^5.5.3",
+    "@types/faker": "^5.5.4",
     "@types/inline-css": "^0.0.33",
     "@types/jest": "26.0.23",
     "@types/joi": "^17.2.3",
