@@ -1,5 +1,5 @@
 import { DomainException } from '@exceptions';
-import { ValueObject } from 'src/core/base-classes/value-object.base';
+import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 
 export interface ImageProps {
   imageName: string;
@@ -7,7 +7,11 @@ export interface ImageProps {
   imageSize: number;
 }
 
-export class BookImage extends ValueObject<ImageProps> {
+export class ImageEntity extends AggregateRoot<ImageProps> {
+  constructor(props: ImageProps) {
+    super(props);
+  }
+
   get imageName(): string {
     return this.props.imageName;
   }

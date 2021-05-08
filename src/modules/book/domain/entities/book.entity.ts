@@ -1,17 +1,17 @@
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
-import { BookImage } from '../value-objects/image.value-object';
-import { Author } from '../value-objects/author.value-object';
 import { ISBN } from '../value-objects/isbn.value-object';
+import { AuthorEntity } from './author.entity';
+import { ImageEntity } from './image.entity';
 
 export interface BookProps {
   isbn: ISBN;
   title: string;
   subtitle?: string;
   originalTitle?: string;
-  authors: Author[];
+  authors: AuthorEntity[];
   publisher: string;
   publishedDate: Date;
-  image: BookImage;
+  image: ImageEntity;
   pageCount: number;
   overview?: string;
 }
@@ -37,7 +37,7 @@ export class BookEntity extends AggregateRoot<BookProps> {
     return this.props.originalTitle;
   }
 
-  get authors(): Author[] {
+  get authors(): AuthorEntity[] {
     return this.props.authors;
   }
 
@@ -49,7 +49,7 @@ export class BookEntity extends AggregateRoot<BookProps> {
     return this.props.publishedDate;
   }
 
-  get image(): BookImage {
+  get image(): ImageEntity {
     return this.props.image;
   }
 
