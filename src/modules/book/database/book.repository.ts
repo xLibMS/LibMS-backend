@@ -16,7 +16,7 @@ import { BookRepositoryPort } from './book.repository.interface';
 export class BookRepository
   extends TypeormRepositoryBase<BookEntity, BookProps, BookOrmEntity>
   implements BookRepositoryPort {
-  protected relations: string[] = [];
+  protected relations: string[] = ['authors', 'image'];
 
   constructor(
     @InjectRepository(BookOrmEntity)

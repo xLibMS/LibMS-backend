@@ -1,7 +1,14 @@
 import { TypeormEntityBase } from 'src/infrastructure/database/base-classes/typeorm.entity.base';
-import { Column, Entity } from 'typeorm';
-import { Author } from './author.orm-subdoc';
-import { BookImage } from './image.orm-subdoc';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  OneToOne,
+} from 'typeorm';
+import { AuthorOrmEntity } from './Author/author.orm-entity';
+import { ImageOrmEntity } from './Image/image.orm-entity';
 
 @Entity('book')
 export class BookOrmEntity extends TypeormEntityBase {
@@ -21,11 +28,13 @@ export class BookOrmEntity extends TypeormEntityBase {
   @Column({ nullable: true })
   originalTitle?: string;
 
-  @Column(() => Author)
-  authors!: Author[];
+  @ManyToMany(() => AuthorOrmEntity)
+  @JoinTable()
+  authors!: AuthorOrmEntity[];
 
-  @Column(() => BookImage)
-  image!: BookImage;
+  @OneToOne(() => ImageOrmEntity)
+  @JoinColumn()
+  image!: ImageOrmEntity;
 
   @Column()
   publisher!: string;

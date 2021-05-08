@@ -11,19 +11,18 @@ export const bookSeeds: NonFunctionProperties<BookOrmEntity>[] = [
     subtitle: '(SEI Series in Software Engineering), 3rd Edition',
     authors: [
       {
-        firstName: 'Len',
-        lastName: 'Baas',
-      },
-      {
-        firstName: 'Rick',
-        lastName: 'Kazman',
-      },
-      {
-        firstName: 'Paul',
-        lastName: 'Clements',
+        name: 'Len',
+        ...createdAtUpdatedAtMock,
+        id: '2131',
       },
     ],
-    image: { imageName: 'cover.jpg', imageSize: 400, imageType: 'image/jpeg' },
+    image: {
+      imageName: 'cover.jpg',
+      imageSize: 400,
+      imageType: 'image/jpeg',
+      ...createdAtUpdatedAtMock,
+      id: '2131',
+    },
     publisher: 'Addison-Wesley Professional',
     publishedDate: new Date(2012, 9, 25),
     pageCount: 624,
@@ -39,11 +38,18 @@ export const bookSeeds: NonFunctionProperties<BookOrmEntity>[] = [
     originalTitle: 'string',
     authors: [
       {
-        firstName: 'Charles',
-        lastName: 'Fleddermann',
+        name: 'Len',
+        ...createdAtUpdatedAtMock,
+        id: '2131',
       },
     ],
-    image: { imageName: 'cover.png', imageSize: 450, imageType: 'image/png' },
+    image: {
+      imageName: 'cover.png',
+      imageSize: 450,
+      imageType: 'image/png',
+      ...createdAtUpdatedAtMock,
+      id: '2131',
+    },
     publisher: 'Pearson',
     publishedDate: new Date(2012),
     pageCount: 192,

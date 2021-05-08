@@ -3,30 +3,33 @@ import {
   OrmMapper,
 } from 'src/infrastructure/database/base-classes/orm-mapper.base';
 import { BookEntity, BookProps } from '../domain/entities/book.entity';
-import { Author } from '../domain/value-objects/author.value-object';
 import { ISBN } from '../domain/value-objects/isbn.value-object';
-import { BookImage } from '../domain/value-objects/image.value-object';
 import { BookOrmEntity } from './book.orm-entity';
+import { AuthorEntity } from '../domain/entities/author.entity';
+import { ImageEntity } from '../domain/entities/image.entity';
+import { AuthorOrmMapper } from './author/author.orm-mapper';
+import { AuthorOrmEntity } from './Author/author.orm-entity';
+import { ImageOrmMapper } from './Image/image.orm-mapper';
+import { ImageOrmEntity } from './Image/image.orm-entity';
 
 export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
   protected toOrmProps(entity: BookEntity): OrmEntityProps<BookOrmEntity> {
     const props = entity.getPropsCopy();
+    const authorMapper = new AuthorOrmMapper(AuthorEntity, AuthorOrmEntity);
+    const authorsOrm = props.authors.map((author) =>
+      authorMapper.toOrmEntity(author),
+    );
+    const imageMapper = new ImageOrmMapper(ImageEntity, ImageOrmEntity);
+    const imageOrm = imageMapper.toOrmEntity(props.image);
     const ormProps: OrmEntityProps<BookOrmEntity> = {
       isbn: props.isbn.value,
       title: props.title,
       subtitle: props.subtitle,
       originalTitle: props.originalTitle,
-      authors: props.authors.map((author) => ({
-        firstName: author.firstName,
-        lastName: author.lastName,
-      })),
+      authors: authorsOrm,
       publisher: props.publisher,
       publishedDate: props.publishedDate,
-      image: {
-        imageName: props.image.imageName,
-        imageSize: props.image.imageSize,
-        imageType: props.image.imageType,
-      },
+      image: imageOrm,
       pageCount: props.pageCount,
       overview: props.overview,
     };
@@ -34,25 +37,21 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
   }
 
   protected toDomainProps(ormEntity: BookOrmEntity): BookProps {
+    const authorMapper = new AuthorOrmMapper(AuthorEntity, AuthorOrmEntity);
+    const authorsOrm = ormEntity.authors.map((author) =>
+      authorMapper.toDomainEntity(author),
+    );
+    const imageMapper = new ImageOrmMapper(ImageEntity, ImageOrmEntity);
+    const imageOrm = imageMapper.toDomainEntity(ormEntity.image);
     const props: BookProps = {
       isbn: new ISBN(ormEntity.isbn),
       title: ormEntity.title,
       subtitle: ormEntity.subtitle,
       originalTitle: ormEntity.originalTitle,
-      authors: ormEntity.authors.map(
-        (author) =>
-          new Author({
-            firstName: author.firstName,
-            lastName: author.lastName,
-          }),
-      ),
+      authors: authorsOrm,
       publisher: ormEntity.publisher,
       publishedDate: ormEntity.publishedDate,
-      image: new BookImage({
-        imageName: ormEntity.image.imageName,
-        imageSize: ormEntity.image.imageSize,
-        imageType: ormEntity.image.imageType,
-      }),
+      image: imageOrm,
       pageCount: ormEntity.pageCount,
       overview: ormEntity.overview,
     };
