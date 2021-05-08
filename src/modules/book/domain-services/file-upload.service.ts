@@ -1,5 +1,4 @@
-import { BookImage } from '../domain/value-objects/image.value-object';
-
 export interface FileUplaodService {
-  upload(file: Buffer, image: BookImage): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  upload(file: Buffer, image: any): void;
 }

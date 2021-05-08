@@ -1,8 +1,6 @@
-export interface Author {
-  firstName: string;
-  lastName: string;
-  middleName?: string;
-}
+import { Author } from './author.interface';
+import { Image } from './image.interface';
+
 export interface CreateBook {
   isbn: string;
   title: string;

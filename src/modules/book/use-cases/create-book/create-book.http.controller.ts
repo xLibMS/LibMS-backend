@@ -14,10 +14,11 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { IdResponse } from 'src/interface-adapters/dtos/id.response.dto';
 import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { BookImage } from '@modules/book/domain/value-objects/image.value-object';
 import { CreateBookService } from './create-book.service';
 import { CreateBookRequest } from './create-book.request.dto';
 import { CreateBookCommand } from './create-book.command';
+import { CreateAuthorsCommand } from './create-author.command';
+import { CreateImageCommand } from './create-image.command';
 
 @Controller()
 export class CreateBookHttpController {
@@ -45,25 +46,32 @@ export class CreateBookHttpController {
     @Body() body: CreateBookRequest,
     @UploadedFile() file: Express.Multer.File,
   ): Promise<IdResponse> {
-    const command = new CreateBookCommand({
+    const authorsCommand = new CreateAuthorsCommand(body.authors);
+
+    const imageCommand = new CreateImageCommand({
+      imageName: file.originalname,
+      imageSize: file.size,
+      imageType: file.mimetype,
+      storedImage: file.buffer,
+    });
+
+    const bookCommand = new CreateBookCommand({
       isbn: body.isbn,
       title: body.title,
       subtitle: body.subtitle,
       originalTitle: body.originalTitle,
-      authors: body.authors,
+      authors: [],
       publisher: body.publisher,
       publishedDate: new Date(body.publishedDate),
-      image: new BookImage({
-        imageName: file.originalname,
-        imageSize: file.size,
-        imageType: file.mimetype,
-      }),
       pageCount: body.pageCount,
       overview: body.overview,
-      storedImage: file.buffer,
     });
 
-    const id = await this.createBookService.createBook(command);
+    const id = await this.createBookService.createBook(
+      bookCommand,
+      authorsCommand,
+      imageCommand,
+    );
     return new IdResponse(id.value);
   }
 }

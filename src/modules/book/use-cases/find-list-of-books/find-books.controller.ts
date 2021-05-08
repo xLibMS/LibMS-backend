@@ -3,6 +3,7 @@ import { routes } from '@config/app.routes';
 import { BooksResponse } from '@modules/book/dtos/books.response.dto';
 import { BookRepository } from '@modules/book/database/book.repository';
 import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
+import { BookResponse } from '@modules/book/dtos/book.response.dts';
 
 @Controller()
 export class FindBooksHttpController {
@@ -12,6 +13,7 @@ export class FindBooksHttpController {
   @Get(routes.book.books)
   async findBooks(): Promise<BooksResponse> {
     const books = await this.bookRepo.findMany();
-    return new BooksResponse(books);
+    const booksResponse = books.map((book) => new BookResponse(book));
+    return new BooksResponse(booksResponse);
   }
 }

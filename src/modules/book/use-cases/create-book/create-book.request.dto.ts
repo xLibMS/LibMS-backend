@@ -1,7 +1,4 @@
-import {
-  Author,
-  CreateBook,
-} from 'src/interface-adapters/interfaces/book/create-book.interface';
+import { CreateBook } from 'src/interface-adapters/interfaces/book/create-book.interface';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
@@ -14,6 +11,8 @@ import {
   Min,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { Author } from 'src/interface-adapters/interfaces/book/author.interface';
+import { Image } from 'src/interface-adapters/interfaces/book/image.interface';
 
 export class CreateBookRequest implements CreateBook {
   @ApiProperty({

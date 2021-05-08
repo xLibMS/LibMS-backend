@@ -13,5 +13,6 @@ export const routes = {
   book: {
     root: booksRoot,
     books,
+    authors: `${booksRoot}/authors`,
   },
 };
