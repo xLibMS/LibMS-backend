@@ -1,7 +1,7 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { routes } from '@config/app.routes';
 import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
-import { AuthorRepository } from '@modules/book/database/Author/author.repository';
+import { AuthorRepository } from '@modules/book/database/author/author.repository';
 import { AuthorsResponse } from '@modules/book/dtos/authors.response.dts';
 import { AuthorResponse } from '@modules/book/dtos/author.response.dts';
 

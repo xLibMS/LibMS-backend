@@ -7,8 +7,8 @@ import {
   ManyToMany,
   OneToOne,
 } from 'typeorm';
-import { AuthorOrmEntity } from './Author/author.orm-entity';
-import { ImageOrmEntity } from './Image/image.orm-entity';
+import { AuthorOrmEntity } from './author/author.orm-entity';
+import { ImageOrmEntity } from './image/image.orm-entity';
 
 @Entity('book')
 export class BookOrmEntity extends TypeormEntityBase {

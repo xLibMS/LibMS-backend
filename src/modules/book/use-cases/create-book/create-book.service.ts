@@ -1,6 +1,6 @@
 import { AuthorRepository } from '@modules/book/database/author/author.repository';
 import { BookRepositoryPort } from '@modules/book/database/book.repository.interface';
-import { ImageRepositoryPort } from '@modules/book/database/Image/image.repository.interface';
+import { ImageRepositoryPort } from '@modules/book/database/image/image.repository.interface';
 import { FileUplaodService } from '@modules/book/domain-services/file-upload.service';
 import { AuthorEntity } from '@modules/book/domain/entities/author.entity';
 import { BookEntity } from '@modules/book/domain/entities/book.entity';

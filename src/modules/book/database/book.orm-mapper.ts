@@ -8,9 +8,9 @@ import { BookOrmEntity } from './book.orm-entity';
 import { AuthorEntity } from '../domain/entities/author.entity';
 import { ImageEntity } from '../domain/entities/image.entity';
 import { AuthorOrmMapper } from './author/author.orm-mapper';
-import { AuthorOrmEntity } from './Author/author.orm-entity';
-import { ImageOrmMapper } from './Image/image.orm-mapper';
-import { ImageOrmEntity } from './Image/image.orm-entity';
+import { AuthorOrmEntity } from './author/author.orm-entity';
+import { ImageOrmMapper } from './image/image.orm-mapper';
+import { ImageOrmEntity } from './image/image.orm-entity';
 
 export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
   protected toOrmProps(entity: BookEntity): OrmEntityProps<BookOrmEntity> {
