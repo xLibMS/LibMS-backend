@@ -1,8 +1,8 @@
-import { FileUplaodService } from '@modules/book/domain-services/file-upload.service';
-import * as fs from 'fs';
 import { imageStorageConfig } from '@config/storage.config';
 import { ConflictException } from '@exceptions';
+import { FileUplaodService } from '@modules/book/domain-services/file-upload.service';
 import { ImageEntity } from '@modules/book/domain/entities/image.entity';
+import * as fs from 'fs';
 
 export class ImageUploadService implements FileUplaodService {
   upload(file: Buffer, image: ImageEntity): void {
