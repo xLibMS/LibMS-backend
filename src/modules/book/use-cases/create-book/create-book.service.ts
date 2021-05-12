@@ -1,6 +1,4 @@
-import { AuthorRepository } from '@modules/book/database/author/author.repository';
 import { BookRepositoryPort } from '@modules/book/database/book.repository.interface';
-import { ImageRepositoryPort } from '@modules/book/database/image/image.repository.interface';
 import { FileUploadService } from '@modules/book/domain-services/file-upload.service';
 import { AuthorEntity } from '@modules/book/domain/entities/author.entity';
 import { BookEntity } from '@modules/book/domain/entities/book.entity';
@@ -13,8 +11,6 @@ export class CreateBookService {
   constructor(
     private readonly bookRepo: BookRepositoryPort,
     private readonly imageService: FileUploadService,
-    private readonly imageRepo: ImageRepositoryPort,
-    private readonly authorRepo: AuthorRepository,
   ) {}
 
   async createBook(bookCommand: CreateBookCommand): Promise<ID> {
@@ -23,19 +19,19 @@ export class CreateBookService {
     }
     const { authors, image, ...book } = bookCommand;
 
+    const fileName = this.imageService.upload(image);
+
     const bookEntity = new BookEntity({
       ...book,
       authors: authors.map((author) => new AuthorEntity(author)),
       image: new ImageEntity({
-        name: image.originalname,
+        name: fileName,
         mimeType: image.mimetype,
         size: image.size,
       }),
     });
 
     const created = await this.bookRepo.save(bookEntity);
-
-    this.imageService.upload(image);
 
     return created.id;
   }
