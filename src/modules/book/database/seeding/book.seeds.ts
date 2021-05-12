@@ -11,15 +11,15 @@ export const bookSeeds: NonFunctionProperties<BookOrmEntity>[] = [
     subtitle: '(SEI Series in Software Engineering), 3rd Edition',
     authors: [
       {
-        name: 'Len',
+        fullName: 'Len',
         ...createdAtUpdatedAtMock,
         id: '2131',
       },
     ],
     image: {
-      imageName: 'cover.jpg',
-      imageSize: 400,
-      imageType: 'image/jpeg',
+      name: 'cover.jpg',
+      size: 400,
+      mimeType: 'image/jpeg',
       ...createdAtUpdatedAtMock,
       id: '2131',
     },
@@ -38,15 +38,15 @@ export const bookSeeds: NonFunctionProperties<BookOrmEntity>[] = [
     originalTitle: 'string',
     authors: [
       {
-        name: 'Len',
+        fullName: 'Len Baas',
         ...createdAtUpdatedAtMock,
         id: '2131',
       },
     ],
     image: {
-      imageName: 'cover.png',
-      imageSize: 450,
-      imageType: 'image/png',
+      name: 'cover.png',
+      size: 450,
+      mimeType: 'image/png',
       ...createdAtUpdatedAtMock,
       id: '2131',
     },

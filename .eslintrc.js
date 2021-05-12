@@ -58,5 +58,7 @@ module.exports = {
         message: 'Property setters are not allowed',
       },
     ],
+
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
 };

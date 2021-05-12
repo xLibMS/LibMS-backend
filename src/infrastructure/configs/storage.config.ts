@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 export const imageStorageConfig = {
-  dist: `${__dirname}/../../../public/upload/images`,
+  dist: path.join(__dirname, '/../../../public/upload/images'),
 };

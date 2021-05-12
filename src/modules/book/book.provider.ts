@@ -11,13 +11,13 @@ export const createBookProvider: Provider = {
   provide: createBookSymbol,
   useFactory: (
     bookRepository: BookRepository,
-    imageSerivce: ImageUploadService,
+    imageService: ImageUploadService,
     imageRepository: ImageRepository,
     authorRepository: AuthorRepository,
   ): CreateBookService =>
     new CreateBookService(
       bookRepository,
-      imageSerivce,
+      imageService,
       imageRepository,
       authorRepository,
     ),

@@ -1,7 +1,7 @@
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 
 export interface AuthorProps {
-  name: string;
+  fullName: string;
 }
 
 export class AuthorEntity extends AggregateRoot<AuthorProps> {
@@ -9,7 +9,7 @@ export class AuthorEntity extends AggregateRoot<AuthorProps> {
     super(props);
   }
 
-  get name(): string {
-    return this.props.name;
+  get fullName(): string {
+    return this.props.fullName;
   }
 }

@@ -1,23 +1,23 @@
 export interface CreateImageProps {
-  imageType: string;
-  imageSize: number;
-  imageName: string;
+  mimeType: string;
+  size: number;
+  name: string;
   storedImage: Buffer;
 }
 
 export class CreateImageCommand {
   constructor(props: CreateImageProps) {
-    this.imageName = props.imageName;
-    this.imageType = props.imageType;
-    this.imageSize = props.imageSize;
+    this.name = props.name;
+    this.mimeType = props.mimeType;
+    this.size = props.size;
     this.storedImage = props.storedImage;
   }
 
-  readonly imageName: string;
+  readonly name: string;
 
-  readonly imageType: string;
+  readonly mimeType: string;
 
-  readonly imageSize: number;
+  readonly size: number;
 
   readonly storedImage: Buffer;
 }
