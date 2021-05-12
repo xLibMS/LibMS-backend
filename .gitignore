@@ -40,4 +40,4 @@ lerna-debug.log*
 .eslintcache
 
 # Uploads
-/public/upload/*
+/public/upload/**/*.*

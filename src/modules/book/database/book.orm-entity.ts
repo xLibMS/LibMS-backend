@@ -28,11 +28,11 @@ export class BookOrmEntity extends TypeormEntityBase {
   @Column({ nullable: true })
   originalTitle?: string;
 
-  @ManyToMany(() => AuthorOrmEntity)
+  @ManyToMany(() => AuthorOrmEntity, { cascade: ['insert'] })
   @JoinTable()
   authors!: AuthorOrmEntity[];
 
-  @OneToOne(() => ImageOrmEntity)
+  @OneToOne(() => ImageOrmEntity, { cascade: ['insert'] })
   @JoinColumn()
   image!: ImageOrmEntity;
 

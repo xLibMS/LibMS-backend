@@ -1,5 +1,4 @@
 import { Author } from './author.interface';
-import { Image } from './image.interface';
 
 export interface CreateBook {
   isbn: string;
@@ -9,7 +8,6 @@ export interface CreateBook {
   authors: Author[];
   publisher: string;
   publishedDate: string;
-  image: string;
   pageCount: number;
   overview?: string;
 }

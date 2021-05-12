@@ -2,9 +2,9 @@ import { DomainException } from '@exceptions';
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 
 export interface ImageProps {
-  imageName: string;
-  imageType: string;
-  imageSize: number;
+  name: string;
+  mimeType: string;
+  size: number;
 }
 
 export class ImageEntity extends AggregateRoot<ImageProps> {
@@ -12,27 +12,27 @@ export class ImageEntity extends AggregateRoot<ImageProps> {
     super(props);
   }
 
-  get imageName(): string {
-    return this.props.imageName;
+  get name(): string {
+    return this.props.name;
   }
 
-  get imageType(): string {
-    return this.props.imageType;
+  get mimeType(): string {
+    return this.props.mimeType;
   }
 
-  get imageSize(): number {
-    return this.props.imageSize;
+  get size(): number {
+    return this.props.size;
   }
 
   private validExtension(props: ImageProps): boolean {
     const mimeType: string[] = ['image/jpeg', 'image/png'];
 
-    return mimeType.includes(props.imageType);
+    return mimeType.includes(props.mimeType);
   }
 
   protected validate(props: ImageProps): void {
     // check of size (1Mb)
-    if (props.imageSize / 1024 > 1024) {
+    if (props.size / 1024 > 1024) {
       throw new DomainException('max file size exceeded');
     }
     // check file extension

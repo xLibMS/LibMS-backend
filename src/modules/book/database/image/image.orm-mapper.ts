@@ -12,18 +12,18 @@ export class ImageOrmMapper extends OrmMapper<ImageEntity, ImageOrmEntity> {
   protected toOrmProps(entity: ImageEntity): OrmEntityProps<ImageOrmEntity> {
     const props = entity.getPropsCopy();
     const ormProps: OrmEntityProps<ImageOrmEntity> = {
-      imageName: props.imageName,
-      imageType: props.imageType,
-      imageSize: props.imageSize,
+      name: props.name,
+      mimeType: props.mimeType,
+      size: props.size,
     };
     return ormProps;
   }
 
   protected toDomainProps(ormEntity: ImageOrmEntity): ImageProps {
     const props: ImageProps = {
-      imageName: ormEntity.imageName,
-      imageSize: ormEntity.imageSize,
-      imageType: ormEntity.imageType,
+      name: ormEntity.name,
+      size: ormEntity.size,
+      mimeType: ormEntity.mimeType,
     };
 
     return props;

@@ -1,6 +1,6 @@
 import { ISBN } from '@modules/book/domain/value-objects/isbn.value-object';
+import { DateVO } from 'src/core/value-objects/date.value-object';
 import { Author } from 'src/interface-adapters/interfaces/book/author.interface';
-import { Image } from 'src/interface-adapters/interfaces/book/image.interface';
 
 export interface CreateBookProps {
   isbn: string;
@@ -9,9 +9,8 @@ export interface CreateBookProps {
   originalTitle?: string;
   authors: Author[];
   publisher: string;
-  publishedDate: Date;
-  image?: Image;
-  storedImage?: Buffer;
+  publishedDate: string;
+  image: Express.Multer.File;
   pageCount: number;
   overview?: string;
 }
@@ -24,7 +23,8 @@ export class CreateBookCommand {
     this.originalTitle = props.originalTitle;
     this.authors = props.authors;
     this.publisher = props.publisher;
-    this.publishedDate = props.publishedDate;
+    this.publishedDate = new DateVO(props.publishedDate);
+    this.image = props.image;
     this.pageCount = props.pageCount;
     this.overview = props.overview;
   }
@@ -41,9 +41,9 @@ export class CreateBookCommand {
 
   readonly publisher: string;
 
-  readonly publishedDate: Date;
+  readonly publishedDate: DateVO;
 
-  readonly image?: Image;
+  readonly image: Express.Multer.File;
 
   readonly pageCount: number;
 

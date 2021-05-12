@@ -9,14 +9,14 @@ export class AuthorOrmMapper extends OrmMapper<AuthorEntity, AuthorOrmEntity> {
   protected toOrmProps(entity: AuthorEntity): OrmEntityProps<AuthorOrmEntity> {
     const props = entity.getPropsCopy();
     const ormProps: OrmEntityProps<AuthorOrmEntity> = {
-      name: props.name,
+      fullName: props.fullName,
     };
     return ormProps;
   }
 
   protected toDomainProps(ormEntity: AuthorOrmEntity): AuthorProps {
     const props: AuthorProps = {
-      name: ormEntity.name,
+      fullName: ormEntity.fullName,
     };
 
     return props;

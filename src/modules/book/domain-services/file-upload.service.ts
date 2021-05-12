@@ -1,4 +1,4 @@
-export interface FileUplaodService {
+export interface FileUploadService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  upload(file: Buffer, image: any): void;
+  upload(file: Express.Multer.File): string;
 }

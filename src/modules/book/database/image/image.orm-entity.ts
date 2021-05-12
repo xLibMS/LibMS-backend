@@ -8,11 +8,11 @@ export class ImageOrmEntity extends TypeormEntityBase {
   }
 
   @Column()
-  imageName!: string;
+  name!: string;
 
   @Column()
-  imageType!: string;
+  mimeType!: string;
 
   @Column()
-  imageSize!: number;
+  size!: number;
 }

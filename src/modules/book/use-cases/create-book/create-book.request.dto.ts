@@ -1,5 +1,5 @@
-import { CreateBook } from 'src/interface-adapters/interfaces/book/create-book.interface';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsDateString,
@@ -10,9 +10,8 @@ import {
   Length,
   Min,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 import { Author } from 'src/interface-adapters/interfaces/book/author.interface';
-import { Image } from 'src/interface-adapters/interfaces/book/image.interface';
+import { CreateBook } from 'src/interface-adapters/interfaces/book/create-book.interface';
 
 export class CreateBookRequest implements CreateBook {
   @ApiProperty({
@@ -53,8 +52,6 @@ export class CreateBookRequest implements CreateBook {
 
   @IsDateString()
   publishedDate!: string;
-
-  image!: string;
 
   @Type(() => Number)
   @IsNumber()

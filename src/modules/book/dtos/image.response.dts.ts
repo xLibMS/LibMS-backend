@@ -6,14 +6,14 @@ export class ImageResponse extends ResponseBase implements Image {
   constructor(image: ImageEntity) {
     super(image);
 
-    this.imageName = image.imageName;
-    this.imageType = image.imageType;
-    this.imageSize = image.imageSize;
+    this.name = image.name;
+    this.mimeType = image.mimeType;
+    this.size = image.size;
   }
 
-  imageName: string;
+  name: string;
 
-  imageType: string;
+  mimeType: string;
 
-  imageSize: number;
+  size: number;
 }

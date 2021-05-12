@@ -14,10 +14,9 @@ import { AuthorRepositoryPort } from './author.repository.interface';
 @Injectable()
 export class AuthorRepository
   extends TypeormRepositoryBase<AuthorEntity, AuthorProps, AuthorOrmEntity>
-  implements AuthorRepositoryPort {
+  implements AuthorRepositoryPort
+{
   protected relations: string[] = [];
-
-  test = '';
 
   constructor(
     @InjectRepository(AuthorOrmEntity)

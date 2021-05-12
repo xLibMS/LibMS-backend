@@ -5,9 +5,8 @@ import { AuthorEntity } from '../domain/entities/author.entity';
 export class AuthorResponse extends ResponseBase implements Author {
   constructor(author: AuthorEntity) {
     super(author);
-
-    this.name = author.name;
+    this.fullName = author.fullName;
   }
 
-  name: string;
+  fullName: string;
 }
