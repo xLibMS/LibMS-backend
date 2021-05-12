@@ -58,7 +58,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.7",
     "swagger-ui-express": "^4.1.6",
-    "tldts": "^5.7.34",
+    "tldts": "^5.7.35",
     "typeorm": "^0.2.32",
     "typeorm-seeding": "^1.6.1",
     "uuid": "^8.3.1",
