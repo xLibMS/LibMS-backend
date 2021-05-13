@@ -9,4 +9,5 @@ export interface BookRepositoryPort
   extends RepositoryPort<BookEntity, BookProps> {
   findOneByISBNOrThrow(isbn: string): Promise<BookEntity>;
   existsByISBN(isbn: string): Promise<boolean>;
+  findReserved(isReserved: boolean): Promise<BookEntity | undefined>;
 }

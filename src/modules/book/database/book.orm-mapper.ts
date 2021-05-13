@@ -29,6 +29,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       },
       pageCount: props.pageCount,
       overview: props.overview,
+      isReserved: props.isReserved,
     };
     return ormProps;
   }
@@ -55,6 +56,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       }),
       pageCount: ormEntity.pageCount,
       overview: ormEntity.overview,
+      isReserved: ormEntity.isReserved,
     };
 
     return props;

@@ -14,6 +14,7 @@ export interface BookProps {
   image: BookImage;
   pageCount: number;
   overview?: string;
+  isReserved: boolean;
 }
 
 export class BookEntity extends AggregateRoot<BookProps> {
@@ -59,5 +60,9 @@ export class BookEntity extends AggregateRoot<BookProps> {
 
   get overview(): string | undefined {
     return this.props.overview;
+  }
+
+  get isReserved(): boolean {
+    return this.props.isReserved;
   }
 }

@@ -55,6 +55,13 @@ export class BookRepository
     return false;
   }
 
+  async findReserved(isReserved: boolean): Promise<BookEntity | undefined> {
+    const reserved = await this.findReserved(isReserved);
+    if (reserved) {
+       // list of reserved book
+    }
+  }
+
   protected prepareQuery(
     params: QueryParams<BookProps>,
   ): WhereCondition<BookOrmEntity> {
