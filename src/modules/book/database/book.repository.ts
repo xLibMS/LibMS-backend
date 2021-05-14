@@ -11,7 +11,6 @@ import { BookEntity, BookProps } from '../domain/entities/book.entity';
 import { BookOrmEntity } from './book.orm-entity';
 import { BookOrmMapper } from './book.orm-mapper';
 import { BookRepositoryPort } from './book.repository.interface';
-
 @Injectable()
 export class BookRepository
   extends TypeormRepositoryBase<BookEntity, BookProps, BookOrmEntity>
@@ -53,13 +52,6 @@ export class BookRepository
       return true;
     }
     return false;
-  }
-
-  async findReserved(isReserved: boolean): Promise<BookEntity | undefined> {
-    const reserved = await this.findReserved(isReserved);
-    if (reserved) {
-       // list of reserved book
-    }
   }
 
   protected prepareQuery(

@@ -38,7 +38,4 @@ export class BookOrmEntity extends TypeormEntityBase {
 
   @Column({ nullable: true })
   overview?: string;
-
-  @Column()
-  isReserved = false;
 }
