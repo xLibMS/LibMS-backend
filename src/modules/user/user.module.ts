@@ -15,7 +15,7 @@ import { FindUserByEmailHttpController } from './use-cases/find-user-by-email/fi
 import { RefreshTokenHttpController } from './use-cases/refresh-token/refresh-token.http.controller';
 import { DeleteUserHttpController } from './use-cases/remove-user/delete-user.controller';
 import {
-  authUserPorivder,
+  authUserProvider,
   createUserProvider,
   refreshTokenProvider,
   removeUserProvider,
@@ -43,7 +43,7 @@ import {
     createUserProvider,
     removeUserProvider,
     BcryptHashingService,
-    authUserPorivder,
+    authUserProvider,
     refreshTokenProvider,
   ],
   exports: [AuthService, JwtModule],

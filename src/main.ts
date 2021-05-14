@@ -1,10 +1,9 @@
-import * as csurf from 'csurf';
-import * as helmet from 'helmet';
 import { initDomainEventHandlers } from '@modules/domain-event-handlers';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { ExceptionInterceptor } from './infrastructure/interceptors/exception.interceptor';
@@ -26,6 +25,8 @@ async function bootstrap(): Promise<void> {
   app.useGlobalPipes(new ValidationPipe());
 
   app.useGlobalInterceptors(new ExceptionInterceptor());
+
+  app.use(cookieParser());
 
   app.enableCors();
 
