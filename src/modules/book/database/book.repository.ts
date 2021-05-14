@@ -15,7 +15,8 @@ import { BookRepositoryPort } from './book.repository.interface';
 @Injectable()
 export class BookRepository
   extends TypeormRepositoryBase<BookEntity, BookProps, BookOrmEntity>
-  implements BookRepositoryPort {
+  implements BookRepositoryPort
+{
   protected relations: string[] = ['authors', 'image'];
 
   constructor(
@@ -34,6 +35,7 @@ export class BookRepository
   ): Promise<BookOrmEntity | undefined> {
     const book = await this.bookRepository.findOne({
       where: { isbn },
+      relations: this.relations,
     });
 
     return book;

@@ -1,3 +1,4 @@
+import { ReservationOrmEntity } from '@modules/reservation/database/reservation.orm-entity';
 import { TypeormEntityBase } from 'src/infrastructure/database/base-classes/typeorm.entity.base';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
+  OneToMany,
   OneToOne,
 } from 'typeorm';
 import { AuthorOrmEntity } from './author/author.orm-entity';
@@ -47,4 +49,7 @@ export class BookOrmEntity extends TypeormEntityBase {
 
   @Column({ nullable: true })
   overview?: string;
+
+  @OneToMany(() => ReservationOrmEntity, (reservations) => reservations.book)
+  reservations!: ReservationOrmEntity[];
 }
