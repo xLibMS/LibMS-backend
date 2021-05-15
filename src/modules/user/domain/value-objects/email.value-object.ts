@@ -1,15 +1,15 @@
-import {
-  DomainPrimitive,
-  ValueObject,
-} from 'src/core/base-classes/value-object.base';
+import { emailDomainsWhitelist } from '@config/mailer.config';
 import {
   ArgumentInvalidException,
   ArgumentOutOfRangeException,
   DomainException,
 } from '@exceptions';
+import {
+  DomainPrimitive,
+  ValueObject,
+} from 'src/core/base-classes/value-object.base';
 import { Guard } from 'src/core/guard';
 import * as tldts from 'tldts';
-import { emailDomainsWhitelist } from '@config/mailer.config';
 
 export class Email extends ValueObject<string> {
   constructor(value: string) {

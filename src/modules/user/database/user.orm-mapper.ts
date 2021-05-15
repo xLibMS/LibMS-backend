@@ -19,6 +19,7 @@ export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
       firstName: props.fullName.firstName,
       lastName: props.fullName.lastName,
       password: props.password.value,
+      reservations: [],
     };
     return ormProps;
   }

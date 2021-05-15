@@ -35,6 +35,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       image,
       pageCount: props.pageCount,
       overview: props.overview,
+      reservations: [],
     };
     return ormProps;
   }

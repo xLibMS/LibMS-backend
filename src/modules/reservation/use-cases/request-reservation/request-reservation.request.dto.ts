@@ -1,0 +1,19 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsDateString, IsISBN } from 'class-validator';
+import { RequestReservation } from 'src/interface-adapters/interfaces/reservation/request-reservation.interface';
+
+export class RequestReservationRequest implements RequestReservation {
+  @ApiProperty({
+    example: '0521880688',
+    description: 'The ISBN of the book (10 or 13 digits)',
+  })
+  @IsISBN()
+  isbn!: string;
+
+  @ApiProperty({
+    example: '2021-05-10 20:36:02.67234',
+    description: 'The Date format is invalid',
+  })
+  @IsDateString()
+  reservationDate!: string;
+}
