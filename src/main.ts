@@ -1,5 +1,6 @@
 import { initDomainEventHandlers } from '@modules/domain-event-handlers';
 import { ValidationPipe } from '@nestjs/common';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -18,17 +19,19 @@ async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
-  // app.use(helmet());
-
-  // app.use(csurf());
-
   app.useGlobalPipes(new ValidationPipe());
 
   app.useGlobalInterceptors(new ExceptionInterceptor());
 
   app.use(cookieParser());
 
-  app.enableCors();
+  const corsOptions: CorsOptions = {
+    origin: 'http://localhost:4000',
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+  };
+  app.enableCors(corsOptions);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
 

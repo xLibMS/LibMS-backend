@@ -48,7 +48,8 @@ export class AuthenticateUserHttpController {
     );
     const cookieOptions: CookieOptions = {
       secure: false,
-      httpOnly: true,
+      httpOnly: false,
+      sameSite: 'none',
     };
     if (refreshToken.expiresIn) {
       cookieOptions.expires = new Date(Date.now() + refreshToken.expiresIn);
