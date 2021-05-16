@@ -1,7 +1,7 @@
 const root = '/api';
 const usersRoot = `${root}/user`;
 const booksRoot = `${root}/book`;
-const reservationRoot = `${root}/demand-book`;
+const reservationRoot = `${root}/reservation`;
 const books = `${root}/books`;
 
 export const routes = {
@@ -18,5 +18,6 @@ export const routes = {
   },
   reservation: {
     root: reservationRoot,
+    reservations: `${reservationRoot}/reservations`,
   },
 };

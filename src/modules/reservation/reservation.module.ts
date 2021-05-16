@@ -11,6 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReservationOrmEntity } from './database/reservation.orm-entity';
 import { ReservationRepository } from './database/reservation.repository';
 import { reserveBookProvider } from './reservation.provider';
+import { FindReservationsHttpController } from './use-cases/find-list-of-reservations/find-list-of-reservations.http.controller';
 import { RequestReservationHttpController } from './use-cases/request-reservation/request-reservation.http.controller';
 
 @Module({
@@ -25,7 +26,10 @@ import { RequestReservationHttpController } from './use-cases/request-reservatio
     PassportModule,
     AuthService,
   ],
-  controllers: [RequestReservationHttpController],
+  controllers: [
+    RequestReservationHttpController,
+    FindReservationsHttpController,
+  ],
   providers: [
     AuthService,
     ReservationRepository,

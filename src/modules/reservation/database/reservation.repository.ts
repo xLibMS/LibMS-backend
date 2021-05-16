@@ -23,7 +23,12 @@ export class ReservationRepository
   >
   implements ReservationRepositoryPort
 {
-  protected relations: string[] = [];
+  protected relations: string[] = [
+    'user',
+    'book',
+    'book.authors',
+    'book.image',
+  ];
 
   constructor(
     @InjectRepository(ReservationOrmEntity)

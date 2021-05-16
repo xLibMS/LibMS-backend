@@ -47,7 +47,6 @@ export class ReservationOrmMapper extends OrmMapper<
 
     const user = userOrmMapper.toDomainEntity(ormEntity.user);
     const book = bookOrmMapper.toDomainEntity(ormEntity.book);
-
     const props: ReservationRequestProps = {
       reservationStatusType: ormEntity.reservationStatus,
       book,

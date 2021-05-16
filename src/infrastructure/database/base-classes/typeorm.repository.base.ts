@@ -21,8 +21,9 @@ export type WhereCondition<OrmEntity> =
 export abstract class TypeormRepositoryBase<
   Entity extends BaseEntityProps,
   EntityProps,
-  OrmEntity
-> implements RepositoryPort<Entity, EntityProps> {
+  OrmEntity,
+> implements RepositoryPort<Entity, EntityProps>
+{
   protected constructor(
     protected readonly repository: Repository<OrmEntity>,
     protected readonly mapper: OrmMapper<Entity, OrmEntity>,
@@ -97,7 +98,6 @@ export abstract class TypeormRepositoryBase<
       where: this.prepareQuery(params),
       relations: this.relations,
     });
-
     return result.map((item) => this.mapper.toDomainEntity(item));
   }
 

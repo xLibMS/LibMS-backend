@@ -18,7 +18,8 @@ import { UserOrmMapper } from './user.orm-mapper';
 @Injectable()
 export class UserRepository
   extends TypeormRepositoryBase<UserEntity, UserProps, UserOrmEntity>
-  implements UserRepositoryPort {
+  implements UserRepositoryPort
+{
   protected relations: string[] = [];
 
   constructor(
