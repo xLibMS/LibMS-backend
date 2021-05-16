@@ -1,4 +1,5 @@
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
+import { Roles } from 'src/interface-adapters/enum/roles.enum';
 import { UserCreatedDomainEvent } from '../events/user-created.domain-event';
 import { Email } from '../value-objects/email.value-object';
 import { FullName } from '../value-objects/full-name.value-object';
@@ -11,6 +12,7 @@ export interface UserProps {
   universityID: UniversityID;
   fullName: FullName;
   password: Password;
+  role: Roles;
 }
 
 export class UserEntity extends AggregateRoot<UserProps> {
@@ -37,6 +39,10 @@ export class UserEntity extends AggregateRoot<UserProps> {
 
   get password(): Password {
     return this.props.password;
+  }
+
+  get role(): Roles {
+    return this.props.role;
   }
 
   someBusinessLogic(): void {
