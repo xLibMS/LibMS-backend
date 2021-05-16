@@ -1,6 +1,8 @@
 import { routes } from '@config/app.routes';
 import { createBookSymbol } from '@modules/book/book.provider';
 import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
+import { RolesDecorator } from '@modules/user/guards/roles.decorator';
+import { RolesGuard } from '@modules/user/guards/roles.guard';
 import {
   Body,
   Controller,
@@ -14,6 +16,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { IdResponse } from 'src/interface-adapters/dtos/id.response.dto';
+import { Roles } from 'src/interface-adapters/enum/roles.enum';
 import { CreateBookCommand } from './create-book.command';
 import { CreateBookRequest } from './create-book.request.dto';
 import { CreateBookService } from './create-book.service';
@@ -39,6 +42,8 @@ export class CreateBookHttpController {
   })
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('image'))
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @RolesDecorator('librarian')
   async create(
     @Body() body: CreateBookRequest,
     @UploadedFile() image: Express.Multer.File,

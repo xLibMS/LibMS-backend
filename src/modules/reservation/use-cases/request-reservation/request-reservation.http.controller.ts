@@ -1,6 +1,8 @@
 import { routes } from '@config/app.routes';
 import { reserveBookSymbol } from '@modules/reservation/reservation.provider';
 import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
+import { RolesDecorator } from '@modules/user/guards/roles.decorator';
+import { RolesGuard } from '@modules/user/guards/roles.guard';
 import {
   Body,
   Controller,
@@ -32,7 +34,8 @@ export class RequestReservationHttpController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @RolesDecorator('member', 'librarian')
   async create(
     @Body() body: RequestReservationRequest,
     @Request() req: AuthenticateUserRequest,

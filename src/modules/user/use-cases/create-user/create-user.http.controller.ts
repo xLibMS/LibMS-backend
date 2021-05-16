@@ -3,6 +3,7 @@ import { IdResponse } from 'src/interface-adapters/dtos/id.response.dto';
 import { routes } from '@config/app.routes';
 import { createUserSymbol } from '@modules/user/user.providers';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Roles } from 'src/interface-adapters/enum/roles.enum';
 import { CreateUserCommand } from './create-user.command';
 import { CreateUserService } from './create-user.service';
 import { CreateUserRequest } from './create-user.request.dto';
@@ -40,6 +41,7 @@ export class CreateUserHttpController {
         lastName: body.lastName,
       },
       password: body.password,
+      role: Roles.librarian,
     });
 
     const id = await this.createUser.createUser(command);

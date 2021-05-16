@@ -1,5 +1,6 @@
 import { ReservationOrmEntity } from '@modules/reservation/database/reservation.orm-entity';
 import { TypeormEntityBase } from 'src/infrastructure/database/base-classes/typeorm.entity.base';
+import { Roles } from 'src/interface-adapters/enum/roles.enum';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity('user')
@@ -22,6 +23,9 @@ export class UserOrmEntity extends TypeormEntityBase {
 
   @Column()
   password!: string;
+
+  @Column()
+  role!: Roles;
 
   @OneToMany(() => ReservationOrmEntity, (reservations) => reservations.user)
   reservations!: ReservationOrmEntity[];
