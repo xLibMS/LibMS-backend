@@ -1,12 +1,9 @@
 import { routes } from '@config/app.routes';
 import { TokenResponse } from '@modules/user/dtos/token.response.dto';
-import { UserResponse } from '@modules/user/dtos/user.response.dto';
-import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
 import { LocalAuthGuard } from '@modules/user/guards/local-auth.guard';
 import { authUserSymbol } from '@modules/user/user.providers';
 import {
   Controller,
-  Get,
   HttpStatus,
   Inject,
   Post,
@@ -56,12 +53,5 @@ export class AuthenticateUserHttpController {
     }
     res.cookie('REFRESH_TOKEN', refreshToken.token, cookieOptions);
     return new TokenResponse(accessToken);
-  }
-
-  // Should be moved to approriate use-case, this is left here for testing purposes
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Req() req: AuthenticateUserRequest): UserResponse {
-    return new UserResponse(req.user);
   }
 }

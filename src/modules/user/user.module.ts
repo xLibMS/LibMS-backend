@@ -12,6 +12,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { AuthenticateUserHttpController } from './use-cases/authenticate-user/authenticate-user.http.controller';
 import { CreateUserHttpController } from './use-cases/create-user/create-user.http.controller';
 import { FindUserByEmailHttpController } from './use-cases/find-user-by-email/find-user-by-email.http.controller';
+import { GetUserProfileHttpController } from './use-cases/get-user-profile/get-user-profile.http.controller';
 import { RefreshTokenHttpController } from './use-cases/refresh-token/refresh-token.http.controller';
 import { DeleteUserHttpController } from './use-cases/remove-user/delete-user.controller';
 import {
@@ -33,6 +34,7 @@ import {
     DeleteUserHttpController,
     FindUserByEmailHttpController,
     RefreshTokenHttpController,
+    GetUserProfileHttpController,
   ],
   providers: [
     AuthService,

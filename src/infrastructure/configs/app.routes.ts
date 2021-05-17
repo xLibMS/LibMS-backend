@@ -7,6 +7,7 @@ const books = `${root}/books`;
 export const routes = {
   user: {
     root: usersRoot,
+    profile: `${usersRoot}/@me`,
     delete: `${usersRoot}/:id`,
     auth: `${usersRoot}/auth`,
     refresh: `${usersRoot}/refresh`,
@@ -21,3 +22,5 @@ export const routes = {
     reservations: `${reservationRoot}/reservations`,
   },
 };
+
+//
