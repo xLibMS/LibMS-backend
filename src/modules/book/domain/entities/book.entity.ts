@@ -15,6 +15,7 @@ export interface BookProps {
   image: ImageEntity;
   pageCount: number;
   overview?: string;
+  copiesNbr: number;
 }
 
 export class BookEntity extends AggregateRoot<BookProps> {
@@ -60,5 +61,9 @@ export class BookEntity extends AggregateRoot<BookProps> {
 
   get overview(): string | undefined {
     return this.props.overview;
+  }
+
+  get copiesNbr(): number {
+    return this.props.copiesNbr;
   }
 }

@@ -16,7 +16,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { IdResponse } from 'src/interface-adapters/dtos/id.response.dto';
-import { Roles } from 'src/interface-adapters/enum/roles.enum';
 import { CreateBookCommand } from './create-book.command';
 import { CreateBookRequest } from './create-book.request.dto';
 import { CreateBookService } from './create-book.service';
@@ -59,6 +58,7 @@ export class CreateBookHttpController {
       publishedDate: body.publishedDate,
       pageCount: body.pageCount,
       overview: body.overview,
+      copiesNbr: body.copiesNbr,
     });
 
     const id = await this.createBookService.createBook(bookCommand);

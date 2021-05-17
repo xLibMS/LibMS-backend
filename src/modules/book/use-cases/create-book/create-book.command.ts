@@ -13,6 +13,7 @@ export interface CreateBookProps {
   image: Express.Multer.File;
   pageCount: number;
   overview?: string;
+  copiesNbr: number;
 }
 
 export class CreateBookCommand {
@@ -27,6 +28,7 @@ export class CreateBookCommand {
     this.image = props.image;
     this.pageCount = props.pageCount;
     this.overview = props.overview;
+    this.copiesNbr = props.copiesNbr;
   }
 
   readonly isbn: ISBN;
@@ -48,4 +50,6 @@ export class CreateBookCommand {
   readonly pageCount: number;
 
   readonly overview?: string;
+
+  readonly copiesNbr: number;
 }

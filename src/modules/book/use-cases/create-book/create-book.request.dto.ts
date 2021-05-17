@@ -64,4 +64,9 @@ export class CreateBookRequest implements CreateBook {
 
   @IsString()
   publisher!: string;
+
+  @Type(() => Number)
+  @IsNumber()
+  @Min(1)
+  copiesNbr!: number;
 }

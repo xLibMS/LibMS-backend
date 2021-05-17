@@ -10,4 +10,5 @@ export interface CreateBook {
   publishedDate: string;
   pageCount: number;
   overview?: string;
+  copiesNbr: number;
 }
