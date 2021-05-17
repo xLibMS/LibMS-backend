@@ -2,7 +2,7 @@ import { imageStorageConfig } from '@config/storage.config';
 import { ArgumentInvalidException, ConflictException } from '@exceptions';
 import { FileUploadService } from '@modules/book/domain-services/file-upload.service';
 import * as fs from 'fs';
-import * as moment from 'moment';
+import moment from 'moment';
 import * as path from 'path';
 
 export class ImageUploadService implements FileUploadService {

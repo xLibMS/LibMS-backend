@@ -11,7 +11,7 @@ import { DeleteUserService } from './use-cases/remove-user/delete-user.service';
    in application core. */
 export const authUserSymbol = Symbol('authUser');
 
-export const authUserPorivder: Provider = {
+export const authUserProvider: Provider = {
   provide: authUserSymbol,
   useFactory: (
     userRepo: UserRepository,
@@ -36,9 +36,11 @@ export const refreshTokenSymbol = Symbol('refreshToken');
 
 export const refreshTokenProvider: Provider = {
   provide: refreshTokenSymbol,
-  useFactory: (jwtService: JwtService): RefreshTokenService =>
-    new RefreshTokenService(jwtService),
-  inject: [JwtService],
+  useFactory: (
+    jwtService: JwtService,
+    authService: AuthService,
+  ): RefreshTokenService => new RefreshTokenService(jwtService, authService),
+  inject: [JwtService, AuthService],
 };
 
 export const removeUserSymbol = Symbol('removeUser');

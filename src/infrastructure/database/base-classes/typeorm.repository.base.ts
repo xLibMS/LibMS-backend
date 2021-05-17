@@ -1,16 +1,16 @@
-import { FindConditions, ObjectLiteral, Repository } from 'typeorm';
-import { ID } from 'src/core/value-objects/id.value-object';
 import { DomainEvents } from 'src/core/domain-events';
 import { Logger } from 'src/core/ports/logger.port';
-import {
-  QueryParams,
-  FindManyPaginatedParams,
-  RepositoryPort,
-  DataWithPaginationMeta,
-} from '../../../core/ports/repository.ports';
-import { NotFoundException } from '../../../core/exceptions';
-import { OrmMapper } from './orm-mapper.base';
+import { ID } from 'src/core/value-objects/id.value-object';
+import { FindConditions, ObjectLiteral, Repository } from 'typeorm';
 import { BaseEntityProps } from '../../../core/base-classes/entity.base';
+import { NotFoundException } from '../../../core/exceptions';
+import {
+  DataWithPaginationMeta,
+  FindManyPaginatedParams,
+  QueryParams,
+  RepositoryPort,
+} from '../../../core/ports/repository.ports';
+import { OrmMapper } from './orm-mapper.base';
 
 export type WhereCondition<OrmEntity> =
   | FindConditions<OrmEntity>[]
@@ -62,6 +62,31 @@ export abstract class TypeormRepositoryBase<
       ),
     );
     return result.map((entity) => this.mapper.toDomainEntity(entity));
+  }
+
+  /**
+   * [WIP] Upsert for TypeORM on PostgreSQL
+   */
+  async upsert(entity: Entity, primaryKey: string): Promise<Entity> {
+    const ormEntity = this.mapper.toOrmEntity(entity);
+    const row = Object.keys(ormEntity);
+    const updateStr = row
+      .map((key) => `"${key}" = EXCLUDED."${key}"`)
+      .join(',');
+
+    const result = await this.repository
+      .createQueryBuilder()
+      .insert()
+      .values(ormEntity)
+      .onConflict(`("${primaryKey}") DO UPDATE SET ${updateStr}`)
+      .execute();
+
+    const resultOrmEntity = result.generatedMaps[0] as OrmEntity;
+    this.logger.debug(
+      `[Entity persisted]: ${this.tableName} ${entity.id.value}`,
+    );
+    await DomainEvents.publishEvents(entity.id, this.logger);
+    return this.mapper.toDomainEntity(resultOrmEntity);
   }
 
   async findOne(

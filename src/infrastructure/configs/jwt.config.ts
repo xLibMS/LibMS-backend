@@ -1,8 +1,20 @@
 import { JwtSignOptions } from '@nestjs/jwt';
 import { config } from 'dotenv';
-import { ExtractJwt, StrategyOptions } from 'passport-jwt';
+import {
+  ExtractJwt,
+  JwtFromRequestFunction,
+  StrategyOptions,
+} from 'passport-jwt';
 
 config();
+
+const cookieExtractor: JwtFromRequestFunction = (req): string => {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies.REFRESH_TOKEN;
+  }
+  return token;
+};
 
 export const jwtAccessTokenConfig: JwtSignOptions = {
   secret: process.env.APP_SECRET,
@@ -21,7 +33,7 @@ export const jwtAccessStrategyConfig: StrategyOptions = {
 };
 
 export const jwtRefreshStrategyConfig: StrategyOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: cookieExtractor,
   ignoreExpiration: false,
   secretOrKey: process.env.REFRESH_TOKEN_SECRET,
 };

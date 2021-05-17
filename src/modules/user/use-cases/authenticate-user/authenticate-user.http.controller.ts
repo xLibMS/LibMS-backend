@@ -11,10 +11,11 @@ import {
   Inject,
   Post,
   Req,
-  Request,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CookieOptions, Response } from 'express-serve-static-core';
 import { AuthenticateUserRequest } from 'src/interface-adapters/interfaces/user/authenticate-user.request.interface';
 import { AuthService } from './authenticate-user.service';
 
@@ -38,11 +39,23 @@ export class AuthenticateUserHttpController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
-  async login(@Request() req: AuthenticateUserRequest): Promise<TokenResponse> {
+  async login(
+    @Req() req: AuthenticateUserRequest,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<TokenResponse> {
     const { accessToken, refreshToken } = await this.authService.login(
       req.user,
     );
-    return new TokenResponse(accessToken, refreshToken);
+    const cookieOptions: CookieOptions = {
+      secure: false,
+      httpOnly: false,
+      sameSite: 'none',
+    };
+    if (refreshToken.expiresIn) {
+      cookieOptions.expires = new Date(Date.now() + refreshToken.expiresIn);
+    }
+    res.cookie('REFRESH_TOKEN', refreshToken.token, cookieOptions);
+    return new TokenResponse(accessToken);
   }
 
   // Should be moved to approriate use-case, this is left here for testing purposes

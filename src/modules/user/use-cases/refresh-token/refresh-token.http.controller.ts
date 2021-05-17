@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { routes } from '@config/app.routes';
+import { TokenResponse } from '@modules/user/dtos/token.response.dto';
+import { JwtRefreshGuard } from '@modules/user/guards/jwt-refresh.guard';
+import { refreshTokenSymbol } from '@modules/user/user.providers';
 import {
   Controller,
   Get,
   HttpStatus,
   Inject,
-  Request,
+  Req,
   UseGuards,
 } from '@nestjs/common';
-import { routes } from '@config/app.routes';
-import { refreshTokenSymbol } from '@modules/user/user.providers';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthenticateUserRequest } from 'src/interface-adapters/interfaces/user/authenticate-user.request.interface';
-import { TokenResponse } from '@modules/user/dtos/token.response.dto';
-import { JwtRefreshGuard } from '@modules/user/guards/jwt-refresh.guard';
 import { RefreshTokenService } from './refresh-token.service';
 
 @Controller()
@@ -36,10 +36,8 @@ export class RefreshTokenHttpController {
     status: HttpStatus.BAD_REQUEST,
   })
   @UseGuards(JwtRefreshGuard)
-  async create(
-    @Request() req: AuthenticateUserRequest,
-  ): Promise<TokenResponse> {
-    const { accessToken } = await this.refreshToken.refresh(req.user);
+  async create(@Req() req: AuthenticateUserRequest): Promise<TokenResponse> {
+    const accessToken = await this.refreshToken.refresh(req.user);
     return new TokenResponse(accessToken);
   }
 }

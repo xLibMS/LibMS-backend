@@ -21,6 +21,10 @@ export interface SaveMultiple<Entity> {
   saveMultiple(entities: Entity[]): Promise<Entity[]>;
 }
 
+export interface Upsert<Entity> {
+  upsert(entity: Entity, primaryKey: string): Promise<Entity>;
+}
+
 export interface FindOne<Entity, EntityProps> {
   findOneOrThrow(params: QueryParams<EntityProps>): Promise<Entity>;
 }
@@ -68,6 +72,7 @@ export interface DeleteOne<Entity> {
 
 export interface RepositoryPort<Entity, EntityProps>
   extends Save<Entity>,
+    Upsert<Entity>,
     FindOne<Entity, EntityProps>,
     FindOneById<Entity>,
     FindMany<Entity, EntityProps>,

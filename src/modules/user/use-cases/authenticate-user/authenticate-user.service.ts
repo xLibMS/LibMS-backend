@@ -7,7 +7,11 @@ import { HashingService } from '@modules/user/domain-services/hashing.service';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { Password } from '@modules/user/domain/value-objects/password.value-object';
 import { JwtService } from '@nestjs/jwt';
-import { Token } from 'src/interface-adapters/interfaces/user/token.interface';
+import ms from 'ms';
+import {
+  JwtTokens,
+  Token,
+} from 'src/interface-adapters/interfaces/user/token.interface';
 
 export class AuthService {
   constructor(
@@ -16,21 +20,35 @@ export class AuthService {
     private readonly hashService: HashingService,
   ) {}
 
+  parseExpiration(expiresIn: string | number | undefined): number | undefined {
+    if (!expiresIn) return;
+    return typeof expiresIn === 'string' ? ms(expiresIn) : expiresIn;
+  }
+
   async validateUser(email: string, pass: string): Promise<UserEntity | null> {
     const user = await this.userRepo.findOneByEmailOrThrow(email);
     if (this.hashService.compare(new Password(pass), user.password.value)) {
-      // SHOULD REMOVE PASSWORD BEFORE RETURNING USER
       return user;
     }
     return null;
   }
 
-  async login(user: UserEntity): Promise<Token> {
+  async login(user: UserEntity): Promise<JwtTokens> {
     const payload = { sub: user.id.value, email: user.email.value };
-    const token: Token = {
-      accessToken: this.jwtService.sign(payload, jwtAccessTokenConfig),
-      refreshToken: this.jwtService.sign(payload, jwtRefreshTokenConfig),
+    const accessToken: Token = {
+      token: this.jwtService.sign(payload, jwtAccessTokenConfig),
+      expiresIn: this.parseExpiration(jwtAccessTokenConfig.expiresIn),
     };
-    return token;
+
+    const refreshToken: Token = {
+      token: this.jwtService.sign(payload, jwtRefreshTokenConfig),
+      expiresIn: this.parseExpiration(jwtRefreshTokenConfig.expiresIn),
+    };
+
+    const tokens: JwtTokens = {
+      accessToken,
+      refreshToken,
+    };
+    return tokens;
   }
 }

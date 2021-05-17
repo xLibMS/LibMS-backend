@@ -1,10 +1,10 @@
-import * as csurf from 'csurf';
-import * as helmet from 'helmet';
 import { initDomainEventHandlers } from '@modules/domain-event-handlers';
 import { ValidationPipe } from '@nestjs/common';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { ExceptionInterceptor } from './infrastructure/interceptors/exception.interceptor';
@@ -19,15 +19,19 @@ async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
-  // app.use(helmet());
-
-  // app.use(csurf());
-
   app.useGlobalPipes(new ValidationPipe());
 
   app.useGlobalInterceptors(new ExceptionInterceptor());
 
-  app.enableCors();
+  app.use(cookieParser());
+
+  const corsOptions: CorsOptions = {
+    origin: 'http://localhost:4000',
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+  };
+  app.enableCors(corsOptions);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
 

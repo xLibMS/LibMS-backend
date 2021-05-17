@@ -7,6 +7,6 @@ export class AuthorOrmEntity extends TypeormEntityBase {
     super(props);
   }
 
-  @Column({ unique: true })
+  @Column()
   fullName!: string;
 }
