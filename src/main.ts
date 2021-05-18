@@ -28,6 +28,7 @@ async function bootstrap(): Promise<void> {
   const corsOptions: CorsOptions = {
     origin: 'http://localhost:4000',
     credentials: true,
+    allowedHeaders: 'Accept,Content-Type,Authorization',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
   };
