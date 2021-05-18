@@ -20,6 +20,7 @@ export class BookResponse extends ResponseBase implements Book {
     this.image = new ImageResponse(book.image);
     this.pageCount = book.pageCount;
     this.overview = book.overview;
+    this.copiesNbr = book.copiesNbr;
   }
 
   isbn: string;
@@ -41,4 +42,6 @@ export class BookResponse extends ResponseBase implements Book {
   pageCount: number;
 
   overview?: string;
+
+  copiesNbr: number;
 }
