@@ -1,5 +1,6 @@
 import { BookEntity } from '@modules/book/domain/entities/book.entity';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
+import { ConflictException } from '@nestjs/common';
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { DateVO } from 'src/core/value-objects/date.value-object';
 import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status.enum';
@@ -8,10 +9,11 @@ export interface ReservationCreationProps {
   book: BookEntity;
   reservedAt: DateVO;
   user: UserEntity;
-  reservationStatusType: ReservationStatusTypes;
+  reservationStatus: ReservationStatusTypes;
   acceptedAt?: DateVO;
   returnDate?: DateVO;
   returnedDate?: DateVO;
+  cancelledAt?: DateVO;
 }
 
 export interface updateCopiesNbre {
@@ -36,7 +38,7 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
   }
 
   get reservationStatusType(): ReservationStatusTypes {
-    return this.props.reservationStatusType;
+    return this.props.reservationStatus;
   }
 
   get acceptedAt(): DateVO | undefined {
@@ -51,8 +53,12 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
     return this.props.returnedDate;
   }
 
+  get cancelledAt(): DateVO | undefined {
+    return this.props.cancelledAt;
+  }
+
   updateReservationStatus(): void {
-    this.props.reservationStatusType = ReservationStatusTypes.accepted;
+    this.props.reservationStatus = ReservationStatusTypes.accepted;
   }
 
   setAcceptanceDate(acceptedAt: DateVO): void {
@@ -61,5 +67,25 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
 
   setReturnDate(returnDate: DateVO): void {
     this.props.returnDate = returnDate;
+  }
+
+  // TODO: Refactor reservationStatusType to reservationStatus
+  cancelReservation(): void {
+    switch (this.props.reservationStatus) {
+      case ReservationStatusTypes.pending:
+        this.props.reservationStatus = ReservationStatusTypes.cancelled;
+        this.props.cancelledAt = new DateVO(Date.now());
+        break;
+      case ReservationStatusTypes.accepted:
+        throw new ConflictException('An accepted reservation cannot be closed');
+      case ReservationStatusTypes.closed:
+        throw new ConflictException('Reservation already closed');
+      case ReservationStatusTypes.rejected:
+        throw new ConflictException(
+          'A rejected reservation cannot be cancelled',
+        );
+      default:
+        break;
+    }
   }
 }
