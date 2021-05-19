@@ -12,7 +12,7 @@ export class ReservationResponse extends ResponseBase implements Reservation {
     this.book = new BookResponse(reservation.book);
     this.reservedAt = reservation.reservedAt.value;
     this.user = new UserResponse(reservation.user);
-    this.reservationStatus = reservation.reservationStatusType;
+    this.reservationStatus = reservation.reservationStatus;
     this.acceptedAt = reservation.acceptedAt?.value;
     this.returnDate = reservation.returnDate?.value;
   }

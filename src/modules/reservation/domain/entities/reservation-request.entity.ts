@@ -37,7 +37,7 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
     return this.props.reservedAt;
   }
 
-  get reservationStatusType(): ReservationStatusTypes {
+  get reservationStatus(): ReservationStatusTypes {
     return this.props.reservationStatus;
   }
 
