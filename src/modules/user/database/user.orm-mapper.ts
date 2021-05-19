@@ -35,7 +35,7 @@ export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
         lastName: ormEntity.lastName,
       }),
       password: new Password(ormEntity.password),
-      role: Roles.librarian,
+      role: Roles[`${ormEntity.role}` as keyof typeof Roles],
     };
     return props;
   }

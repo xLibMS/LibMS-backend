@@ -25,7 +25,7 @@ export class CreateReservationService {
       book,
       user,
       reservedAt,
-      reservationStatusType: ReservationStatusTypes.pending,
+      reservationStatus: ReservationStatusTypes.pending,
     });
 
     const created = await this.reservationRepo.save(CreateReservation);
