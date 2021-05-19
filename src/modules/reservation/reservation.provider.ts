@@ -3,7 +3,7 @@ import { UserRepository } from '@modules/user/database/user.repository';
 import { Provider } from '@nestjs/common';
 import { ReservationRepository } from './database/reservation.repository';
 import { AcceptReservationService } from './use-cases/accept-reservation/accept-reservation.service';
-import { RequestReservationService } from './use-cases/request-reservation/request-reservation.service';
+import { CreateReservationService } from './use-cases/create-reservation/create-reservation.service';
 
 export const reserveBookSymbol = Symbol('reserveBook');
 
@@ -13,8 +13,8 @@ export const reserveBookProvider: Provider = {
     reservationRepo: ReservationRepository,
     bookRepo: BookRepository,
     userRepo: UserRepository,
-  ): RequestReservationService =>
-    new RequestReservationService(bookRepo, reservationRepo, userRepo),
+  ): CreateReservationService =>
+    new CreateReservationService(bookRepo, reservationRepo, userRepo),
   inject: [ReservationRepository, BookRepository, UserRepository],
 };
 

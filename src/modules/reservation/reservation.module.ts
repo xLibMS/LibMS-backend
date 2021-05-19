@@ -16,7 +16,7 @@ import {
 } from './reservation.provider';
 import { AcceptReservationHttpController } from './use-cases/accept-reservation/accept-reservation.http.controller';
 import { FindReservationsHttpController } from './use-cases/find-list-of-reservations/find-list-of-reservations.http.controller';
-import { RequestReservationHttpController } from './use-cases/request-reservation/request-reservation.http.controller';
+import { CreateReservationHttpController } from './use-cases/create-reservation/create-reservation.http.controller';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { RequestReservationHttpController } from './use-cases/request-reservatio
     AuthService,
   ],
   controllers: [
-    RequestReservationHttpController,
+    CreateReservationHttpController,
     FindReservationsHttpController,
     AcceptReservationHttpController,
   ],

@@ -1,4 +1,4 @@
-export interface RequestReservation {
+export interface CreateReservation {
   isbn: string;
   reservedAt: string;
 }

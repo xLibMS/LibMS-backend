@@ -4,7 +4,7 @@ import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { DateVO } from 'src/core/value-objects/date.value-object';
 import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status.enum';
 
-export interface ReservationRequestProps {
+export interface ReservationCreationProps {
   book: BookEntity;
   reservedAt: DateVO;
   user: UserEntity;
@@ -17,8 +17,8 @@ export interface updateCopiesNbre {
   copiesNbre: number;
 }
 
-export class ReservationEntity extends AggregateRoot<ReservationRequestProps> {
-  constructor(props: ReservationRequestProps) {
+export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
+  constructor(props: ReservationCreationProps) {
     super(props);
   }
 

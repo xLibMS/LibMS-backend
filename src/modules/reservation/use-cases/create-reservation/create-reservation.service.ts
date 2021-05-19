@@ -4,23 +4,23 @@ import { ReservationEntity } from '@modules/reservation/domain/entities/reservat
 import { UserRepositoryPort } from '@modules/user/database/user.repository.interface';
 import { ID } from 'src/core/value-objects/id.value-object';
 import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status.enum';
-import { RequestReservationCommand } from './request-reservation.command';
+import { CreateReservationCommand } from './create-reservation.command';
 
-export class RequestReservationService {
+export class CreateReservationService {
   constructor(
     private readonly bookRepo: BookRepositoryPort,
     private readonly reservationRepo: ReservationRepositoryPort,
     private readonly userRepo: UserRepositoryPort,
   ) {}
 
-  async requestReservation(
-    requestReservationCommand: RequestReservationCommand,
+  async CreateReservation(
+    CreateReservationCommand: CreateReservationCommand,
   ): Promise<ID> {
-    const { reservedAt, isbn, user, ...demand } = requestReservationCommand;
+    const { reservedAt, isbn, user, ...demand } = CreateReservationCommand;
 
     const book = await this.bookRepo.findOneByISBNOrThrow(isbn.value);
 
-    const requestReservation = new ReservationEntity({
+    const CreateReservation = new ReservationEntity({
       ...demand,
       book,
       user,
@@ -28,7 +28,7 @@ export class RequestReservationService {
       reservationStatusType: ReservationStatusTypes.pending,
     });
 
-    const created = await this.reservationRepo.save(requestReservation);
+    const created = await this.reservationRepo.save(CreateReservation);
 
     return created.id;
   }

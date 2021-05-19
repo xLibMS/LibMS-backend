@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsISBN } from 'class-validator';
-import { RequestReservation } from 'src/interface-adapters/interfaces/reservation/request-reservation.interface';
+import { CreateReservation } from 'src/interface-adapters/interfaces/reservation/request-reservation.interface';
 
-export class RequestReservationRequest implements RequestReservation {
+export class CreateReservationCreation implements CreateReservation {
   @ApiProperty({
     example: '0521880688',
     description: 'The ISBN of the book (10 or 13 digits)',

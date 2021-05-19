@@ -11,7 +11,7 @@ import {
 } from 'src/infrastructure/database/base-classes/orm-mapper.base';
 import {
   ReservationEntity,
-  ReservationRequestProps,
+  ReservationCreationProps,
 } from '../domain/entities/reservation-request.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
 
@@ -42,13 +42,13 @@ export class ReservationOrmMapper extends OrmMapper<
 
   protected toDomainProps(
     ormEntity: ReservationOrmEntity,
-  ): ReservationRequestProps {
+  ): ReservationCreationProps {
     const userOrmMapper = new UserOrmMapper(UserEntity, UserOrmEntity);
     const bookOrmMapper = new BookOrmMapper(BookEntity, BookOrmEntity);
 
     const user = userOrmMapper.toDomainEntity(ormEntity.user);
     const book = bookOrmMapper.toDomainEntity(ormEntity.book);
-    const props: ReservationRequestProps = {
+    const props: ReservationCreationProps = {
       reservationStatusType: ormEntity.reservationStatus,
       book,
       user,

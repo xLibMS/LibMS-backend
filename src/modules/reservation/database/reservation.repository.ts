@@ -8,7 +8,7 @@ import {
 import { Repository } from 'typeorm';
 import {
   ReservationEntity,
-  ReservationRequestProps,
+  ReservationCreationProps,
 } from '../domain/entities/reservation-request.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
 import { ReservationOrmMapper } from './reservation.orm-mapper';
@@ -18,7 +18,7 @@ import { ReservationRepositoryPort } from './reservation.repository.interface';
 export class ReservationRepository
   extends TypeormRepositoryBase<
     ReservationEntity,
-    ReservationRequestProps,
+    ReservationCreationProps,
     ReservationOrmEntity
   >
   implements ReservationRepositoryPort
@@ -61,7 +61,7 @@ export class ReservationRepository
   }
 
   protected prepareQuery(
-    params: QueryParams<ReservationRequestProps>,
+    params: QueryParams<ReservationCreationProps>,
   ): WhereCondition<ReservationOrmEntity> {
     const where: QueryParams<ReservationOrmEntity> = {};
     if (params.id) {

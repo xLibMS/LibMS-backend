@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsISBN } from 'class-validator';
+import { IsDateString } from 'class-validator';
 import { AcceptReservation } from 'src/interface-adapters/interfaces/reservation/accept-reservation.interface';
 
 export class AcceptReservationRequest implements AcceptReservation {
