@@ -30,6 +30,17 @@ export class BookRepository
     );
   }
 
+  async findBookById(id: string): Promise<BookEntity> {
+    const book = await this.bookRepository.findOne({
+      where: { id },
+      relations: this.relations,
+    });
+    if (!book) {
+      throw new NotFoundException();
+    }
+    return this.mapper.toDomainEntity(book);
+  }
+
   private async findOneByISBN(
     isbn: string,
   ): Promise<BookOrmEntity | undefined> {

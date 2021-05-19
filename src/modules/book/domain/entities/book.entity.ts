@@ -66,4 +66,8 @@ export class BookEntity extends AggregateRoot<BookProps> {
   get copiesNbr(): number {
     return this.props.copiesNbr;
   }
+
+  updatedCopiesNbr(newCopiesNbr: number): void {
+    this.props.copiesNbr = newCopiesNbr;
+  }
 }
