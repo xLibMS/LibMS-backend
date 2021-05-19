@@ -11,6 +11,7 @@ export interface ReservationCreationProps {
   reservationStatusType: ReservationStatusTypes;
   acceptedAt?: DateVO;
   returnDate?: DateVO;
+  returnedDate?: DateVO;
 }
 
 export interface updateCopiesNbre {
@@ -44,6 +45,10 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
 
   get returnDate(): DateVO | undefined {
     return this.props.returnDate;
+  }
+
+  get returnedDate(): DateVO | undefined {
+    return this.props.returnedDate;
   }
 
   updateReservationStatus(): void {
