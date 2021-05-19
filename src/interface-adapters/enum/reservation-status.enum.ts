@@ -1,7 +1,7 @@
 export enum ReservationStatusTypes {
   pending = 'pending',
   rejected = 'rejected',
-  accepted = 'accepted',
+  accepted = 'active',
   overdue = 'overdue',
   closed = 'closed',
 }

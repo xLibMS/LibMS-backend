@@ -10,7 +10,11 @@ import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReservationOrmEntity } from './database/reservation.orm-entity';
 import { ReservationRepository } from './database/reservation.repository';
-import { reserveBookProvider } from './reservation.provider';
+import {
+  acceptReservationProvider,
+  reserveBookProvider,
+} from './reservation.provider';
+import { AcceptReservationHttpController } from './use-cases/accept-reservation/accept-reservation.http.controller';
 import { FindReservationsHttpController } from './use-cases/find-list-of-reservations/find-list-of-reservations.http.controller';
 import { RequestReservationHttpController } from './use-cases/request-reservation/request-reservation.http.controller';
 
@@ -29,6 +33,7 @@ import { RequestReservationHttpController } from './use-cases/request-reservatio
   controllers: [
     RequestReservationHttpController,
     FindReservationsHttpController,
+    AcceptReservationHttpController,
   ],
   providers: [
     AuthService,
@@ -36,6 +41,7 @@ import { RequestReservationHttpController } from './use-cases/request-reservatio
     BookRepository,
     reserveBookProvider,
     UserRepository,
+    acceptReservationProvider,
   ],
   exports: [],
 })
