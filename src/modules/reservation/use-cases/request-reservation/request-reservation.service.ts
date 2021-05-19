@@ -1,9 +1,9 @@
 import { BookRepositoryPort } from '@modules/book/database/book.repository.interface';
 import { ReservationRepositoryPort } from '@modules/reservation/database/reservation.repository.interface';
-import { ReservationRequestEntity } from '@modules/reservation/domain/entities/reservation-request.entity';
+import { ReservationEntity } from '@modules/reservation/domain/entities/reservation-request.entity';
 import { UserRepositoryPort } from '@modules/user/database/user.repository.interface';
 import { ID } from 'src/core/value-objects/id.value-object';
-import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status-types.enum';
+import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status.enum';
 import { RequestReservationCommand } from './request-reservation.command';
 
 export class RequestReservationService {
@@ -16,22 +16,19 @@ export class RequestReservationService {
   async requestReservation(
     requestReservationCommand: RequestReservationCommand,
   ): Promise<ID> {
-    const { reservationDate, isbn, email, ...demand } =
-      requestReservationCommand;
+    const { reservedAt, isbn, user, ...demand } = requestReservationCommand;
 
     const book = await this.bookRepo.findOneByISBNOrThrow(isbn.value);
 
-    const user = await this.userRepo.findOneByEmailOrThrow(email.value);
-
-    const requestReservation = new ReservationRequestEntity({
+    const requestReservation = new ReservationEntity({
       ...demand,
       book,
       user,
-      reservationDate,
+      reservedAt,
       reservationStatusType: ReservationStatusTypes.pending,
     });
 
-    const created = await await this.reservationRepo.save(requestReservation);
+    const created = await this.reservationRepo.save(requestReservation);
 
     return created.id;
   }
