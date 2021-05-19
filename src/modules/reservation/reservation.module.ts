@@ -12,11 +12,13 @@ import { ReservationOrmEntity } from './database/reservation.orm-entity';
 import { ReservationRepository } from './database/reservation.repository';
 import {
   acceptReservationProvider,
+  cancelReservationProvider,
   reserveBookProvider,
 } from './reservation.provider';
 import { AcceptReservationHttpController } from './use-cases/accept-reservation/accept-reservation.http.controller';
-import { FindReservationsHttpController } from './use-cases/find-list-of-reservations/find-list-of-reservations.http.controller';
+import { CancelReservationHttpController } from './use-cases/cancel-reservation/cancel-reservation.http.controller';
 import { CreateReservationHttpController } from './use-cases/create-reservation/create-reservation.http.controller';
+import { FindReservationsHttpController } from './use-cases/find-list-of-reservations/find-list-of-reservations.http.controller';
 
 @Module({
   imports: [
@@ -34,14 +36,16 @@ import { CreateReservationHttpController } from './use-cases/create-reservation/
     CreateReservationHttpController,
     FindReservationsHttpController,
     AcceptReservationHttpController,
+    CancelReservationHttpController,
   ],
   providers: [
     AuthService,
     ReservationRepository,
     BookRepository,
-    reserveBookProvider,
     UserRepository,
+    reserveBookProvider,
     acceptReservationProvider,
+    cancelReservationProvider,
   ],
   exports: [],
 })
