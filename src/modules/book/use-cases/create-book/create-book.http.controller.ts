@@ -19,6 +19,7 @@ import { IdResponse } from 'src/interface-adapters/dtos/id.response.dto';
 import { CreateBookCommand } from './create-book.command';
 import { CreateBookRequest } from './create-book.request.dto';
 import { CreateBookService } from './create-book.service';
+
 @Controller()
 export class CreateBookHttpController {
   constructor(
@@ -39,7 +40,6 @@ export class CreateBookHttpController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
-  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('image'))
   @UseGuards(JwtAuthGuard, RolesGuard)
   @RolesDecorator('librarian')
