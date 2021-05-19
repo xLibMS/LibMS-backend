@@ -17,6 +17,9 @@ export class ReservationOrmEntity extends TypeormEntityBase {
   acceptedAt?: Date;
 
   @Column({ nullable: true })
+  cancelledAt?: Date;
+
+  @Column({ nullable: true })
   returnDate?: Date;
 
   @Column({ nullable: true })

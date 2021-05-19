@@ -10,8 +10,8 @@ import {
   OrmMapper,
 } from 'src/infrastructure/database/base-classes/orm-mapper.base';
 import {
-  ReservationEntity,
   ReservationCreationProps,
+  ReservationEntity,
 } from '../domain/entities/reservation-request.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
 
@@ -30,13 +30,14 @@ export class ReservationOrmMapper extends OrmMapper<
     const book = bookOrmMapper.toOrmEntity(props.book);
 
     const ormProps: OrmEntityProps<ReservationOrmEntity> = {
-      reservationStatus: props.reservationStatusType,
+      reservationStatus: props.reservationStatus,
       user,
       book,
       reservedAt: props.reservedAt.value,
       acceptedAt: props.acceptedAt?.value,
       returnDate: props.returnDate?.value,
       returnedDate: props.returnedDate?.value,
+      cancelledAt: props.cancelledAt?.value,
     };
     return ormProps;
   }
@@ -50,7 +51,7 @@ export class ReservationOrmMapper extends OrmMapper<
     const user = userOrmMapper.toDomainEntity(ormEntity.user);
     const book = bookOrmMapper.toDomainEntity(ormEntity.book);
     const props: ReservationCreationProps = {
-      reservationStatusType: ormEntity.reservationStatus,
+      reservationStatus: ormEntity.reservationStatus,
       book,
       user,
       reservedAt: new DateVO(ormEntity.reservedAt),
@@ -62,6 +63,9 @@ export class ReservationOrmMapper extends OrmMapper<
         : undefined,
       returnedDate: ormEntity.returnedDate
         ? new DateVO(ormEntity.returnedDate)
+        : undefined,
+      cancelledAt: ormEntity.cancelledAt
+        ? new DateVO(ormEntity.cancelledAt)
         : undefined,
     };
     return props;

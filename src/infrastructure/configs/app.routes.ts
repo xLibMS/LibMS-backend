@@ -21,5 +21,6 @@ export const routes = {
     root: reservationRoot,
     reservations: `${reservationRoot}/reservations`,
     acceptReservation: `api/reservation/accept-reservation/:id/`,
+    cancelReservation: `${reservationRoot}/cancel-reservation/:id`,
   },
 };
