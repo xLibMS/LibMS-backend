@@ -1,7 +1,7 @@
 import { BookOrmEntity } from '@modules/book/database/book.orm-entity';
 import { UserOrmEntity } from '@modules/user/database/user.orm-entity';
 import { TypeormEntityBase } from 'src/infrastructure/database/base-classes/typeorm.entity.base';
-import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status-types.enum';
+import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status.enum';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
 @Entity('reservation')
@@ -11,7 +11,13 @@ export class ReservationOrmEntity extends TypeormEntityBase {
   }
 
   @Column()
-  reservationDate!: Date;
+  reservedAt!: Date;
+
+  @Column({ nullable: true })
+  acceptedAt?: Date;
+
+  @Column({ nullable: true })
+  returnDate?: Date;
 
   @Column()
   reservationStatus!: ReservationStatusTypes;

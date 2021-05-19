@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QueryParams } from 'src/core/ports/repository.ports';
 import {
@@ -7,7 +7,7 @@ import {
 } from 'src/infrastructure/database/base-classes/typeorm.repository.base';
 import { Repository } from 'typeorm';
 import {
-  ReservationRequestEntity,
+  ReservationEntity,
   ReservationRequestProps,
 } from '../domain/entities/reservation-request.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
@@ -17,7 +17,7 @@ import { ReservationRepositoryPort } from './reservation.repository.interface';
 @Injectable()
 export class ReservationRepository
   extends TypeormRepositoryBase<
-    ReservationRequestEntity,
+    ReservationEntity,
     ReservationRequestProps,
     ReservationOrmEntity
   >
@@ -36,16 +36,27 @@ export class ReservationRepository
   ) {
     super(
       reservationRepository,
-      new ReservationOrmMapper(ReservationRequestEntity, ReservationOrmEntity),
+      new ReservationOrmMapper(ReservationEntity, ReservationOrmEntity),
       new Logger('reservation-entity'),
     );
   }
 
-  findOneByStatusOrThrow(isbn: string): Promise<ReservationRequestEntity> {
+  async findReservationById(id: string): Promise<ReservationEntity> {
+    const reservation = await this.reservationRepository.findOne({
+      where: { id },
+      relations: this.relations,
+    });
+    if (!reservation) {
+      throw new NotFoundException();
+    }
+    return this.mapper.toDomainEntity(reservation);
+  }
+
+  findByDate(reservationDate: Date): Promise<ReservationEntity> {
     throw new Error('Method not implemented.');
   }
 
-  findByDate(reservationDate: Date): Promise<ReservationRequestEntity> {
+  findOneByStatusOrThrow(isbn: string): Promise<ReservationEntity> {
     throw new Error('Method not implemented.');
   }
 

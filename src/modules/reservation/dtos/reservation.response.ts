@@ -4,22 +4,28 @@ import { ResponseBase } from 'src/interface-adapters/base-classes/response.base'
 import { Book } from 'src/interface-adapters/interfaces/book/book.interface';
 import { Reservation } from 'src/interface-adapters/interfaces/reservation/reservation.interface';
 import { User } from 'src/interface-adapters/interfaces/user/user.interface';
-import { ReservationRequestEntity } from '../domain/entities/reservation-request.entity';
+import { ReservationEntity } from '../domain/entities/reservation-request.entity';
 
 export class ReservationResponse extends ResponseBase implements Reservation {
-  constructor(reservation: ReservationRequestEntity) {
+  constructor(reservation: ReservationEntity) {
     super(reservation);
     this.book = new BookResponse(reservation.book);
-    this.reservationDate = reservation.reservationDate.value;
+    this.reservedAt = reservation.reservedAt.value;
     this.user = new UserResponse(reservation.user);
     this.reservationStatus = reservation.reservationStatusType;
+    this.acceptedAt = reservation.acceptedAt?.value;
+    this.returnDate = reservation.returnDate?.value;
   }
 
   book: Book;
 
-  reservationDate: Date;
+  reservedAt: Date;
 
   user: User;
 
   reservationStatus: string;
+
+  acceptedAt?: Date;
+
+  returnDate?: Date;
 }

@@ -9,19 +9,18 @@ import {
   OrmEntityProps,
   OrmMapper,
 } from 'src/infrastructure/database/base-classes/orm-mapper.base';
-import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status-types.enum';
 import {
-  ReservationRequestEntity,
+  ReservationEntity,
   ReservationRequestProps,
 } from '../domain/entities/reservation-request.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
 
 export class ReservationOrmMapper extends OrmMapper<
-  ReservationRequestEntity,
+  ReservationEntity,
   ReservationOrmEntity
 > {
   protected toOrmProps(
-    entity: ReservationRequestEntity,
+    entity: ReservationEntity,
   ): OrmEntityProps<ReservationOrmEntity> {
     const props = entity.getPropsCopy();
     const userOrmMapper = new UserOrmMapper(UserEntity, UserOrmEntity);
@@ -34,7 +33,9 @@ export class ReservationOrmMapper extends OrmMapper<
       reservationStatus: props.reservationStatusType,
       user,
       book,
-      reservationDate: props.reservationDate.value,
+      reservedAt: props.reservedAt.value,
+      acceptedAt: props.acceptedAt?.value,
+      returnDate: props.returnDate?.value,
     };
     return ormProps;
   }
@@ -51,7 +52,13 @@ export class ReservationOrmMapper extends OrmMapper<
       reservationStatusType: ormEntity.reservationStatus,
       book,
       user,
-      reservationDate: new DateVO(ormEntity.reservationDate),
+      reservedAt: new DateVO(ormEntity.reservedAt),
+      acceptedAt: ormEntity.acceptedAt
+        ? new DateVO(ormEntity.acceptedAt)
+        : undefined,
+      returnDate: ormEntity.returnDate
+        ? new DateVO(ormEntity.returnDate)
+        : undefined,
     };
     return props;
   }
