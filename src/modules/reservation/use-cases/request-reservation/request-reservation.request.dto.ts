@@ -15,5 +15,5 @@ export class RequestReservationRequest implements RequestReservation {
     description: 'The Date format is invalid',
   })
   @IsDateString()
-  reservationDate!: string;
+  reservedAt!: string;
 }

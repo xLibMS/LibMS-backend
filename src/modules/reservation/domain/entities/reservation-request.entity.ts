@@ -2,16 +2,22 @@ import { BookEntity } from '@modules/book/domain/entities/book.entity';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { DateVO } from 'src/core/value-objects/date.value-object';
-import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status-types.enum';
+import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status.enum';
 
 export interface ReservationRequestProps {
   book: BookEntity;
-  reservationDate: DateVO;
+  reservedAt: DateVO;
   user: UserEntity;
   reservationStatusType: ReservationStatusTypes;
+  acceptedAt?: DateVO;
+  returnDate?: DateVO;
 }
 
-export class ReservationRequestEntity extends AggregateRoot<ReservationRequestProps> {
+export interface updateCopiesNbre {
+  copiesNbre: number;
+}
+
+export class ReservationEntity extends AggregateRoot<ReservationRequestProps> {
   constructor(props: ReservationRequestProps) {
     super(props);
   }
@@ -24,11 +30,31 @@ export class ReservationRequestEntity extends AggregateRoot<ReservationRequestPr
     return this.props.book;
   }
 
-  get reservationDate(): DateVO {
-    return this.props.reservationDate;
+  get reservedAt(): DateVO {
+    return this.props.reservedAt;
   }
 
   get reservationStatusType(): ReservationStatusTypes {
     return this.props.reservationStatusType;
+  }
+
+  get acceptedAt(): DateVO | undefined {
+    return this.props.acceptedAt;
+  }
+
+  get returnDate(): DateVO | undefined {
+    return this.props.returnDate;
+  }
+
+  updateReservationStatus(): void {
+    this.props.reservationStatusType = ReservationStatusTypes.accepted;
+  }
+
+  setAcceptanceDate(acceptedAt: DateVO): void {
+    this.props.acceptedAt = acceptedAt;
+  }
+
+  setReturnDate(returnDate: DateVO): void {
+    this.props.returnDate = returnDate;
   }
 }

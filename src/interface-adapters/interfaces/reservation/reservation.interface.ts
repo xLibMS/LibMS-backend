@@ -4,7 +4,7 @@ import { User } from '../user/user.interface';
 
 export interface Reservation extends ModelBase {
   book: Book;
-  reservationDate: Date;
+  reservedAt: Date;
   user: User;
   reservationStatus: string;
 }

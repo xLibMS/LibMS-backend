@@ -42,8 +42,8 @@ export class RequestReservationHttpController {
   ): Promise<IdResponse> {
     const requestReservationCommand = new RequestReservationCommand({
       isbn: body.isbn,
-      reservationDate: body.reservationDate,
-      email: req.user.email,
+      reservedAt: body.reservedAt,
+      user: req.user,
     });
 
     const response = await this.requestReservationService.requestReservation(
