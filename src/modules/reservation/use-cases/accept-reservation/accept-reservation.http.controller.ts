@@ -1,15 +1,8 @@
 import { routes } from '@config/app.routes';
+import { AcceptReservationResponse } from '@modules/reservation/dtos/accept-reservation.response.dto';
 import { acceptReservationSymbol } from '@modules/reservation/reservation.provider';
-import {
-  Body,
-  Controller,
-  HttpStatus,
-  Inject,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Controller, HttpStatus, Inject, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { DateResponse } from 'src/interface-adapters/dtos/date.response.dto';
 import { Id } from 'src/interface-adapters/interfaces/id.interface';
 import { AccceptReservationCommand } from './accept-reservation.command';
 import { AcceptReservationService } from './accept-reservation.service';
@@ -29,7 +22,9 @@ export class AcceptReservationHttpController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
-  async create(@Param() param: Id): Promise<DateResponse | undefined> {
+  async create(
+    @Param() param: Id,
+  ): Promise<AcceptReservationResponse | undefined> {
     const acceptReservationCommand = new AccceptReservationCommand({
       reservationId: param.id,
     });
@@ -37,6 +32,6 @@ export class AcceptReservationHttpController {
       acceptReservationCommand,
     );
 
-    return new DateResponse(response?.value);
+    return new AcceptReservationResponse(response);
   }
 }

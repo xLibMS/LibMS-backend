@@ -1,6 +1,6 @@
 import { BookRepositoryPort } from '@modules/book/database/book.repository.interface';
 import { ReservationRepositoryPort } from '@modules/reservation/database/reservation.repository.interface';
-import { DateVO } from 'src/core/value-objects/date.value-object';
+import { AcceptReservationResponseI } from 'src/interface-adapters/interfaces/reservation/accept-reservation.response.interface';
 import { AccceptReservationCommand } from './accept-reservation.command';
 
 export class AcceptReservationService {
@@ -11,7 +11,7 @@ export class AcceptReservationService {
 
   async acceptReservation(
     acceptReservationCommand: AccceptReservationCommand,
-  ): Promise<DateVO | undefined> {
+  ): Promise<AcceptReservationResponseI | undefined> {
     const { reservationId } = acceptReservationCommand;
 
     const reservation = await this.reservationRepo.findReservationById(
@@ -22,9 +22,14 @@ export class AcceptReservationService {
     book.updatedCopiesNbr(book.copiesNbr - 1);
     reservation.acceptReservation();
 
-    await this.bookRepo.save(book);
-    const accepted = await this.reservationRepo.save(reservation);
+    const bookResponse = await this.bookRepo.save(book);
+    const reservationResponse = await this.reservationRepo.save(reservation);
 
-    return accepted.returnDate;
+    const acceptReservationResponse: AcceptReservationResponseI = {
+      copiesNbr: bookResponse.copiesNbr,
+      reservationStatus: reservationResponse.reservationStatus,
+      returnDate: reservationResponse.returnDate?.value,
+    };
+    return acceptReservationResponse || undefined;
   }
 }

@@ -52,14 +52,6 @@ export class ReservationRepository
     return this.mapper.toDomainEntity(reservation);
   }
 
-  findByDate(reservationDate: Date): Promise<ReservationEntity> {
-    throw new Error('Method not implemented.');
-  }
-
-  findOneByStatusOrThrow(isbn: string): Promise<ReservationEntity> {
-    throw new Error('Method not implemented.');
-  }
-
   protected prepareQuery(
     params: QueryParams<ReservationCreationProps>,
   ): WhereCondition<ReservationOrmEntity> {

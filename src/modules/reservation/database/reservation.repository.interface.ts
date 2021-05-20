@@ -10,7 +10,5 @@ import {
  convenience. */
 export interface ReservationRepositoryPort
   extends RepositoryPort<ReservationEntity, ReservationCreationProps> {
-  findOneByStatusOrThrow(isbn: string): Promise<ReservationEntity>;
-  findByDate(reservationDate: Date): Promise<ReservationEntity>;
   findReservationById(id: string): Promise<ReservationEntity>;
 }
