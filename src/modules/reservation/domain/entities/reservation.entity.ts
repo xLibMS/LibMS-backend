@@ -1,6 +1,7 @@
 import { BookEntity } from '@modules/book/domain/entities/book.entity';
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
 import { ConflictException } from '@nestjs/common';
+import ms from 'ms';
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { DateVO } from 'src/core/value-objects/date.value-object';
 import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status.enum';
@@ -67,6 +68,28 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
 
   setReturnDate(returnDate: DateVO): void {
     this.props.returnDate = returnDate;
+  }
+
+  acceptReservation(): void {
+    switch (this.props.reservationStatus) {
+      case ReservationStatusTypes.pending:
+        this.props.reservationStatus = ReservationStatusTypes.accepted;
+        this.props.acceptedAt = new DateVO(Date.now());
+        this.props.returnDate = new DateVO(
+          this.props.acceptedAt.value.getTime() + ms('15d'),
+        );
+        break;
+      case ReservationStatusTypes.accepted:
+        throw new ConflictException('Reservation is already accepted');
+      case ReservationStatusTypes.closed:
+        throw new ConflictException('Reservation already closed');
+      case ReservationStatusTypes.rejected:
+        throw new ConflictException(
+          'A rejected reservation cannot be accepted',
+        );
+      default:
+        break;
+    }
   }
 
   // TODO: Refactor reservationStatusType to reservationStatus

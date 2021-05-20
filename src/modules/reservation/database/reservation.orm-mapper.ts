@@ -12,7 +12,7 @@ import {
 import {
   ReservationCreationProps,
   ReservationEntity,
-} from '../domain/entities/reservation-request.entity';
+} from '../domain/entities/reservation.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
 
 export class ReservationOrmMapper extends OrmMapper<

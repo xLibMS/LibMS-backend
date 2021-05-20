@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 import {
   ReservationEntity,
   ReservationCreationProps,
-} from '../domain/entities/reservation-request.entity';
+} from '../domain/entities/reservation.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
 import { ReservationOrmMapper } from './reservation.orm-mapper';
 import { ReservationRepositoryPort } from './reservation.repository.interface';

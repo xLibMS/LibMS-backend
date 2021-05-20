@@ -13,9 +13,8 @@ export const reserveBookProvider: Provider = {
   useFactory: (
     reservationRepo: ReservationRepository,
     bookRepo: BookRepository,
-    userRepo: UserRepository,
   ): CreateReservationService =>
-    new CreateReservationService(bookRepo, reservationRepo, userRepo),
+    new CreateReservationService(bookRepo, reservationRepo),
   inject: [ReservationRepository, BookRepository, UserRepository],
 };
 
