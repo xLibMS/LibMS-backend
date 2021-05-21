@@ -1,7 +1,7 @@
 const root = '/api';
 const usersRoot = `${root}/user`;
 const booksRoot = `${root}/book`;
-const reservationRoot = `${root}/reservation`;
+const reservationRoot = `${root}/reservations`;
 const books = `${root}/books`;
 
 export const routes = {
@@ -19,8 +19,8 @@ export const routes = {
   },
   reservation: {
     root: reservationRoot,
-    reservations: `${reservationRoot}/reservations`,
+    reservations: `${reservationRoot}/`,
     acceptReservation: `api/reservation/accept-reservation/:id/`,
-    cancelReservation: `${reservationRoot}/cancel-reservation/:id`,
+    cancelReservation: `${reservationRoot}/:id/cancel`,
   },
 };
