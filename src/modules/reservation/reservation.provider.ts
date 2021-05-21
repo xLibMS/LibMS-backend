@@ -6,6 +6,7 @@ import { ReservationService } from './domain/services/reservation.service';
 import { AcceptReservationService } from './use-cases/accept-reservation/accept-reservation.service';
 import { CancelReservationService } from './use-cases/cancel-reservation/cancel-reservation.service';
 import { CreateReservationService } from './use-cases/create-reservation/create-reservation.service';
+import { RejectReservationService } from './use-cases/reject-reservation/reject-reservation.service';
 
 export const reserveBookSymbol = Symbol('reserveBook');
 
@@ -30,6 +31,17 @@ export const acceptReservationProvider: Provider = {
     new AcceptReservationService(reservationRepo, bookRepo),
   inject: [ReservationRepository, BookRepository],
 };
+
+export const rejectReservationSymbol = Symbol('rejectReservation');
+
+export const rejectReservationProvider: Provider = {
+  provide: rejectReservationSymbol,
+  useFactory: (
+    reservationRepo: ReservationRepository,
+  ): RejectReservationService =>
+  new RejectReservationService(reservationRepo),
+  inject: [ReservationRepository]
+}
 
 export const cancelReservationSymbol = Symbol('cancelReservation');
 
