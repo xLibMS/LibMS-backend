@@ -92,7 +92,6 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
     }
   }
 
-  // TODO: Refactor reservationStatusType to reservationStatus
   cancelReservation(): void {
     switch (this.props.reservationStatus) {
       case ReservationStatusTypes.pending:
@@ -103,6 +102,8 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
         throw new ConflictException('An accepted reservation cannot be closed');
       case ReservationStatusTypes.closed:
         throw new ConflictException('Reservation already closed');
+      case ReservationStatusTypes.cancelled:
+        throw new ConflictException('Reservation already cancelled');
       case ReservationStatusTypes.rejected:
         throw new ConflictException(
           'A rejected reservation cannot be cancelled',

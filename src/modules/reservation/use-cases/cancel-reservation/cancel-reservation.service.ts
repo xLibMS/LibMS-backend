@@ -1,11 +1,13 @@
-import { DomainException } from '@exceptions';
 import { ReservationRepositoryPort } from '@modules/reservation/database/reservation.repository.interface';
+import { ReservationService } from '@modules/reservation/domain/services/reservation.service';
 import { ID } from 'src/core/value-objects/id.value-object';
-import { Roles } from 'src/interface-adapters/enum/roles.enum';
 import { CancelReservationCommand } from './cancel-reservation.command';
 
 export class CancelReservationService {
-  constructor(private readonly reservationRepo: ReservationRepositoryPort) {}
+  constructor(
+    private readonly reservationRepo: ReservationRepositoryPort,
+    private readonly reservationService: ReservationService,
+  ) {}
 
   async cancelReservation(
     cancelReservationCommand: CancelReservationCommand,
@@ -14,18 +16,15 @@ export class CancelReservationService {
     const reservation = await this.reservationRepo.findReservationById(
       reservationId,
     );
-    /*
-     * If user is a librarian => directly handle the cancellation
-     * If user is a member => check if the reservation is made by the user, if not reject
-     */
-    if (
-      user.role === Roles.member &&
-      reservation.user.id.value !== user.id.value
-    ) {
-      throw new DomainException('You do not have permissions');
-    }
-    reservation.cancelReservation();
-    const savedReservation = await this.reservationRepo.save(reservation);
+
+    const canceledReservation = this.reservationService.cancelReservation(
+      user,
+      reservation,
+    );
+
+    const savedReservation = await this.reservationRepo.save(
+      canceledReservation,
+    );
 
     return savedReservation.id;
   }

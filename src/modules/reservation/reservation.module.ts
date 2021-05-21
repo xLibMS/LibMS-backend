@@ -10,6 +10,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReservationOrmEntity } from './database/reservation.orm-entity';
 import { ReservationRepository } from './database/reservation.repository';
+import { ReservationService } from './domain/services/reservation.service';
 import {
   acceptReservationProvider,
   cancelReservationProvider,
@@ -41,6 +42,7 @@ import { FindReservationsHttpController } from './use-cases/find-list-of-reserva
   providers: [
     AuthService,
     ReservationRepository,
+    ReservationService,
     BookRepository,
     UserRepository,
     reserveBookProvider,

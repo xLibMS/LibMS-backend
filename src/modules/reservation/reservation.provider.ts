@@ -2,6 +2,7 @@ import { BookRepository } from '@modules/book/database/book.repository';
 import { UserRepository } from '@modules/user/database/user.repository';
 import { Provider } from '@nestjs/common';
 import { ReservationRepository } from './database/reservation.repository';
+import { ReservationService } from './domain/services/reservation.service';
 import { AcceptReservationService } from './use-cases/accept-reservation/accept-reservation.service';
 import { CancelReservationService } from './use-cases/cancel-reservation/cancel-reservation.service';
 import { CreateReservationService } from './use-cases/create-reservation/create-reservation.service';
@@ -36,6 +37,8 @@ export const cancelReservationProvider: Provider = {
   provide: cancelReservationSymbol,
   useFactory: (
     reservationRepo: ReservationRepository,
-  ): CancelReservationService => new CancelReservationService(reservationRepo),
-  inject: [ReservationRepository],
+    reservationService: ReservationService,
+  ): CancelReservationService =>
+    new CancelReservationService(reservationRepo, reservationService),
+  inject: [ReservationRepository, ReservationService],
 };
