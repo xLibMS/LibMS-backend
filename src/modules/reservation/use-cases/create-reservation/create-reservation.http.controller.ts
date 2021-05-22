@@ -26,7 +26,7 @@ export class CreateReservationHttpController {
     readonly createReservationService: CreateReservationService,
   ) {}
 
-  @Post(routes.reservation.root)
+  @Post(routes.reservation.createReservation)
   @ApiOperation({ summary: 'Demand reservation' })
   @ApiResponse({
     status: HttpStatus.OK,

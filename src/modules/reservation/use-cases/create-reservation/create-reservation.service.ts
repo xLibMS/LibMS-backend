@@ -1,3 +1,4 @@
+import { ConflictException } from '@exceptions';
 import { BookRepositoryPort } from '@modules/book/database/book.repository.interface';
 import { ReservationRepositoryPort } from '@modules/reservation/database/reservation.repository.interface';
 import { ReservationEntity } from '@modules/reservation/domain/entities/reservation.entity';
@@ -25,9 +26,12 @@ export class CreateReservationService {
       reservedAt,
       reservationStatus: ReservationStatusTypes.pending,
     });
-
-    const created = await this.reservationRepo.save(CreateReservation);
-
+    let created;
+    if (book.copiesNbr > 0) {
+      created = await this.reservationRepo.save(CreateReservation);
+    } else {
+      throw new ConflictException('The book is out of stock');
+    }
     return created.id;
   }
 }
