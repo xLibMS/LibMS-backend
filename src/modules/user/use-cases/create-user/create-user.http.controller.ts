@@ -15,7 +15,7 @@ export class CreateUserHttpController {
     private readonly createUser: CreateUserService,
   ) {}
 
-  @Post(routes.user.root)
+  @Post(routes.user.createUser)
   @ApiOperation({ summary: 'Create a user' })
   @ApiResponse({
     status: HttpStatus.OK,

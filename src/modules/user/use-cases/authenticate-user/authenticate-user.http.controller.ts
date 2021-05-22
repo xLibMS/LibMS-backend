@@ -23,7 +23,7 @@ export class AuthenticateUserHttpController {
   ) {}
 
   @UseGuards(LocalAuthGuard)
-  @Post(routes.user.auth)
+  @Post(routes.auth.login)
   @ApiOperation({ summary: 'Login user' })
   @ApiResponse({
     status: HttpStatus.OK,

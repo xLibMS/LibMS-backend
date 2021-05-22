@@ -10,7 +10,7 @@ export class FindAuthorsHttpController {
   constructor(private readonly authorRepo: AuthorRepository) {}
 
   @UseGuards(JwtAuthGuard)
-  @Get(routes.book.authors)
+  @Get(routes.author.authors)
   async findBooks(): Promise<AuthorsResponse> {
     const authors = await this.authorRepo.findMany();
     const authorsResponse = authors.map((author) => new AuthorResponse(author));

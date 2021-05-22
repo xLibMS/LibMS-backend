@@ -1,28 +1,31 @@
 const root = '/api';
-const usersRoot = `${root}/user`;
-const booksRoot = `${root}/book`;
+const usersRoot = `${root}/users`;
+const booksRoot = `${root}/books`;
 const reservationRoot = `${root}/reservations`;
-const books = `${root}/books`;
 
 export const routes = {
   user: {
-    root: usersRoot,
-    profile: `${usersRoot}/@me`,
+    createUser: usersRoot,
     delete: `${usersRoot}/:id`,
-    auth: `${usersRoot}/auth`,
+    profile: `${usersRoot}/@me`,
+    email: `${usersRoot}/email`,
+  },
+  auth: {
+    login: `${usersRoot}/auth`,
     refresh: `${usersRoot}/refresh`,
   },
   book: {
-    root: booksRoot,
-    books,
+    createBook: booksRoot,
+    books: booksRoot,
+  },
+  author: {
     authors: `${booksRoot}/authors`,
   },
   reservation: {
-    root: reservationRoot,
-    reservations: `${reservationRoot}/`,
-    createReservation: `${reservationRoot}/create`,
+    reservations: `${reservationRoot}`,
+    createReservation: `${reservationRoot}`,
     acceptReservation: `${reservationRoot}/:id/accept`,
-    cancelReservation: `${reservationRoot}/:id/cancel`,
     rejectReservation: `${reservationRoot}/:id/reject`,
+    cancelReservation: `${reservationRoot}/:id/cancel`,
   },
 };

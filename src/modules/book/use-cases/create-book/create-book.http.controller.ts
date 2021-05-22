@@ -27,7 +27,7 @@ export class CreateBookHttpController {
     private readonly createBookService: CreateBookService,
   ) {}
 
-  @Post(routes.book.root)
+  @Post(routes.book.createBook)
   @ApiOperation({ summary: 'Create a book' })
   @ApiResponse({
     status: HttpStatus.OK,

@@ -23,7 +23,7 @@ export class RefreshTokenHttpController {
     private readonly refreshToken: RefreshTokenService,
   ) {}
 
-  @Get(routes.user.refresh)
+  @Get(routes.auth.refresh)
   @ApiOperation({ summary: 'Refresh access token' })
   @ApiResponse({
     status: HttpStatus.OK,

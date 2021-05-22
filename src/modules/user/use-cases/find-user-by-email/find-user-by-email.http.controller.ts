@@ -12,7 +12,7 @@ export class FindUserByEmailHttpController {
      logic involved, it bypasses application's core completely 
      and retrieves user directly from repository.
    */
-  @Get(routes.user.root)
+  @Get(routes.user.email)
   async findByEmail(
     @Body() { email }: FindUserByEmailRequest,
   ): Promise<UserResponse> {
