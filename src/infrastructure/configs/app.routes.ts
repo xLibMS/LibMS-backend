@@ -7,8 +7,8 @@ const reservationRoot = `${root}/reservations`;
 export const routes = {
   user: {
     createUser: usersRoot,
-    delete: `${usersRoot}/:id`,
     profile: `${usersRoot}/@me`,
+    delete: `${usersRoot}/:id`,
     email: `${usersRoot}/email`,
   },
   auth: {
@@ -20,7 +20,7 @@ export const routes = {
     books: booksRoot,
   },
   author: {
-    authors: `${authorsRoot}/authors`,
+    authors: `${authorsRoot}`,
   },
   reservation: {
     reservations: `${reservationRoot}`,
