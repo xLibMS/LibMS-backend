@@ -18,10 +18,11 @@ export const routes = {
     authors: `${booksRoot}/authors`,
   },
   reservation: {
-    reservations: `${reservationRoot}`,
-    createReservation: `${reservationRoot}/create-reservation`,
-    acceptReservation: `${reservationRoot}/accept-reservation/:id`,
-    rejectReservation: `${reservationRoot}/reject-reservation/:id`,
-    cancelReservation: `${reservationRoot}/cancel-reservation/:id`,
+    root: reservationRoot,
+    reservations: `${reservationRoot}/`,
+    createReservation: `${reservationRoot}/create`,
+    acceptReservation: `${reservationRoot}/:id/accept`,
+    cancelReservation: `${reservationRoot}/:id/cancel`,
+    rejectReservation: `${reservationRoot}/:id/reject`,
   },
 };

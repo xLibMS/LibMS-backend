@@ -26,7 +26,7 @@ async function bootstrap(): Promise<void> {
   app.use(cookieParser());
 
   const corsOptions: CorsOptions = {
-    origin: 'http://localhost:3001',
+    origin: 'http://localhost:4000',
     credentials: true,
     allowedHeaders: 'Accept,Content-Type,Authorization',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
