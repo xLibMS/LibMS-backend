@@ -1,7 +1,7 @@
 import { UserEntity } from '@modules/user/domain/entities/user.entity';
+import { ApiProperty } from '@nestjs/swagger';
 import { ResponseBase } from 'src/interface-adapters/base-classes/response.base';
 import { User } from 'src/interface-adapters/interfaces/user/user.interface';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class UserResponse extends ResponseBase implements User {
   constructor(user: UserEntity) {
@@ -10,6 +10,7 @@ export class UserResponse extends ResponseBase implements User {
     this.universityID = user.universityID.value;
     this.firstName = user.fullName.firstName;
     this.lastName = user.fullName.lastName;
+    this.role = user.role;
   }
 
   @ApiProperty({
@@ -35,4 +36,10 @@ export class UserResponse extends ResponseBase implements User {
     description: "User's last name",
   })
   lastName: string;
+
+  @ApiProperty({
+    example: 'librarian',
+    description: "User's role",
+  })
+  role: string;
 }

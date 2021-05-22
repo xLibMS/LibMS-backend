@@ -5,4 +5,5 @@ export interface User extends ModelBase {
   universityID: string;
   firstName: string;
   lastName: string;
+  role: string;
 }
