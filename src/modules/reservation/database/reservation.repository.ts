@@ -7,8 +7,8 @@ import {
 } from 'src/infrastructure/database/base-classes/typeorm.repository.base';
 import { Repository } from 'typeorm';
 import {
-  ReservationEntity,
   ReservationCreationProps,
+  ReservationEntity,
 } from '../domain/entities/reservation.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
 import { ReservationOrmMapper } from './reservation.orm-mapper';
@@ -50,6 +50,17 @@ export class ReservationRepository
       throw new NotFoundException();
     }
     return this.mapper.toDomainEntity(reservation);
+  }
+
+  async findReservationsByUser(userId: string): Promise<ReservationEntity[]> {
+    const userReservations = await this.reservationRepository.find({
+      where: { user: userId },
+      relations: this.relations,
+    });
+    if (!userReservations.length) {
+      return [];
+    }
+    return userReservations.map((r) => this.mapper.toDomainEntity(r));
   }
 
   protected prepareQuery(

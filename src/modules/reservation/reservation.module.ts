@@ -21,6 +21,7 @@ import { AcceptReservationHttpController } from './use-cases/accept-reservation/
 import { CancelReservationHttpController } from './use-cases/cancel-reservation/cancel-reservation.http.controller';
 import { CreateReservationHttpController } from './use-cases/create-reservation/create-reservation.http.controller';
 import { FindReservationsHttpController } from './use-cases/find-list-of-reservations/find-list-of-reservations.http.controller';
+import { FindUserReservationsHttpController } from './use-cases/find-user-list-of-reservations/find-user-list-of-reservations.http.controller';
 import { RejectReservationHttpController } from './use-cases/reject-reservation/reject-reservation.http.controller';
 
 @Module({
@@ -38,6 +39,7 @@ import { RejectReservationHttpController } from './use-cases/reject-reservation/
   controllers: [
     CreateReservationHttpController,
     FindReservationsHttpController,
+    FindUserReservationsHttpController,
     AcceptReservationHttpController,
     CancelReservationHttpController,
     RejectReservationHttpController,

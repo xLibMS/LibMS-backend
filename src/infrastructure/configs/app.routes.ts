@@ -29,5 +29,6 @@ export const routes = {
     acceptReservation: `${reservationRoot}/:id/accept`,
     rejectReservation: `${reservationRoot}/:id/reject`,
     cancelReservation: `${reservationRoot}/:id/cancel`,
+    userReservations: `${reservationRoot}/@me`,
   },
 };
