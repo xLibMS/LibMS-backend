@@ -1,6 +1,7 @@
 const root = '/api';
 const usersRoot = `${root}/users`;
 const booksRoot = `${root}/books`;
+const authorsRoot = `${root}/authors`;
 const reservationRoot = `${root}/reservations`;
 
 export const routes = {
@@ -19,7 +20,7 @@ export const routes = {
     books: booksRoot,
   },
   author: {
-    authors: `${booksRoot}/authors`,
+    authors: `${authorsRoot}/authors`,
   },
   reservation: {
     reservations: `${reservationRoot}`,
