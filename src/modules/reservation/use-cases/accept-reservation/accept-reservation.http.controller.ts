@@ -1,9 +1,18 @@
 import { routes } from '@config/app.routes';
-import { AcceptReservationResponse } from '@modules/reservation/dtos/accept-reservation.response.dto';
 import { acceptReservationSymbol } from '@modules/reservation/reservation.provider';
-import { Controller, HttpStatus, Inject, Param, Post } from '@nestjs/common';
+import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
+import { RolesDecorator } from '@modules/user/guards/roles.decorator';
+import {
+  Controller,
+  HttpStatus,
+  Inject,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Id } from 'src/interface-adapters/interfaces/id.interface';
+import { AcceptReservationResponseI } from 'src/interface-adapters/interfaces/reservation/accept-reservation.response.interface';
 import { AccceptReservationCommand } from './accept-reservation.command';
 import { AcceptReservationService } from './accept-reservation.service';
 
@@ -14,7 +23,7 @@ export class AcceptReservationHttpController {
     readonly acceptReservationService: AcceptReservationService,
   ) {}
 
-  @Post(routes.reservation.acceptReservation)
+  @Patch(routes.reservation.acceptReservation)
   @ApiOperation({ summary: 'Accept Reservation' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -22,9 +31,11 @@ export class AcceptReservationHttpController {
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
   })
+  @UseGuards(JwtAuthGuard)
+  @RolesDecorator('librarian')
   async create(
     @Param() param: Id,
-  ): Promise<AcceptReservationResponse | undefined> {
+  ): Promise<AcceptReservationResponseI | undefined> {
     const acceptReservationCommand = new AccceptReservationCommand({
       reservationId: param.id,
     });
@@ -32,6 +43,6 @@ export class AcceptReservationHttpController {
       acceptReservationCommand,
     );
 
-    return new AcceptReservationResponse(response);
+    return response;
   }
 }

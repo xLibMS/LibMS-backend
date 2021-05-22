@@ -20,7 +20,7 @@ export const routes = {
   reservation: {
     root: reservationRoot,
     reservations: `${reservationRoot}/`,
-    acceptReservation: `api/reservation/accept-reservation/:id/`,
+    acceptReservation: `${reservationRoot}/accept-reservation/:id/`,
     cancelReservation: `${reservationRoot}/:id/cancel`,
     rejectReservation: `${reservationRoot}/:id/reject`,
   },
