@@ -58,7 +58,7 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
   get cancelledAt(): DateVO | undefined {
     return this.props.cancelledAt;
   }
-  
+
   get rejectedAt(): DateVO | undefined {
     return this.props.rejectedAt;
   }
@@ -86,8 +86,12 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
         break;
       case ReservationStatusTypes.accepted:
         throw new ConflictException('Reservation is already accepted');
+      case ReservationStatusTypes.cancelled:
+        throw new ConflictException('Reservation is cancelled');
       case ReservationStatusTypes.closed:
         throw new ConflictException('Reservation already closed');
+      case ReservationStatusTypes.overdue:
+        throw new ConflictException('Reservation is overdue');
       case ReservationStatusTypes.rejected:
         throw new ConflictException(
           'A rejected reservation cannot be accepted',

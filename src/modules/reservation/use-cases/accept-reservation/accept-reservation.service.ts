@@ -22,8 +22,8 @@ export class AcceptReservationService {
     let bookResponse;
     let reservationResponse;
     if (book.copiesNbr >= 1) {
-      book.updatedCopiesNbr(book.copiesNbr - 1);
       reservation.acceptReservation();
+      book.updatedCopiesNbr(book.copiesNbr - 1);
       bookResponse = await this.bookRepo.save(book);
       reservationResponse = await this.reservationRepo.save(reservation);
     } else {
