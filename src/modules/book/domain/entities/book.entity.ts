@@ -1,3 +1,4 @@
+import { ReservationEntity } from '@modules/reservation/domain/entities/reservation.entity';
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { DateVO } from 'src/core/value-objects/date.value-object';
 import { ISBN } from '../value-objects/isbn.value-object';
@@ -16,6 +17,7 @@ export interface BookProps {
   pageCount: number;
   overview?: string;
   copiesNbr: number;
+  reservations?: ReservationEntity[];
 }
 
 export class BookEntity extends AggregateRoot<BookProps> {
@@ -65,6 +67,10 @@ export class BookEntity extends AggregateRoot<BookProps> {
 
   get copiesNbr(): number {
     return this.props.copiesNbr;
+  }
+
+  get reservations(): ReservationEntity[] | undefined {
+    return this.props.reservations;
   }
 
   updatedCopiesNbr(newCopiesNbr: number): void {

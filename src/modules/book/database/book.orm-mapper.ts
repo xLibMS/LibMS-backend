@@ -1,3 +1,6 @@
+import { ReservationOrmEntity } from '@modules/reservation/database/reservation.orm-entity';
+import { ReservationOrmMapper } from '@modules/reservation/database/reservation.orm-mapper';
+import { ReservationEntity } from '@modules/reservation/domain/entities/reservation.entity';
 import { DateVO } from 'src/core/value-objects/date.value-object';
 import {
   OrmEntityProps,
@@ -18,10 +21,19 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
     const props = entity.getPropsCopy();
     const authorOrmMapper = new AuthorOrmMapper(AuthorEntity, AuthorOrmEntity);
     const imageOrmMapper = new ImageOrmMapper(ImageEntity, ImageOrmEntity);
+    const reservationOrmMapper = new ReservationOrmMapper(
+      ReservationEntity,
+      ReservationOrmEntity,
+    );
 
     const authors = props.authors.map((author) =>
       authorOrmMapper.toOrmEntity(author),
     );
+    const reservations = props.reservations
+      ? props.reservations.map((reservation) =>
+          reservationOrmMapper.toOrmEntity(reservation),
+        )
+      : undefined;
     const image = imageOrmMapper.toOrmEntity(props.image);
 
     const ormProps: OrmEntityProps<BookOrmEntity> = {
@@ -35,7 +47,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       image,
       pageCount: props.pageCount,
       overview: props.overview,
-      reservations: [],
+      reservations: reservations || undefined,
       copiesNbr: props.copiesNbr,
     };
     return ormProps;
