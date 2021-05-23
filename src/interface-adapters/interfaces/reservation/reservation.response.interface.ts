@@ -4,3 +4,8 @@ export interface AcceptReservationResponseI {
   returnDate?: Date;
   copiesNbr: number;
 }
+
+export interface RejectReservationResponseI {
+  id: string;
+  reservationStatus: string;
+}

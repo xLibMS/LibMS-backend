@@ -1,4 +1,4 @@
-import { AcceptReservationResponseI } from 'src/interface-adapters/interfaces/reservation/accept-reservation.response.interface';
+import { AcceptReservationResponseI } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
 
 export class AcceptReservationResponse {
   constructor(acceptReservationResponse?: AcceptReservationResponseI) {

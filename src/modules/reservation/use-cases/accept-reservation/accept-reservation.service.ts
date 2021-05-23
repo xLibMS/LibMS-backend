@@ -1,7 +1,7 @@
 import { ConflictException } from '@exceptions';
 import { BookRepositoryPort } from '@modules/book/database/book.repository.interface';
 import { ReservationRepositoryPort } from '@modules/reservation/database/reservation.repository.interface';
-import { AcceptReservationResponseI } from 'src/interface-adapters/interfaces/reservation/accept-reservation.response.interface';
+import { AcceptReservationResponseI } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
 import { AccceptReservationCommand } from './accept-reservation.command';
 
 export class AcceptReservationService {

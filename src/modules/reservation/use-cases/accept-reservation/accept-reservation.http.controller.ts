@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Id } from 'src/interface-adapters/interfaces/id.interface';
-import { AcceptReservationResponseI } from 'src/interface-adapters/interfaces/reservation/accept-reservation.response.interface';
+import { AcceptReservationResponseI } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
 import { AccceptReservationCommand } from './accept-reservation.command';
 import { AcceptReservationService } from './accept-reservation.service';
 
