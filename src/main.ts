@@ -1,6 +1,6 @@
+import corsOptions from '@config/cors.config';
 import { initDomainEventHandlers } from '@modules/domain-event-handlers';
 import { ValidationPipe } from '@nestjs/common';
-import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -25,13 +25,6 @@ async function bootstrap(): Promise<void> {
 
   app.use(cookieParser());
 
-  const corsOptions: CorsOptions = {
-    origin: 'http://localhost:4000',
-    credentials: true,
-    allowedHeaders: 'Accept,Content-Type,Authorization',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-  };
   app.enableCors(corsOptions);
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
