@@ -18,6 +18,7 @@ export const routes = {
   book: {
     createBook: booksRoot,
     books: booksRoot,
+    book: `${booksRoot}/:id`,
   },
   author: {
     authors: `${authorsRoot}`,

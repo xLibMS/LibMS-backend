@@ -13,6 +13,7 @@ import { BookRepository } from './database/book.repository';
 import { ImageOrmEntity } from './database/image/image.orm-entity';
 import { ImageRepository } from './database/image/image.repository';
 import { CreateBookHttpController } from './use-cases/create-book/create-book.http.controller';
+import { FindBookByIdHttpcontroller } from './use-cases/find-book-by-id/find-book-by-id.controller';
 import { FindAuthorsHttpController } from './use-cases/find-list-of-authors/find-list-of-authors.http.controller';
 import { FindBooksHttpController } from './use-cases/find-list-of-books/find-books.controller';
 
@@ -28,6 +29,7 @@ import { FindBooksHttpController } from './use-cases/find-list-of-books/find-boo
     FindBooksHttpController,
     CreateBookHttpController,
     FindAuthorsHttpController,
+    FindBookByIdHttpcontroller,
   ],
   providers: [
     BookRepository,
