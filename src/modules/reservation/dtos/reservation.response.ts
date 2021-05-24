@@ -1,4 +1,4 @@
-import { BookResponse } from '@modules/book/dtos/book.response.dts';
+import { BookResponse } from '@modules/book/dtos/book.response.dto';
 import { UserResponse } from '@modules/user/dtos/user.response.dto';
 import { ResponseBase } from 'src/interface-adapters/base-classes/response.base';
 import { Book } from 'src/interface-adapters/interfaces/book/book.interface';

@@ -1,4 +1,4 @@
-import { AuthorResponse } from './author.response.dts';
+import { AuthorResponse } from './author.response.dto';
 
 export class AuthorsResponse {
   constructor(authors: AuthorResponse[]) {

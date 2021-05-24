@@ -1,9 +1,9 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
 import { routes } from '@config/app.routes';
-import { BooksResponse } from '@modules/book/dtos/books.response.dto';
 import { BookRepository } from '@modules/book/database/book.repository';
+import { BookResponse } from '@modules/book/dtos/book.response.dto';
+import { BooksResponse } from '@modules/book/dtos/books.response.dto';
 import { JwtAuthGuard } from '@modules/user/guards/jwt-auth.guard';
-import { BookResponse } from '@modules/book/dtos/book.response.dts';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 
 @Controller()
 export class FindBooksHttpController {

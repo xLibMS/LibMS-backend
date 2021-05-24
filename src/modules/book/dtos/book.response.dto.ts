@@ -3,7 +3,7 @@ import { Author } from 'src/interface-adapters/interfaces/book/author.interface'
 import { Book } from 'src/interface-adapters/interfaces/book/book.interface';
 import { Image } from 'src/interface-adapters/interfaces/book/image.interface';
 import { BookEntity } from '../domain/entities/book.entity';
-import { AuthorResponse } from './author.response.dts';
+import { AuthorResponse } from './author.response.dto';
 import { ImageResponse } from './image.response.dts';
 
 export class BookResponse extends ResponseBase implements Book {
