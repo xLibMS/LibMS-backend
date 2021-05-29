@@ -39,7 +39,7 @@
     "@nestjs/platform-express": "^7.6.17",
     "@nestjs/swagger": "^4.8.0",
     "@nestjs/typeorm": "^7.1.5",
-    "@types/express": "^4.17.11",
+    "@types/express": "^4.17.12",
     "@types/express-serve-static-core": "^4.17.19",
     "@types/serve-static": "^1.13.9",
     "bcrypt": "^5.0.1",
