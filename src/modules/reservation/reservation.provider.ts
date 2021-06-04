@@ -5,6 +5,7 @@ import { ReservationRepository } from './database/reservation.repository';
 import { ReservationService } from './domain/services/reservation.service';
 import { AcceptReservationService } from './use-cases/accept-reservation/accept-reservation.service';
 import { CancelReservationService } from './use-cases/cancel-reservation/cancel-reservation.service';
+import { CheckOutService } from './use-cases/check-out/check-out.service';
 import { CreateReservationService } from './use-cases/create-reservation/create-reservation.service';
 import { RejectReservationService } from './use-cases/reject-reservation/reject-reservation.service';
 
@@ -52,5 +53,17 @@ export const cancelReservationProvider: Provider = {
     reservationService: ReservationService,
   ): CancelReservationService =>
     new CancelReservationService(reservationRepo, reservationService),
+  inject: [ReservationRepository, ReservationService],
+};
+
+export const checkOutSymbol = Symbol('checkOut');
+
+export const checkOutProvider: Provider = {
+  provide: checkOutSymbol,
+  useFactory: (
+    reservationRepo: ReservationRepository,
+    reservationService: ReservationService,
+  ): CheckOutService =>
+    new CheckOutService(reservationRepo, reservationService),
   inject: [ReservationRepository, ReservationService],
 };

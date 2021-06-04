@@ -39,6 +39,7 @@ export class ReservationOrmMapper extends OrmMapper<
       returnedAt: props.returnedAt?.value,
       cancelledAt: props.cancelledAt?.value,
       rejectedAt: props.rejectedAt?.value,
+      checkedOutAt: props.checkedOutAt?.value,
     };
     return ormProps;
   }
@@ -63,6 +64,7 @@ export class ReservationOrmMapper extends OrmMapper<
       returnedAt: toDateVO(ormEntity.returnedAt),
       cancelledAt: toDateVO(ormEntity.cancelledAt),
       rejectedAt: toDateVO(ormEntity.rejectedAt),
+      checkedOutAt: toDateVO(ormEntity.checkedOutAt),
     };
 
     return props;

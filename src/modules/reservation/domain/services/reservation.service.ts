@@ -41,4 +41,9 @@ export class ReservationService {
     };
     return acceptReservation;
   }
+
+  public checkOut(reservation: ReservationEntity): ReservationEntity {
+    reservation.updateStatus('checkedOut', 'checkedOutAt');
+    return reservation;
+  }
 }

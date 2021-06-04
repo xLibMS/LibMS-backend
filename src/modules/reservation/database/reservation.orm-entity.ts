@@ -40,4 +40,7 @@ export class ReservationOrmEntity extends TypeormEntityBase {
 
   @Column({ nullable: true })
   rejectedAt?: Date;
+
+  @Column({ nullable: true })
+  checkedOutAt?: Date;
 }

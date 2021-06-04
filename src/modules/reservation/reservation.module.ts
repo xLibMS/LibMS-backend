@@ -14,11 +14,13 @@ import { ReservationService } from './domain/services/reservation.service';
 import {
   acceptReservationProvider,
   cancelReservationProvider,
+  checkOutProvider,
   rejectReservationProvider,
   reserveBookProvider,
 } from './reservation.provider';
 import { AcceptReservationHttpController } from './use-cases/accept-reservation/accept-reservation.http.controller';
 import { CancelReservationHttpController } from './use-cases/cancel-reservation/cancel-reservation.http.controller';
+import { CheckOutHttpController } from './use-cases/check-out/check-out.http.controller';
 import { CreateReservationHttpController } from './use-cases/create-reservation/create-reservation.http.controller';
 import { FindReservationsHttpController } from './use-cases/find-list-of-reservations/find-list-of-reservations.http.controller';
 import { FindUserReservationsHttpController } from './use-cases/find-user-list-of-reservations/find-user-list-of-reservations.http.controller';
@@ -43,6 +45,7 @@ import { RejectReservationHttpController } from './use-cases/reject-reservation/
     AcceptReservationHttpController,
     CancelReservationHttpController,
     RejectReservationHttpController,
+    CheckOutHttpController,
   ],
   providers: [
     AuthService,
@@ -54,6 +57,7 @@ import { RejectReservationHttpController } from './use-cases/reject-reservation/
     acceptReservationProvider,
     cancelReservationProvider,
     rejectReservationProvider,
+    checkOutProvider,
   ],
   exports: [],
 })

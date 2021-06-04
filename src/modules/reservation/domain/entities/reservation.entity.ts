@@ -23,6 +23,7 @@ interface ReservationDates {
   returnedAt?: DateVO;
   cancelledAt?: DateVO;
   rejectedAt?: DateVO;
+  checkedOutAt?: DateVO;
 }
 
 type ReservationDate = keyof ReservationDates;
@@ -75,14 +76,19 @@ export class ReservationEntity extends AggregateRoot<ReservationProps> {
     return this.props.rejectedAt;
   }
 
+  get checkedOutAt(): DateVO | undefined {
+    return this.props.checkedOutAt;
+  }
+
   private nextStatus(status: Status): string[] {
     const nextStatus: NextStatus = {
       pending: ['accepted', 'rejected', 'cancelled'],
-      accepted: ['cancelled', 'returned'],
+      accepted: ['cancelled', 'returned', 'checkedOut'],
       cancelled: [],
       rejected: [],
       returned: [],
       overdue: ['returned'],
+      checkedOut: ['returned', 'overdue'],
     };
     return nextStatus[status] || [];
   }
@@ -98,6 +104,7 @@ export class ReservationEntity extends AggregateRoot<ReservationProps> {
         cancelled: 'Cannot cancel a rejected reservation',
         rejected: 'Reservation already rejected',
         overdue: 'Reservation is overdue',
+        checkedOut: 'Book already checked out',
       },
       accepted: {
         accepted: 'Reservation is already accepted',
@@ -105,6 +112,7 @@ export class ReservationEntity extends AggregateRoot<ReservationProps> {
         cancelled: 'Reservation is cancelled',
         rejected: 'Cannot accept a rejected reservation',
         overdue: 'Reservation is overdue',
+        checkedOut: 'Book already checked out',
       },
       cancelled: {
         accepted: 'An accepted reservation cannot be cancelled',
@@ -112,6 +120,14 @@ export class ReservationEntity extends AggregateRoot<ReservationProps> {
         cancelled: 'Reservation already cancelled',
         rejected: 'Rejected reservation cannot be cancelled',
         overdue: 'Reservation is overdue',
+        checkedOut: 'Book already checked out',
+      },
+      checkedOut: {
+        cancelled: 'Cannot cancel the reservation of a checked out book',
+        accepted: 'Cannot accept the reservation of a checked out book',
+        rejected: 'Cannot accept the reservation of a checked out book',
+        overdue: 'Reservation is overdue',
+        returned: 'Book is returned',
       },
     };
     const statusErrorsMessages = statusErrors[previousStatus];
