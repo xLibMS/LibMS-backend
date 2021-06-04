@@ -27,9 +27,10 @@ export const acceptReservationProvider: Provider = {
   useFactory: (
     reservationRepo: ReservationRepository,
     bookRepo: BookRepository,
+    reservationService: ReservationService,
   ): AcceptReservationService =>
-    new AcceptReservationService(reservationRepo, bookRepo),
-  inject: [ReservationRepository, BookRepository],
+    new AcceptReservationService(reservationRepo, bookRepo, reservationService),
+  inject: [ReservationRepository, BookRepository, ReservationService],
 };
 
 export const rejectReservationSymbol = Symbol('rejectReservation');
@@ -38,10 +39,9 @@ export const rejectReservationProvider: Provider = {
   provide: rejectReservationSymbol,
   useFactory: (
     reservationRepo: ReservationRepository,
-  ): RejectReservationService =>
-  new RejectReservationService(reservationRepo),
-  inject: [ReservationRepository]
-}
+  ): RejectReservationService => new RejectReservationService(reservationRepo),
+  inject: [ReservationRepository],
+};
 
 export const cancelReservationSymbol = Symbol('cancelReservation');
 

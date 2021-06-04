@@ -1,6 +1,6 @@
-import { ConflictException } from '@exceptions';
 import { BookRepositoryPort } from '@modules/book/database/book.repository.interface';
 import { ReservationRepositoryPort } from '@modules/reservation/database/reservation.repository.interface';
+import { ReservationService } from '@modules/reservation/domain/services/reservation.service';
 import { IAcceptReservationResponse } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
 import { AccceptReservationCommand } from './accept-reservation.command';
 
@@ -8,27 +8,29 @@ export class AcceptReservationService {
   constructor(
     private readonly reservationRepo: ReservationRepositoryPort,
     private readonly bookRepo: BookRepositoryPort,
+    private readonly reservationService: ReservationService,
   ) {}
 
   async acceptReservation(
     acceptReservationCommand: AccceptReservationCommand,
-  ): Promise<IAcceptReservationResponse | undefined> {
+  ): Promise<IAcceptReservationResponse> {
     const { reservationId } = acceptReservationCommand;
 
-    const reservation = await this.reservationRepo.findReservationById(
+    const reservationEntity = await this.reservationRepo.findReservationById(
       reservationId,
     );
-    const book = await this.bookRepo.findBookById(reservation.book.id.value);
-    let bookResponse;
-    let reservationResponse;
-    if (book.copieCount >= 1) {
-      reservation.updateStatus('accepted', 'acceptedAt');
-      book.updateCopiesCount(book.copieCount - 1);
-      bookResponse = await this.bookRepo.save(book);
-      reservationResponse = await this.reservationRepo.save(reservation);
-    } else {
-      throw new ConflictException('Book is out of stock');
-    }
+    const bookEntity = await this.bookRepo.findBookById(
+      reservationEntity.book.id.value,
+    );
+
+    const { book, reservation } = this.reservationService.acceptReservation(
+      reservationEntity,
+      bookEntity,
+    );
+
+    const bookResponse = await this.bookRepo.save(book);
+    const reservationResponse = await this.reservationRepo.save(reservation);
+
     const acceptReservationResponse: IAcceptReservationResponse = {
       copieCount: bookResponse.copieCount,
       reservationStatus: reservationResponse.reservationStatus,

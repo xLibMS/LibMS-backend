@@ -33,9 +33,7 @@ export class AcceptReservationHttpController {
   })
   @UseGuards(JwtAuthGuard)
   @RolesDecorator('librarian')
-  async create(
-    @Param() param: Id,
-  ): Promise<IAcceptReservationResponse | undefined> {
+  async create(@Param() param: Id): Promise<IAcceptReservationResponse> {
     const acceptReservationCommand = new AccceptReservationCommand({
       reservationId: param.id,
     });
