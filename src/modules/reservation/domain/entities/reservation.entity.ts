@@ -5,25 +5,37 @@ import ms from 'ms';
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { DateVO } from 'src/core/value-objects/date.value-object';
 import { ReservationStatusTypes } from 'src/interface-adapters/enum/reservation-status.enum';
+import { DomainException } from '../../../../core/exceptions/domain.exception';
 
-export interface ReservationCreationProps {
-  book: BookEntity;
-  reservedAt: DateVO;
-  user: UserEntity;
-  reservationStatus: ReservationStatusTypes;
-  acceptedAt?: DateVO;
+type Status = keyof typeof ReservationStatusTypes;
+
+type NextStatus = { [key in Status]: Status[] | [] };
+
+type StatusErrors = {
+  [key in Status]?: {
+    [key in Status]?: string;
+  };
+};
+
+interface ReservationDates {
   returnDate?: DateVO;
-  returnedDate?: DateVO;
+  acceptedAt?: DateVO;
+  returnedAt?: DateVO;
   cancelledAt?: DateVO;
   rejectedAt?: DateVO;
 }
 
-export interface updateCopiesNbre {
-  copiesNbre: number;
+type ReservationDate = keyof ReservationDates;
+
+export interface ReservationProps extends ReservationDates {
+  book: BookEntity;
+  user: UserEntity;
+  reservedAt: DateVO;
+  reservationStatus: ReservationStatusTypes;
 }
 
-export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
-  constructor(props: ReservationCreationProps) {
+export class ReservationEntity extends AggregateRoot<ReservationProps> {
+  constructor(props: ReservationProps) {
     super(props);
   }
 
@@ -51,8 +63,8 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
     return this.props.returnDate;
   }
 
-  get returnedDate(): DateVO | undefined {
-    return this.props.returnedDate;
+  get returnedAt(): DateVO | undefined {
+    return this.props.returnedAt;
   }
 
   get cancelledAt(): DateVO | undefined {
@@ -63,83 +75,79 @@ export class ReservationEntity extends AggregateRoot<ReservationCreationProps> {
     return this.props.rejectedAt;
   }
 
-  updateReservationStatus(): void {
-    this.props.reservationStatus = ReservationStatusTypes.accepted;
+  private nextStatus(status: Status): string[] {
+    const nextStatus: NextStatus = {
+      pending: ['accepted', 'rejected', 'cancelled'],
+      accepted: ['cancelled', 'returned'],
+      cancelled: [],
+      rejected: [],
+      returned: [],
+      overdue: ['returned'],
+    };
+    return nextStatus[status] || [];
   }
 
-  setAcceptanceDate(acceptedAt: DateVO): void {
-    this.props.acceptedAt = acceptedAt;
+  private statusErrors(
+    previousStatus: Status,
+    nextStatus: Status,
+  ): string | undefined {
+    const statusErrors: StatusErrors = {
+      rejected: {
+        accepted: 'Reservation is already accepted',
+        returned: 'Book already returned',
+        cancelled: 'Cannot cancel a rejected reservation',
+        rejected: 'Reservation already rejected',
+        overdue: 'Reservation is overdue',
+      },
+      accepted: {
+        accepted: 'Reservation is already accepted',
+        returned: 'Reservation already closed',
+        cancelled: 'Reservation is cancelled',
+        rejected: 'Cannot accept a rejected reservation',
+        overdue: 'Reservation is overdue',
+      },
+      cancelled: {
+        accepted: 'An accepted reservation cannot be cancelled',
+        returned: 'Book already returned',
+        cancelled: 'Reservation already cancelled',
+        rejected: 'Rejected reservation cannot be cancelled',
+        overdue: 'Reservation is overdue',
+      },
+    };
+    const statusErrorsMessages = statusErrors[previousStatus];
+    return statusErrorsMessages ? statusErrorsMessages[nextStatus] : undefined;
   }
 
-  setReturnDate(returnDate: DateVO): void {
-    this.props.returnDate = returnDate;
-  }
+  updateStatus(status: Status, dateField: ReservationDate): void {
+    const previousStatus = this.props.reservationStatus as Status;
 
-  acceptReservation(): void {
-    switch (this.props.reservationStatus) {
-      case ReservationStatusTypes.pending:
-        this.props.reservationStatus = ReservationStatusTypes.accepted;
-        this.props.acceptedAt = new DateVO(Date.now());
-        this.props.returnDate = new DateVO(
-          this.props.acceptedAt.value.getTime() + ms('15d'),
-        );
-        break;
-      case ReservationStatusTypes.accepted:
-        throw new ConflictException('Reservation is already accepted');
-      case ReservationStatusTypes.cancelled:
-        throw new ConflictException('Reservation is cancelled');
-      case ReservationStatusTypes.closed:
-        throw new ConflictException('Reservation already closed');
-      case ReservationStatusTypes.overdue:
-        throw new ConflictException('Reservation is overdue');
-      case ReservationStatusTypes.rejected:
-        throw new ConflictException(
-          'A rejected reservation cannot be accepted',
-        );
-      default:
-        break;
+    // This is an array of possible next states of a given reservation
+    const nextStatus = this.nextStatus(previousStatus);
+
+    /**
+     * Check if the operation is possible.
+     * If we are not allowed to go from prev status to next status
+     * throw an error
+     */
+    if (!nextStatus.includes(status)) {
+      const errorMessage = this.statusErrors(previousStatus, status);
+      if (errorMessage) throw new ConflictException(errorMessage);
+      throw new DomainException('Unable to update reservation status');
     }
-  }
 
-  rejectReservation(): void {
-    switch (this.props.reservationStatus) {
-      case ReservationStatusTypes.pending:
-        this.props.reservationStatus = ReservationStatusTypes.rejected;
-        this.props.rejectedAt = new DateVO(Date.now());
-        break;
-      case ReservationStatusTypes.accepted:
-        throw new ConflictException('Reservation is already accepted');
-      case ReservationStatusTypes.closed:
-        throw new ConflictException('Reservation already closed');
-      case ReservationStatusTypes.cancelled:
-        throw new ConflictException('Reservation already cancelled');
-      case ReservationStatusTypes.rejected:
-        throw new ConflictException(
-          'A rejected reservation cannot be accepted',
-        );
-      default:
-        break;
+    // set new reservation status
+    this.props.reservationStatus = status as ReservationStatusTypes;
+
+    const currentDate = Date.now();
+    if (status === 'accepted') {
+      this.props.returnDate = new DateVO(currentDate + ms('15d'));
     }
+    this.props[dateField] = new DateVO(currentDate);
   }
 
-  cancelReservation(): void {
-    switch (this.props.reservationStatus) {
-      case ReservationStatusTypes.pending:
-        this.props.reservationStatus = ReservationStatusTypes.cancelled;
-        this.props.cancelledAt = new DateVO(Date.now());
-        break;
-      case ReservationStatusTypes.accepted:
-        throw new ConflictException('An accepted reservation cannot be closed');
-      case ReservationStatusTypes.closed:
-        throw new ConflictException('Reservation already closed');
-      case ReservationStatusTypes.cancelled:
-        throw new ConflictException('Reservation already cancelled');
-      case ReservationStatusTypes.rejected:
-        throw new ConflictException(
-          'A rejected reservation cannot be cancelled',
-        );
-      default:
-        break;
+  static validate(props: ReservationProps): void {
+    if (props.book.copieCount === 0) {
+      throw new ConflictException('Book is out of stock');
     }
   }
 }

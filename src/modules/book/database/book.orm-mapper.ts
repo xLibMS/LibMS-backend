@@ -47,8 +47,8 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       image,
       pageCount: props.pageCount,
       overview: props.overview,
-      reservations: reservations || undefined,
-      copiesNbr: props.copiesNbr,
+      reservations,
+      copieCount: props.copieCount,
     };
     return ormProps;
   }
@@ -73,7 +73,7 @@ export class BookOrmMapper extends OrmMapper<BookEntity, BookOrmEntity> {
       image,
       pageCount: ormEntity.pageCount,
       overview: ormEntity.overview,
-      copiesNbr: ormEntity.copiesNbr,
+      copieCount: ormEntity.copieCount,
     };
 
     return props;

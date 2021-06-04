@@ -58,7 +58,7 @@ export class CreateBookHttpController {
       publishedDate: body.publishedDate,
       pageCount: body.pageCount,
       overview: body.overview,
-      copiesNbr: body.copiesNbr,
+      copieCount: body.copieCount,
     });
 
     const id = await this.createBookService.createBook(bookCommand);

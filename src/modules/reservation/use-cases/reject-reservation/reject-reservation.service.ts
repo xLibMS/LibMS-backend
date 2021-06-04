@@ -1,5 +1,5 @@
 import { ReservationRepositoryPort } from '@modules/reservation/database/reservation.repository.interface';
-import { RejectReservationResponseI } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
+import { IRejectReservationResponse } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
 import { RejectReservationCommand } from './reject-reservation.command';
 
 export class RejectReservationService {
@@ -7,16 +7,16 @@ export class RejectReservationService {
 
   async rejectReservation(
     rejectReservationCommand: RejectReservationCommand,
-  ): Promise<RejectReservationResponseI> {
+  ): Promise<IRejectReservationResponse> {
     const { reservationId } = rejectReservationCommand;
     const reservation = await this.reservationRepo.findReservationById(
       reservationId,
     );
 
-    reservation.rejectReservation();
+    reservation.updateStatus('rejected', 'rejectedAt');
 
     const reservationResponse = await this.reservationRepo.save(reservation);
-    const rejectReservationResponse: RejectReservationResponseI = {
+    const rejectReservationResponse: IRejectReservationResponse = {
       reservationStatus: reservationResponse.reservationStatus,
       id: reservationResponse.id.value,
     };

@@ -68,5 +68,5 @@ export class CreateBookRequest implements CreateBook {
   @Type(() => Number)
   @IsNumber()
   @Min(1)
-  copiesNbr!: number;
+  copieCount!: number;
 }

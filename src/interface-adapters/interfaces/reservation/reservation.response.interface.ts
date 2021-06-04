@@ -1,11 +1,11 @@
-export interface AcceptReservationResponseI {
+export interface IAcceptReservationResponse {
   id: string;
   reservationStatus: string;
   returnDate?: Date;
-  copiesNbr: number;
+  copieCount: number;
 }
 
-export interface RejectReservationResponseI {
+export interface IRejectReservationResponse {
   id: string;
   reservationStatus: string;
 }

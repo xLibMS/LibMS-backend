@@ -16,7 +16,7 @@ export interface BookProps {
   image: ImageEntity;
   pageCount: number;
   overview?: string;
-  copiesNbr: number;
+  copieCount: number;
   reservations?: ReservationEntity[];
 }
 
@@ -65,15 +65,15 @@ export class BookEntity extends AggregateRoot<BookProps> {
     return this.props.overview;
   }
 
-  get copiesNbr(): number {
-    return this.props.copiesNbr;
-  }
-
   get reservations(): ReservationEntity[] | undefined {
     return this.props.reservations;
   }
 
-  updatedCopiesNbr(newCopiesNbr: number): void {
-    this.props.copiesNbr = newCopiesNbr;
+  get copieCount(): number {
+    return this.props.copieCount;
+  }
+
+  updateCopiesCount(copieCount: number): void {
+    this.props.copieCount = copieCount;
   }
 }

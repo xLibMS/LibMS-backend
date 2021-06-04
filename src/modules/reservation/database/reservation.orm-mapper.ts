@@ -10,8 +10,8 @@ import {
   OrmMapper,
 } from 'src/infrastructure/database/base-classes/orm-mapper.base';
 import {
-  ReservationCreationProps,
   ReservationEntity,
+  ReservationProps,
 } from '../domain/entities/reservation.entity';
 import { ReservationOrmEntity } from './reservation.orm-entity';
 
@@ -36,42 +36,35 @@ export class ReservationOrmMapper extends OrmMapper<
       reservedAt: props.reservedAt.value,
       acceptedAt: props.acceptedAt?.value,
       returnDate: props.returnDate?.value,
-      returnedDate: props.returnedDate?.value,
+      returnedAt: props.returnedAt?.value,
       cancelledAt: props.cancelledAt?.value,
       rejectedAt: props.rejectedAt?.value,
     };
     return ormProps;
   }
 
-  protected toDomainProps(
-    ormEntity: ReservationOrmEntity,
-  ): ReservationCreationProps {
+  protected toDomainProps(ormEntity: ReservationOrmEntity): ReservationProps {
+    const toDateVO = (date: Date | undefined) =>
+      date ? new DateVO(date) : undefined;
+
     const userOrmMapper = new UserOrmMapper(UserEntity, UserOrmEntity);
     const bookOrmMapper = new BookOrmMapper(BookEntity, BookOrmEntity);
 
     const user = userOrmMapper.toDomainEntity(ormEntity.user);
     const book = bookOrmMapper.toDomainEntity(ormEntity.book);
-    const props: ReservationCreationProps = {
+
+    const props: ReservationProps = {
       reservationStatus: ormEntity.reservationStatus,
       book,
       user,
       reservedAt: new DateVO(ormEntity.reservedAt),
-      acceptedAt: ormEntity.acceptedAt
-        ? new DateVO(ormEntity.acceptedAt)
-        : undefined,
-      returnDate: ormEntity.returnDate
-        ? new DateVO(ormEntity.returnDate)
-        : undefined,
-      returnedDate: ormEntity.returnedDate
-        ? new DateVO(ormEntity.returnedDate)
-        : undefined,
-      cancelledAt: ormEntity.cancelledAt
-        ? new DateVO(ormEntity.cancelledAt)
-        : undefined,
-      rejectedAt: ormEntity.rejectedAt
-        ? new DateVO(ormEntity.rejectedAt)
-        : undefined,
+      acceptedAt: toDateVO(ormEntity.acceptedAt),
+      returnDate: toDateVO(ormEntity.returnDate),
+      returnedAt: toDateVO(ormEntity.returnedAt),
+      cancelledAt: toDateVO(ormEntity.cancelledAt),
+      rejectedAt: toDateVO(ormEntity.rejectedAt),
     };
+
     return props;
   }
 }

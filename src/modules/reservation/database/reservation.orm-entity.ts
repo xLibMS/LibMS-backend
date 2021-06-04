@@ -10,8 +10,24 @@ export class ReservationOrmEntity extends TypeormEntityBase {
     super(props);
   }
 
+  @ManyToOne(() => BookOrmEntity, (book) => book.reservations)
+  book!: BookOrmEntity;
+
+  @ManyToOne(() => UserOrmEntity, (user) => user.reservations)
+  user!: UserOrmEntity;
+
   @Column()
   reservedAt!: Date;
+
+  @Column({
+    type: 'enum',
+    enum: ReservationStatusTypes,
+    default: ReservationStatusTypes.pending,
+  })
+  reservationStatus!: ReservationStatusTypes;
+
+  @Column({ nullable: true })
+  returnDate?: Date;
 
   @Column({ nullable: true })
   acceptedAt?: Date;
@@ -20,20 +36,8 @@ export class ReservationOrmEntity extends TypeormEntityBase {
   cancelledAt?: Date;
 
   @Column({ nullable: true })
-  returnDate?: Date;
-
-  @Column({ nullable: true })
-  returnedDate?: Date;
+  returnedAt?: Date;
 
   @Column({ nullable: true })
   rejectedAt?: Date;
-
-  @Column()
-  reservationStatus!: ReservationStatusTypes;
-
-  @ManyToOne(() => BookOrmEntity, (book) => book.reservations)
-  book!: BookOrmEntity;
-
-  @ManyToOne(() => UserOrmEntity, (user) => user.reservations)
-  user!: UserOrmEntity;
 }

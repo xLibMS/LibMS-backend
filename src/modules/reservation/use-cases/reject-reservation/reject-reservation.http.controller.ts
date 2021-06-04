@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Id } from 'src/interface-adapters/interfaces/id.interface';
-import { RejectReservationResponseI } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
+import { IRejectReservationResponse } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
 import { RejectReservationCommand } from './reject-reservation.command';
 import { RejectReservationService } from './reject-reservation.service';
 
@@ -32,7 +32,7 @@ export class RejectReservationHttpController {
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @RolesDecorator('librarian')
-  async reject(@Param() param: Id): Promise<RejectReservationResponseI> {
+  async reject(@Param() param: Id): Promise<IRejectReservationResponse> {
     const rejectReservationCommand = new RejectReservationCommand({
       reservationId: param.id,
     });

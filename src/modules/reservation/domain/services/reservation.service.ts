@@ -18,8 +18,7 @@ export class ReservationService {
     ) {
       throw new DomainException('You do not have permissions');
     }
-    reservation.cancelReservation();
-
+    reservation.updateStatus('cancelled', 'cancelledAt');
     return reservation;
   }
 }

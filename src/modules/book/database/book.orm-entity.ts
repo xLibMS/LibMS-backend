@@ -51,7 +51,7 @@ export class BookOrmEntity extends TypeormEntityBase {
   overview?: string;
 
   @Column()
-  copiesNbr!: number;
+  copieCount!: number;
 
   @OneToMany(() => ReservationOrmEntity, (reservations) => reservations.book, {
     nullable: true,
