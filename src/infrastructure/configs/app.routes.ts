@@ -3,6 +3,7 @@ const usersRoot = `${root}/users`;
 const booksRoot = `${root}/books`;
 const authorsRoot = `${root}/authors`;
 const reservationRoot = `${root}/reservations`;
+const confirmationTokenRoot = `${root}/confirmation-token`;
 
 export const routes = {
   user: {
@@ -14,6 +15,10 @@ export const routes = {
   auth: {
     login: `${usersRoot}/auth`,
     refresh: `${usersRoot}/refresh`,
+  },
+  confirmationToken: {
+    confirm: `${confirmationTokenRoot}/:token/confirm`,
+    renew: `${confirmationTokenRoot}/renew`,
   },
   book: {
     createBook: booksRoot,
