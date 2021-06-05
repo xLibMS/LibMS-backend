@@ -1,5 +1,4 @@
 import { MailerOptions } from '@nestjs-modules/mailer';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { config } from 'dotenv';
 
 config();
@@ -18,16 +17,14 @@ export const mailerConfig: MailerOptions = {
       user: process.env.SMTP_USERNAME,
       pass: process.env.SMTP_PASSWORD,
     },
-    tls: { ciphers: 'SSLv3' },
+    // tls: { ciphers: 'SSLv3' },
   },
-  defaults: {
-    from: '"nest-modules" <modules@nestjs.com>',
-  },
-  template: {
-    dir: `${process.cwd()}/templates/`,
-    adapter: new HandlebarsAdapter(),
-    options: {
-      strict: true,
-    },
-  },
+  defaults: {},
+  // template: {
+  //   dir: `${process.cwd()}/templates/`,
+  //   adapter: new HandlebarsAdapter(),
+  //   options: {
+  //     strict: true,
+  //   },
+  // },
 };
