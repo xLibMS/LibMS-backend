@@ -1,9 +1,14 @@
-import { EmailService } from '@modules/email/email.service';
 import { UserCreatedDomainEvent } from '@modules/user/domain/events/user-created.domain-event';
+import { CreateConfirmationTokenService } from '@modules/user/use-cases/create-confirmation-token/create-confirmation-token.service';
+import { createConfirmationTokenSymbol } from '@modules/user/user.providers';
+import { Inject } from '@nestjs/common';
 import { DomainEventHandler, DomainEvents } from 'src/core/domain-events';
 
 export class OnUserCreatedDomainEvent implements DomainEventHandler {
-  constructor(private readonly email: EmailService) {}
+  constructor(
+    @Inject(createConfirmationTokenSymbol)
+    private readonly createConfirmationTokenService: CreateConfirmationTokenService,
+  ) {}
 
   public listen(): void {
     DomainEvents.subscribe(
@@ -13,7 +18,7 @@ export class OnUserCreatedDomainEvent implements DomainEventHandler {
   }
 
   async onUserCreated(event: UserCreatedDomainEvent): Promise<void> {
-    await this.email.send(event.email, 'Welcome message goes here');
+    this.createConfirmationTokenService.create(event.user);
     /* Other side-effects can go here, or different event handlers can
     be created if needed */
   }

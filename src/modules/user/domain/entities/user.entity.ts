@@ -13,6 +13,7 @@ export interface UserProps {
   fullName: FullName;
   password: Password;
   role: Roles;
+  isEmailVerified?: boolean;
 }
 
 export class UserEntity extends AggregateRoot<UserProps> {
@@ -22,7 +23,7 @@ export class UserEntity extends AggregateRoot<UserProps> {
     eventually so an event handler somewhere may receive it and do an
     appropriate action, like sending confirmation email, adding user
     to mailing list, send notification to slack etc */
-    this.addEvent(new UserCreatedDomainEvent(this.id, this.props.email));
+    this.addEvent(new UserCreatedDomainEvent(this.id, this));
   }
 
   get email(): Email {
@@ -45,12 +46,20 @@ export class UserEntity extends AggregateRoot<UserProps> {
     return this.props.role;
   }
 
+  get isEmailVerified(): boolean {
+    return this.props.isEmailVerified || false;
+  }
+
   someBusinessLogic(): void {
     // TODO: add example business logic
   }
 
   hashPassword(hashedPassword: HashedPassword): void {
     this.props.password = new Password(hashedPassword.value);
+  }
+
+  verifyUser(): void {
+    this.props.isEmailVerified = true;
   }
 
   static validate(props: UserProps): void {

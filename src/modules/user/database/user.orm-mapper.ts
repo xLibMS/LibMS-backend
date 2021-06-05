@@ -22,6 +22,7 @@ export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
       password: props.password.value,
       reservations: [],
       role: props.role,
+      isEmailVerified: props.isEmailVerified || false,
     };
     return ormProps;
   }
@@ -36,6 +37,7 @@ export class UserOrmMapper extends OrmMapper<UserEntity, UserOrmEntity> {
       }),
       password: new Password(ormEntity.password),
       role: Roles[`${ormEntity.role}` as keyof typeof Roles],
+      isEmailVerified: ormEntity.isEmailVerified,
     };
     return props;
   }
