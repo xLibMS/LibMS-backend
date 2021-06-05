@@ -1,5 +1,4 @@
 import corsOptions from '@config/cors.config';
-import { initDomainEventHandlers } from '@modules/domain-event-handlers';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -12,7 +11,7 @@ import { ExceptionInterceptor } from './infrastructure/interceptors/exception.in
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  initDomainEventHandlers();
+  // initDomainEventHandlers();
 
   const options = new DocumentBuilder().build();
 

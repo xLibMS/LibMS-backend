@@ -1,13 +1,7 @@
-import { EmailService } from '@modules/email/email.service';
-import { DomainEventHandler } from 'src/core/domain-events';
-import { OnUserCreatedDomainEvent } from './user-created.event-handler';
+import { OnConfirmationTokenCreatedEvent } from './event-handlers/confirmation-token-created.event-handler';
+import { OnUserCreatedDomainEvent } from './event-handlers/user-created.event-handler';
 
-const domainEventHandlers: DomainEventHandler[] = [
-  new OnUserCreatedDomainEvent(new EmailService()),
+export const domainEventHandlers: string[] = [
+  OnUserCreatedDomainEvent.name,
+  OnConfirmationTokenCreatedEvent.name,
 ];
-
-export function initDomainEventHandlers(): void {
-  domainEventHandlers.forEach((eventHandler: DomainEventHandler) =>
-    eventHandler.listen(),
-  );
-}
