@@ -5,6 +5,9 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
+  settings: {
+    'import/core-modules': ['rxjs/operators'],
+  },
   plugins: ['@typescript-eslint/eslint-plugin', '@typescript-eslint'],
   extends: [
     'airbnb-base',
