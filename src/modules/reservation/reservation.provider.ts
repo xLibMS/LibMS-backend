@@ -60,10 +60,7 @@ export const checkOutSymbol = Symbol('checkOut');
 
 export const checkOutProvider: Provider = {
   provide: checkOutSymbol,
-  useFactory: (
-    reservationRepo: ReservationRepository,
-    reservationService: ReservationService,
-  ): CheckOutService =>
-    new CheckOutService(reservationRepo, reservationService),
-  inject: [ReservationRepository, ReservationService],
+  useFactory: (reservationRepo: ReservationRepository): CheckOutService =>
+    new CheckOutService(reservationRepo),
+  inject: [ReservationRepository],
 };

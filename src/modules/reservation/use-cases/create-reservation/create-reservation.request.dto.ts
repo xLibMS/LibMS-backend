@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsISBN } from 'class-validator';
-import { CreateReservation } from 'src/interface-adapters/interfaces/reservation/request-reservation.interface';
+import { CreateReservation } from 'src/interface-adapters/interfaces/reservation/create-reservation.interface';
 
 export class CreateReservationCreation implements CreateReservation {
   @ApiProperty({

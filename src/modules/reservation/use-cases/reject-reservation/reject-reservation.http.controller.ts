@@ -5,6 +5,7 @@ import { RolesDecorator } from '@modules/user/guards/roles.decorator';
 import { RolesGuard } from '@modules/user/guards/roles.guard';
 import {
   Controller,
+  HttpCode,
   HttpStatus,
   Inject,
   Param,
@@ -13,8 +14,6 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Id } from 'src/interface-adapters/interfaces/id.interface';
-import { IRejectReservationResponse } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
-import { RejectReservationCommand } from './reject-reservation.command';
 import { RejectReservationService } from './reject-reservation.service';
 
 @Controller()
@@ -25,6 +24,7 @@ export class RejectReservationHttpController {
   ) {}
 
   @Patch(routes.reservation.rejectReservation)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Reject a reservation' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -32,15 +32,7 @@ export class RejectReservationHttpController {
   })
   @UseGuards(JwtAuthGuard, RolesGuard)
   @RolesDecorator('librarian')
-  async reject(@Param() param: Id): Promise<IRejectReservationResponse> {
-    const rejectReservationCommand = new RejectReservationCommand({
-      reservationId: param.id,
-    });
-
-    const response = await this.rejectReservationService.rejectReservation(
-      rejectReservationCommand,
-    );
-
-    return response;
+  async reject(@Param() param: Id): Promise<void> {
+    await this.rejectReservationService.rejectReservation(param.id);
   }
 }

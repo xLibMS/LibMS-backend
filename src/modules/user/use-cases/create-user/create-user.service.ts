@@ -1,10 +1,10 @@
-import { ID } from 'src/core/value-objects/id.value-object';
-import { UserRepositoryPort } from '@modules/user/database/user.repository.interface';
 import { ConflictException } from '@exceptions';
+import { UserRepositoryPort } from '@modules/user/database/user.repository.interface';
 import { HashingService } from '@modules/user/domain-services/hashing.service';
 import { HashedPassword } from '@modules/user/domain/value-objects/hashed-password.value-object';
-import { CreateUserCommand } from './create-user.command';
+import { ID } from 'src/core/value-objects/id.value-object';
 import { UserEntity } from '../../domain/entities/user.entity';
+import { CreateUserCommand } from './create-user.command';
 
 export class CreateUserService {
   constructor(
@@ -29,8 +29,6 @@ export class CreateUserService {
     );
 
     user.hashPassword(hashedPassword);
-
-    user.someBusinessLogic();
 
     const created = await this.userRepo.save(user);
 

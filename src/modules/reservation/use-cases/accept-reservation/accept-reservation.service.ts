@@ -1,8 +1,6 @@
 import { BookRepositoryPort } from '@modules/book/database/book.repository.interface';
 import { ReservationRepositoryPort } from '@modules/reservation/database/reservation.repository.interface';
 import { ReservationService } from '@modules/reservation/domain/services/reservation.service';
-import { IAcceptReservationResponse } from 'src/interface-adapters/interfaces/reservation/reservation.response.interface';
-import { AccceptReservationCommand } from './accept-reservation.command';
 
 export class AcceptReservationService {
   constructor(
@@ -11,32 +9,13 @@ export class AcceptReservationService {
     private readonly reservationService: ReservationService,
   ) {}
 
-  async acceptReservation(
-    acceptReservationCommand: AccceptReservationCommand,
-  ): Promise<IAcceptReservationResponse> {
-    const { reservationId } = acceptReservationCommand;
+  async acceptReservation(id: string): Promise<void> {
+    const reservation = await this.reservationRepo.findReservationById(id);
+    const book = await this.bookRepo.findBookById(reservation.book.id.value);
 
-    const reservationEntity = await this.reservationRepo.findReservationById(
-      reservationId,
-    );
-    const bookEntity = await this.bookRepo.findBookById(
-      reservationEntity.book.id.value,
-    );
+    this.reservationService.acceptReservation(reservation, book);
 
-    const { book, reservation } = this.reservationService.acceptReservation(
-      reservationEntity,
-      bookEntity,
-    );
-
-    const bookResponse = await this.bookRepo.save(book);
-    const reservationResponse = await this.reservationRepo.save(reservation);
-
-    const acceptReservationResponse: IAcceptReservationResponse = {
-      copieCount: bookResponse.copieCount,
-      reservationStatus: reservationResponse.reservationStatus,
-      returnDate: reservationResponse.returnDate?.value,
-      id: reservationResponse.id.value,
-    };
-    return acceptReservationResponse;
+    await this.bookRepo.save(book);
+    await this.reservationRepo.save(reservation);
   }
 }

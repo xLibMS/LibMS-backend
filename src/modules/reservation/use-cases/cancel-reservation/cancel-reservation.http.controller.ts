@@ -5,6 +5,7 @@ import { RolesDecorator } from '@modules/user/guards/roles.decorator';
 import { RolesGuard } from '@modules/user/guards/roles.guard';
 import {
   Controller,
+  HttpCode,
   HttpStatus,
   Inject,
   Param,
@@ -13,7 +14,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { IdResponse } from 'src/interface-adapters/dtos/id.response.dto';
 import { Id } from 'src/interface-adapters/interfaces/id.interface';
 import { AuthenticateUserRequest } from 'src/interface-adapters/interfaces/user/authenticate-user.request.interface';
 import { CancelReservationCommand } from './cancel-reservation.command';
@@ -27,6 +27,7 @@ export class CancelReservationHttpController {
   ) {}
 
   @Patch(routes.reservation.cancelReservation)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Cancel a reservation' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -37,15 +38,14 @@ export class CancelReservationHttpController {
   async cancel(
     @Request() req: AuthenticateUserRequest,
     @Param() param: Id,
-  ): Promise<IdResponse> {
+  ): Promise<void> {
     const cancelReservationCommand = new CancelReservationCommand({
       user: req.user,
       reservationId: param.id,
     });
 
-    const response = await this.cancelReservationService.cancelReservation(
+    await this.cancelReservationService.cancelReservation(
       cancelReservationCommand,
     );
-    return new IdResponse(response.value);
   }
 }

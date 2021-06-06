@@ -50,10 +50,6 @@ export class UserEntity extends AggregateRoot<UserProps> {
     return this.props.isEmailVerified || false;
   }
 
-  someBusinessLogic(): void {
-    // TODO: add example business logic
-  }
-
   hashPassword(hashedPassword: HashedPassword): void {
     this.props.password = new Password(hashedPassword.value);
   }
@@ -62,7 +58,7 @@ export class UserEntity extends AggregateRoot<UserProps> {
     this.props.isEmailVerified = true;
   }
 
-  static validate(props: UserProps): void {
+  static validate(): void {
     // TODO: example
     // entity business rules validation to protect it's invariant
   }
