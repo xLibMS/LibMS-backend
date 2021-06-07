@@ -27,7 +27,7 @@ export class UserOrmEntity extends TypeormEntityBase {
   @Column()
   role!: Roles;
 
-  @Column()
+  @Column({ default: false })
   isEmailVerified!: boolean;
 
   @OneToMany(() => ReservationOrmEntity, (reservations) => reservations.user)
