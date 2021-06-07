@@ -1,6 +1,6 @@
 import { routes } from '@config/app.routes';
 import { confirmUserEmailSymbol } from '@modules/user/user.providers';
-import { Controller, HttpStatus, Inject, Param, Post } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Inject, Param } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ConfirmUserEmailCommand } from './confirm-user-email.command';
 import { ConfirmUserRequest } from './confirm-user-email.request.dto';
@@ -13,7 +13,7 @@ export class ConfirmUserEmailController {
     private readonly confirmEmailService: ConfirmUserEmailService,
   ) {}
 
-  @Post(routes.confirmationToken.confirm)
+  @Get(routes.confirmationToken.confirm)
   @ApiOperation({ summary: 'Create a user' })
   @ApiResponse({
     status: HttpStatus.OK,
