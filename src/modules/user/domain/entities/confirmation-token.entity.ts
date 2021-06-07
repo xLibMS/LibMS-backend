@@ -1,6 +1,6 @@
 import { AggregateRoot } from 'src/core/base-classes/aggregate-root.base';
 import { DateVO } from 'src/core/value-objects/date.value-object';
-import { ConfirmationTokenCreatedDomainEven } from '../events/confirmation-token-created.event';
+import { ConfirmationTokenCreatedDomainEvent } from '../events/confirmation-token-created.event';
 import { UserEntity } from './user.entity';
 
 export interface ConfirmationTokenProps {
@@ -13,7 +13,7 @@ export class ConfirmationToken extends AggregateRoot<ConfirmationTokenProps> {
   constructor(props: ConfirmationTokenProps) {
     super(props);
     this.addEvent(
-      new ConfirmationTokenCreatedDomainEven(
+      new ConfirmationTokenCreatedDomainEvent(
         this.id,
         this.props.user.email,
         this,
