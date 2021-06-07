@@ -2,7 +2,10 @@ import { sendConfirmationEmailSymbol } from '@modules/notifications/notification
 import { SendConfirmationEmailService } from '@modules/notifications/use-cases/send-confirmation-email/send-confirmation-email.service';
 import { ConfirmationTokenCreatedDomainEvent } from '@modules/user/domain/events/confirmation-token-created.event';
 import { Inject } from '@nestjs/common';
+import { config } from 'dotenv';
 import { DomainEventHandler, DomainEvents } from 'src/core/domain-events';
+
+config();
 
 export class OnConfirmationTokenCreatedEvent implements DomainEventHandler {
   constructor(
@@ -25,7 +28,7 @@ export class OnConfirmationTokenCreatedEvent implements DomainEventHandler {
       subject: 'Account Email Verification',
       // TODO: - Find a way to use email templates
       //       - Find a better way to include urls
-      text: `Verification Link: http:/localhost:3000/api/confirmation-token/${event.confirmationToken.value}/confirm`,
+      text: `Verification Link: ${process.env.CORS_ORIGIN}/confirm/${event.confirmationToken.value}`,
     });
   }
 }
