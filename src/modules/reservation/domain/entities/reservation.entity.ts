@@ -156,7 +156,7 @@ export class ReservationEntity extends AggregateRoot<ReservationProps> {
 
     const currentDate = Date.now();
     // This should become check out
-    if (status === 'accepted') {
+    if (status === 'checkedOut') {
       this.props.returnDate = new DateVO(currentDate + ms('15d'));
     }
     this.props[dateField] = new DateVO(currentDate);
