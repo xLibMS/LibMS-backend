@@ -5,7 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ImageUploadService } from 'src/infrastructure/services/image-upload.service';
-import { createBookProvider } from './book.provider';
+import { createBookProvider, findRecentBooksProvider } from './book.provider';
 import { AuthorOrmEntity } from './database/author/author.orm-entity';
 import { AuthorRepository } from './database/author/author.repository';
 import { BookOrmEntity } from './database/book.orm-entity';
@@ -16,6 +16,7 @@ import { CreateBookHttpController } from './use-cases/create-book/create-book.ht
 import { FindBookByIdHttpcontroller } from './use-cases/find-book-by-id/find-book-by-id.controller';
 import { FindAuthorsHttpController } from './use-cases/find-list-of-authors/find-list-of-authors.http.controller';
 import { FindBooksHttpController } from './use-cases/find-list-of-books/find-books.controller';
+import { FindRecentBooksHttpController } from './use-cases/find-recent-books/find-recent-books.controller';
 
 @Module({
   imports: [
@@ -30,10 +31,12 @@ import { FindBooksHttpController } from './use-cases/find-list-of-books/find-boo
     CreateBookHttpController,
     FindAuthorsHttpController,
     FindBookByIdHttpcontroller,
+    FindRecentBooksHttpController,
   ],
   providers: [
     BookRepository,
     createBookProvider,
+    findRecentBooksProvider,
     ImageUploadService,
     AuthorRepository,
     ImageRepository,

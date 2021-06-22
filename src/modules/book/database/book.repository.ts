@@ -30,6 +30,16 @@ export class BookRepository
     );
   }
 
+  async findRecent(limit: number): Promise<BookEntity[]> {
+    const books = await this.bookRepository.find({
+      take: limit,
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    return books.map((book) => this.mapper.toDomainEntity(book));
+  }
+
   async findBookById(id: string): Promise<BookEntity> {
     const book = await this.bookRepository.findOne({
       where: { id },

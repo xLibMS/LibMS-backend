@@ -10,4 +10,5 @@ export interface BookRepositoryPort
   findOneByISBNOrThrow(isbn: string): Promise<BookEntity>;
   existsByISBN(isbn: string): Promise<boolean>;
   findBookById(id: string): Promise<BookEntity>;
+  findRecent(limit: number): Promise<BookEntity[]>;
 }
